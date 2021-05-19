@@ -494,6 +494,13 @@
     "hexo-pagination" "1.0.0"
     "timsort" "^0.3.0"
 
+"hexo-generator-searchdb@^1.3.3":
+  "integrity" "sha1-SNWFyeLiMs1fh16bO8VELoUl2G4="
+  "resolved" "http://bnpm.byted.org/hexo-generator-searchdb/-/hexo-generator-searchdb-1.3.3.tgz"
+  "version" "1.3.3"
+  dependencies:
+    "nunjucks" "^3.2.2"
+
 "hexo-generator-tag@^1.0.0":
   "integrity" "sha1-VOwj3pQJx1WE6oHjYFelkDGwIvE="
   "resolved" "http://bnpm.byted.org/hexo-generator-tag/-/hexo-generator-tag-1.0.0.tgz"
@@ -895,7 +902,7 @@
   "resolved" "http://bnpm.byted.org/normalize-path/-/normalize-path-3.0.0.tgz"
   "version" "3.0.0"
 
-"nunjucks@^3.2.1":
+"nunjucks@^3.2.1", "nunjucks@^3.2.2":
   "integrity" "sha1-GzNhUkcpDpTigmO12FXs52VkijE="
   "resolved" "http://bnpm.byted.org/nunjucks/-/nunjucks-3.2.3.tgz"
   "version" "3.2.3"
