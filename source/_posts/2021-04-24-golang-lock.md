@@ -221,7 +221,6 @@ func Worker(m *sync.Mutex) {
 func main() {
     var mu sync.Mutex
     go Worker(&mu)
-    go Worker(&mu)
     time.Sleep(time.Second)
 }
 ```
@@ -278,7 +277,7 @@ race detector 可以帮我们检测出来我们的代码中可能存在的并发
 ## 锁的历史
 单核时期：屏蔽 CPU 中断 -> CAS 指令
 
-多核时期：Lock 内存总线 -> MESI协议（Modified Exclusive Shared Invalid）
+多核时期：Lock 内存总线 -> MESI 协议（Modified Exclusive Shared Invalid）
 
 ## 自旋锁
 自旋锁：多个 goroutine 可能被同时唤醒，浪费 CPU，并且可能抢不到锁，导致 p99 耗时毛刺
