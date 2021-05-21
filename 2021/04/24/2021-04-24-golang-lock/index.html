@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
 <meta name="description" content="说在前面冯敏老师从一个不加锁并发修改导致出现问题的例子讲起，用最佳实践匹配我们工作中的实际场景，提出一些避免踩坑的建议，从而引出锁的进化和原理。 最佳实践减少持有时间缩小临界区，注意 defer 的使用通过缩小临界区的方式，可以避免在加锁和解锁之间，由于有较为耗时的代码，导致锁持有时间过长，从而造成性能问题，例子如下： 12345678910var Users &#x3D; map[string]strin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang 的强人锁难">
@@ -107,7 +107,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">49</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">16</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">92</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">95</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -181,7 +181,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -372,7 +372,7 @@
 
 <p>使用匿名函数的方式把需要加锁的代码包一层进行调用，可以避免上述提到的影响</p>
 <h2 id="优化锁的粒度"><a href="#优化锁的粒度" class="headerlink" title="优化锁的粒度"></a>优化锁的粒度</h2><p>最常用的方式就是使用分段锁：</p>
-<p><img src="/uploads/in-post/golang-lock/segment-lock.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/segment-lock.png"></p>
 <p>举一个 Golang 的 rand 的例子：</p>
 <figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">var</span> globalRand = <span class="type">New</span>(&amp;lockedSource&#123;</span><br><span class="line">    src: <span class="type">NewSource</span>(<span class="number">1</span>).(<span class="type">Source64</span>),</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> lockedSource struct &#123;</span><br><span class="line">    lk sync.<span class="type">Mutex</span></span><br><span class="line">    src <span class="type">Source64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -382,7 +382,7 @@
 <h2 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h2><p>使用读写锁可以大大降低整个锁的持有时间：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">type Counter struct &#123;</span><br><span class="line">    count int</span><br><span class="line">    mutex sync<span class="selector-class">.Mutex</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (w *Counter) Count() &#123;</span><br><span class="line">    w<span class="selector-class">.mutex</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    defer w<span class="selector-class">.mutex</span><span class="selector-class">.Unlock</span>()</span><br><span class="line">    w.count++</span><br><span class="line">    <span class="selector-tag">time</span><span class="selector-class">.Sleep</span>(<span class="selector-tag">time</span>.Microsecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (w *Counter) Read() &#123;</span><br><span class="line">    w<span class="selector-class">.mutex</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    defer w<span class="selector-class">.mutex</span><span class="selector-class">.Unlock</span>()</span><br><span class="line">    _ = w<span class="selector-class">.count</span></span><br><span class="line">    <span class="selector-tag">time</span><span class="selector-class">.Sleep</span>(<span class="selector-tag">time</span>.Microsecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type RWCounter struct &#123;</span><br><span class="line">    count int</span><br><span class="line">    mutex sync<span class="selector-class">.RWMutex</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (w *RWCounter) Count() &#123;</span><br><span class="line">    w<span class="selector-class">.mutex</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    defer w<span class="selector-class">.mutex</span><span class="selector-class">.Unlock</span>()</span><br><span class="line">    w.count++</span><br><span class="line">    <span class="selector-tag">time</span><span class="selector-class">.Sleep</span>(<span class="selector-tag">time</span>.Microsecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (w *RWCounter) Read() &#123;</span><br><span class="line">    w<span class="selector-class">.mutex</span><span class="selector-class">.RLock</span>()</span><br><span class="line">    defer w<span class="selector-class">.mutex</span><span class="selector-class">.RUnlock</span>()</span><br><span class="line">    _ = w<span class="selector-class">.count</span></span><br><span class="line">    <span class="selector-tag">time</span><span class="selector-class">.Sleep</span>(<span class="selector-tag">time</span>.Microsecond)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/uploads/in-post/golang-lock/counter-rwcounter.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/counter-rwcounter.png"></p>
 <p>通过 Benchmark 可以看出使用读写锁比单纯使用普通锁的性能更好，效率更高</p>
 <h2 id="使用原子操作"><a href="#使用原子操作" class="headerlink" title="使用原子操作"></a>使用原子操作</h2><p>相比读写锁，使用原子操作具有更高的性能，因为原子操作不会触发 Go 的调度，也不会阻塞执行流，可以使用 Golang 的 sync/atomic 包中的提供的方法</p>
 <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sync/atomic</span><br><span class="line">.AddInt32 (or int64, uint*)</span><br><span class="line">.CompareAndSwapInt32</span><br><span class="line">.(<span class="keyword">Load</span>|<span class="type">Store</span>|<span class="type">Swap</span>)Int32</span><br><span class="line">.(<span class="keyword">Load</span>|<span class="type">Store</span>|<span class="type">Swap</span>)Pointer</span><br><span class="line">.Value</span><br></pre></td></tr></table></figure>
@@ -392,7 +392,7 @@
 <p>使用原子操作的 AtomicCounter 的 Benchmark，证明原子操作的性能是更高的</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> AtomicCounter <span class="keyword">struct</span> &#123;</span><br><span class="line">    count <span class="built_in">int32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *AtomicCounter) <span class="constructor">Count()</span> &#123;</span><br><span class="line">    atomic.<span class="constructor">AddInt32(&amp;<span class="params">c</span>.<span class="params">count</span>, 1)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *AtomicCounter) <span class="constructor">Read()</span> &#123;</span><br><span class="line">    _ = atomic.<span class="constructor">LoadInt32(&amp;<span class="params">c</span>.<span class="params">count</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/uploads/in-post/golang-lock/rwcounter-atomiccounter.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/rwcounter-atomiccounter.png"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本节主要讲解了使用锁的最佳实践，可以使用以下四种方式：</p>
 <ol>
 <li>减少持有时间</li>
@@ -401,9 +401,9 @@
 <li>使用原子操作</li>
 </ol>
 <h1 id="避免踩坑"><a href="#避免踩坑" class="headerlink" title="避免踩坑"></a>避免踩坑</h1><h2 id="不要拷贝-Mutex"><a href="#不要拷贝-Mutex" class="headerlink" title="不要拷贝 Mutex"></a>不要拷贝 Mutex</h2><p>如果在我们使用过程中直接传入 mutex 对象作为参数的话，会由于传值而发生拷贝，所以会生成新的 Mutex，导致无法正确的加锁，Goland 会对这种不正确的用法进行提示，非常的人性化</p>
-<p><img src="/uploads/in-post/golang-lock/mutex.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/mutex.png"></p>
 <p>所以如果要使用同一个锁进行加锁可以使用传递指针的形式</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">func <span class="constructor">Worker(<span class="params">m</span> <span class="operator">*</span><span class="params">sync</span>.Mutex)</span> &#123;</span><br><span class="line">    m.<span class="constructor">Lock()</span></span><br><span class="line">    defer m.<span class="constructor">Unlock()</span></span><br><span class="line">    <span class="comment">// do sth, like counting</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main<span class="literal">()</span> &#123;</span><br><span class="line">    var mu sync.Mutex</span><br><span class="line">    go <span class="constructor">Worker(&amp;<span class="params">mu</span>)</span></span><br><span class="line">    go <span class="constructor">Worker(&amp;<span class="params">mu</span>)</span></span><br><span class="line">    time.<span class="constructor">Sleep(<span class="params">time</span>.Second)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">func</span> <span class="selector-tag">Worker</span>(m *sync.Mutex) &#123;</span><br><span class="line">    <span class="selector-tag">m</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    <span class="selector-tag">defer</span> <span class="selector-tag">m</span><span class="selector-class">.Unlock</span>()</span><br><span class="line">    <span class="comment">// do sth, like counting</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">func</span> <span class="selector-tag">main</span>() &#123;</span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">mu</span> <span class="selector-tag">sync</span><span class="selector-class">.Mutex</span></span><br><span class="line">    <span class="selector-tag">go</span> <span class="selector-tag">Worker</span>(&amp;mu)</span><br><span class="line">    <span class="selector-tag">time</span><span class="selector-class">.Sleep</span>(time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Mutex-不可重入"><a href="#Mutex-不可重入" class="headerlink" title="Mutex 不可重入"></a>Mutex 不可重入</h2><p>下面这段代码会发生死锁，原因是 Golang 中 Mutex 是不可重入的，两次加锁会导致自己等待加锁的自己解锁，形成死锁</p>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">func</span> <span class="selector-tag">example</span>() &#123;</span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">m</span> <span class="selector-tag">sync</span><span class="selector-class">.Mutex</span></span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">m</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    <span class="selector-tag">defer</span> <span class="selector-tag">m</span><span class="selector-class">.Unlock</span>()</span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">m</span><span class="selector-class">.Lock</span>()</span><br><span class="line">    <span class="selector-tag">defer</span> <span class="selector-tag">m</span><span class="selector-class">.Unlock</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -415,7 +415,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">go</span> test -race mypkg</span><br><span class="line">$ <span class="keyword">go</span> run -race mysrc.<span class="keyword">go</span></span><br><span class="line">$ <span class="keyword">go</span> build -race mycmd</span><br><span class="line">$ <span class="keyword">go</span> install -race mypkg</span><br></pre></td></tr></table></figure>
 
 <p>race detector 可以帮我们检测出来我们的代码中可能存在的并发写问题，我们可以在测试环境找出这类问题进行相应的修正</p>
-<p><img src="/uploads/in-post/golang-lock/race.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/race.png"></p>
 <h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>本节主要展示了一些工作中可能遇到的锁的错误使用方式，我们应当避免踩坑</p>
 <ol>
 <li>不要拷贝 Mutex</li>
@@ -423,14 +423,14 @@
 <li>atomic.Value 应当只存入只读对象</li>
 <li>可以使用 race detector 帮助我们检测出代码中的问题<h1 id="锁的进化"><a href="#锁的进化" class="headerlink" title="锁的进化"></a>锁的进化</h1><h2 id="锁的历史"><a href="#锁的历史" class="headerlink" title="锁的历史"></a>锁的历史</h2>单核时期：屏蔽 CPU 中断 -&gt; CAS 指令</li>
 </ol>
-<p>多核时期：Lock 内存总线 -&gt; MESI协议（Modified Exclusive Shared Invalid）</p>
+<p>多核时期：Lock 内存总线 -&gt; MESI 协议（Modified Exclusive Shared Invalid）</p>
 <h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>自旋锁：多个 goroutine 可能被同时唤醒，浪费 CPU，并且可能抢不到锁，导致 p99 耗时毛刺</p>
 <p>并且由于 Golang 1.14 之前没有实现非抢占式调度，可能会由于 GC 导致锁没有正常释放而造成死锁</p>
-<p><img src="/uploads/in-post/golang-lock/goroutine-schedule.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/goroutine-schedule.png"></p>
 <h2 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h2><p>为了解决上述的问题，Golang 实现了一套「效率优先，兼顾公平」的锁</p>
-<p><img src="/uploads/in-post/golang-lock/efficient-fair.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/efficient-fair.png"></p>
 <p>整体的流程如下：</p>
-<p><img src="/uploads/in-post/golang-lock/lock-flow.png"></p>
+<p><img data-src="/uploads/in-post/golang-lock/lock-flow.png"></p>
 <p>大致分为三个步骤：原子操作直接获取锁，如果失败进入自旋，如果自旋获取锁失败四次则进入等待队列</p>
 <p>这个部分是全篇的难点，在这里用文字难以描述，建议大家直接看代码对照着这个流程图来理解，源码位于<code>sync/mutex.go</code>这个文件</p>
 <h2 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h2><p>本节主要是讲了锁的历史和 Golang 的实现（虽然没有详细讲），希望大家可以对照着流程图详细理解一下这个过程</p>
@@ -552,13 +552,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">259k</span>
+    <span title="站点总字数">267k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:55</span>
+    <span title="站点阅读时长">4:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -588,9 +588,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
@@ -606,7 +608,7 @@
   <script src="/js/third-party/nprogress.js"></script>
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz&quot;,&quot;app_key&quot;:&quot;N3C8QGskdpq8h2cD7VpKj2rP&quot;,&quot;server_url&quot;:&quot;https:&#x2F;&#x2F;csvejoso.lc-cn-n1-shared.com&quot;,&quot;security&quot;:false}</script>

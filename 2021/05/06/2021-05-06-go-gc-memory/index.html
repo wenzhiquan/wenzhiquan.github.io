@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
 <meta name="description" content="说在前面陆老师今天的课程从 GC 的发展历程讲起，渐次讲解了垃圾回收的流派以及基础的垃圾回收方法，从而引出 Golang 的 GC，向我们讲述了 Golang 垃圾回收的特点与触发时机，最终为我们简述了一些编程过程中可能使用到的工具和指标，帮助我们更快的找到和分析问题。 GC 基本理论GC 的发展从 1959 年的 Lisp 语言就开始了，他所做的事情其实就是把需要程序员手动申请和释放内存这件事情">
 <meta property="og:type" content="article">
 <meta property="og:title" content="垃圾回收和 Golang 内存管理">
@@ -109,7 +109,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">49</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">16</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">92</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">95</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -183,7 +183,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -370,18 +370,18 @@
 </li>
 </ol>
 <h4 id="并发和并行"><a href="#并发和并行" class="headerlink" title="并发和并行"></a>并发和并行</h4><ol>
-<li><p>并发<br>所谓并发其实就是标记程序和用户程序同时运行，标记时不会 Stop The World<br><img src="/uploads/in-post/go-gc/concurrent-gc.png"></p>
+<li><p>并发<br>所谓并发其实就是标记程序和用户程序同时运行，标记时不会 Stop The World<br><img data-src="/uploads/in-post/go-gc/concurrent-gc.png"></p>
 </li>
-<li><p>并行<br>并行时标记程序会 Stop The World，导致用户程序暂停<br><img src="/uploads/in-post/go-gc/parallel-gc.png"><br>GC 优化的思路大体上都是要减少 STW 的时间，减小对用户程序的影响</p>
+<li><p>并行<br>并行时标记程序会 Stop The World，导致用户程序暂停<br><img data-src="/uploads/in-post/go-gc/parallel-gc.png"><br>GC 优化的思路大体上都是要减少 STW 的时间，减小对用户程序的影响</p>
 </li>
 </ol>
 <h1 id="Go-内存管理"><a href="#Go-内存管理" class="headerlink" title="Go 内存管理"></a>Go 内存管理</h1><p>GC 的设计需要考虑的因素特别多，不同语言的 GC 侧重点也会有所区别，Golang<br>GC 设计的考量主要是减少暂停时间。</p>
-<p><img src="/uploads/in-post/go-gc/go-pause-time.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/go-pause-time.png"></p>
 <p>从上图可以看到从 1.4 到 1.5 GC 时间有一个质的飞跃，这是因为在 1.5 中实现了基于三色标记清扫的并发垃圾收集器，而 1.6 实现了去中心化的垃圾收集协调器，使用密集的位图替代空闲链表表示的堆内存，降低了清除阶段的 CPU 占用。</p>
 <h2 id="分配"><a href="#分配" class="headerlink" title="分配"></a>分配</h2><p>Golang 使用 Tcmalloc （Thread Cache）风格的分配器，将内存空间按照尺寸划分成不同大小的格子，大对象优先在大格内存中进行分配，小对象优先在小格内存中进行分配</p>
-<p><img src="/uploads/in-post/go-gc/memory-alloc.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/memory-alloc.png"></p>
 <p>内存分配方式还分为内部分配和外部分配，内部分配是指对象不管是否占满一个内存格子都分配到一个格子里，缺点是分配时可能会有很多空间的浪费，但是回收之后会有连续的比较大的内存段，而外部分配则是分配时尽量让对象相连，好处是分配的时候没有浪费内存空间，但是回收之后却可能会产生内存碎片，两种方式各有优缺点</p>
-<p><img src="/uploads/in-post/go-gc/in-out-alloc.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/in-out-alloc.png"></p>
 <h2 id="回收"><a href="#回收" class="headerlink" title="回收"></a>回收</h2><p>Golang 的垃圾回收有以下特点：</p>
 <ul>
 <li>并发标记</li>
@@ -397,8 +397,8 @@
 <p>其中 GOGC 的 threshold 是我们可以进行配置的</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示到达上一次垃圾回收内存的 1+GOGC% 倍容量的时候才触发 GC</span></span><br><span class="line"><span class="keyword">export</span> GOGC=<span class="number">100</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/uploads/in-post/go-gc/gogc.png"></p>
-<p>进行标记时，Golang 是使用的三色标记法进行标记，具体的算法可以参考<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022030353">Golang 三色标记</a>这篇文章，在标记时，是有三个过程的，先是短时间的 STW 从 GCROOT 出发标记出直接关联的节点，然后并发标记，在不影响用户程序的基础上找到所有活对象，最后再 STW 找到并发标记期间发生了改变的对象，这样就将所有活对象找到了。</p>
+<p><img data-src="/uploads/in-post/go-gc/gogc.png"></p>
+<p>进行标记时，Golang 是使用的三色标记法进行标记，具体的算法可以参考 <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022030353">Golang 三色标记</a> 这篇文章，在标记时，是有三个过程的，先是短时间的 STW 从 GCROOT 出发标记出直接关联的节点，然后并发标记，在不影响用户程序的基础上找到所有活对象，最后再 STW 找到并发标记期间发生了改变的对象，这样就将所有活对象找到了。</p>
 <h1 id="编程者指南"><a href="#编程者指南" class="headerlink" title="编程者指南"></a>编程者指南</h1><h2 id="线上诊断"><a href="#线上诊断" class="headerlink" title="线上诊断"></a>线上诊断</h2><p>如果发生了线上问题，我们可以通过几个手段来进行定位</p>
 <ol>
 <li>监控系统，比如 Argos，Grafana 等等观察各类指标是否有异常</li>
@@ -408,9 +408,9 @@
 <p>那么如果是内存问题，我们如何导出 GC log 呢？</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">GODEBUG</span>=gctrace=1</span><br></pre></td></tr></table></figure>
 <p>通过上述的环境变量我们可以导出 Golang 程序运行的 GC log，其格式如下：</p>
-<p><img src="/uploads/in-post/go-gc/gc-log.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/gc-log.png"></p>
 <p>通过公式我们可以算出 GC 损耗比例</p>
-<p><img src="/uploads/in-post/go-gc/gc-cost.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/gc-cost.png"></p>
 <p>如果 GC 损耗比例过大，说明 GC 耗费时间过多，我们可以通过配置 GOGC 这个环境变量来解决这个问题，当我们把 GOGC 配置的大一些的时候，能够明显减少 GC 的次数，同时由于活对象的比例占所有对象的比例很小，每次回收的时间虽然会有所增加，但是也不会太多，收益还是会比较大的。</p>
 <h2 id="面向-GC-编程"><a href="#面向-GC-编程" class="headerlink" title="面向 GC 编程"></a>面向 GC 编程</h2><p>如果内存分配能够不发生逃逸，而是就在栈上进行，就可以退栈即释放，不用进行垃圾回收，所以我们可以用以下方式改造我们的代码</p>
 <ul>
@@ -418,7 +418,7 @@
 <li>参数和返回值传递值</li>
 <li>制造 inline 机会<br>通过 <code>go build -gcflags=&#39;-m=1&#39;</code> 可以判断是否发生了逃逸</li>
 </ul>
-<p><img src="/uploads/in-post/go-gc/gc-escape.png"></p>
+<p><img data-src="/uploads/in-post/go-gc/gc-escape.png"></p>
 <p>为了减少 GC 我们可以针对 GO GC 的特点针对性的改变我们的代码：</p>
 <ul>
 <li>促成内联<ul>
@@ -555,13 +555,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">259k</span>
+    <span title="站点总字数">267k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:55</span>
+    <span title="站点阅读时长">4:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -591,9 +591,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
@@ -609,7 +611,7 @@
   <script src="/js/third-party/nprogress.js"></script>
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz&quot;,&quot;app_key&quot;:&quot;N3C8QGskdpq8h2cD7VpKj2rP&quot;,&quot;server_url&quot;:&quot;https:&#x2F;&#x2F;csvejoso.lc-cn-n1-shared.com&quot;,&quot;security&quot;:false}</script>

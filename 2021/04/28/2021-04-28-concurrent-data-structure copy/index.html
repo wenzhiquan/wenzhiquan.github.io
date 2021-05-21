@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
 <meta name="description" content="说在前面云浩老师这门课程中，从引入 Golang 本身数据结构对多核性能使用不足的场景讲起，然后由并发安全问题讲起，阐述了解决并发问题的通用方案，并基于此，提出了有序链表的并行化方案，由猜想到验证一步一步引导我们实现一个在多核场景下 scalable 的数据结构，由浅入深，令人印象深刻。 并发安全问题并发安全问题，表现为对一个变量发生更改的同时有另一个线程对同一个变量进行了读写，导致产生了不可预知">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Golang 并发数据结构和算法实践">
@@ -103,7 +103,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">49</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">16</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">92</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">95</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -177,7 +177,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -362,9 +362,9 @@
 <li>单个变量多写多读 -&gt; sync.Mutex</li>
 <li>多个变量多写多读 -&gt; sync.Mutex</li>
 </ol>
-<h1 id="有序链表并行化"><a href="#有序链表并行化" class="headerlink" title="有序链表并行化"></a>有序链表并行化</h1><p>插入：<br><img src="/uploads/in-post/concurrent-data-structure/insert.png"><br>第二步的时候还需要检查 A.marked 是否为 true，如果是的话说明 A 已经被别的节点删除了，此时也需要解锁 Aing 返回 step 1</p>
-<p>删除：<br><img src="/uploads/in-post/concurrent-data-structure/delete.png"></p>
-<p>读取：<br><img src="/uploads/in-post/concurrent-data-structure/read.png"></p>
+<h1 id="有序链表并行化"><a href="#有序链表并行化" class="headerlink" title="有序链表并行化"></a>有序链表并行化</h1><p>插入：<br><img data-src="/uploads/in-post/concurrent-data-structure/insert.png"><br>第二步的时候还需要检查 A.marked 是否为 true，如果是的话说明 A 已经被别的节点删除了，此时也需要解锁 Aing 返回 step 1</p>
+<p>删除：<br><img data-src="/uploads/in-post/concurrent-data-structure/delete.png"></p>
+<p>读取：<br><img data-src="/uploads/in-post/concurrent-data-structure/read.png"></p>
 <p>到此并发有序链表就实现完成了，其优缺点如下：</p>
 <ol>
 <li>优点</li>
@@ -380,7 +380,7 @@
 <li>查询过程只能遍历链表，成本较⾼</li>
 </ul>
 <h1 id="skiplist-并行化"><a href="#skiplist-并行化" class="headerlink" title="skiplist 并行化"></a>skiplist 并行化</h1><p>针对上述并发有序链表的缺点，可以使用跳表来提升查询性能：</p>
-<p><img src="/uploads/in-post/concurrent-data-structure/skiplist.png"></p>
+<p><img data-src="/uploads/in-post/concurrent-data-structure/skiplist.png"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上述数据结构的适用场景如下：</p>
 <ul>
 <li>实例核数较多</li>
@@ -506,13 +506,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">259k</span>
+    <span title="站点总字数">267k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:55</span>
+    <span title="站点阅读时长">4:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -542,9 +542,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
@@ -560,7 +562,7 @@
   <script src="/js/third-party/nprogress.js"></script>
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz&quot;,&quot;app_key&quot;:&quot;N3C8QGskdpq8h2cD7VpKj2rP&quot;,&quot;server_url&quot;:&quot;https:&#x2F;&#x2F;csvejoso.lc-cn-n1-shared.com&quot;,&quot;security&quot;:false}</script>

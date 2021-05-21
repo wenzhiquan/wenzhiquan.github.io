@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
   <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
 
-<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;wenzhiquan.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:true,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:10,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
 <meta name="description" content="“代码编译的结果从本地机器码转变为字节码，是存储格式发展的一小步，却是编程语言发展的一大步。”  概述虚拟机把描述类的数据从 Class 文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的 Java 类型，这就是虚拟机的类加载机制。 在 Java 语言中，类的加载、连接和初始化过程都是在程序运行期间完成的，为 Java 应用程序提供了高度的灵活性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="类文件结构和Java虚拟机类加载机制">
@@ -105,7 +105,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">49</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">16</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">92</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">95</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -179,7 +179,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -474,7 +474,7 @@
 </ul>
 <p>当虚拟机运行时，需要从常量池获得对应的符号引用，再在类创建时或运行时解析、翻译到具体的内存地址中。</p>
 <p>常量中每一项常量都是一个表，目前一共有 14 种常量类型，他们均有各自的结构。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2395997-dc9aafbf16055c31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700"></p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/2395997-dc9aafbf16055c31.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700"></p>
 <p>可以通过<code>javap -verbose</code>命令查看 Class 文件的字节码内容。</p>
 <h4 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h4><p>在常量池结束之后，紧接着的两个字节代表访问标志（access_flags),这个标志用于识别以下类或者接口层次的访问信息。</p>
 <table>
@@ -532,7 +532,7 @@
 <p>父类索引用于确定这个类的父类的全限定名。</p>
 <p>接口索引集合用来描述这个类实现了哪些接口，按照 implements 语句后的接口顺序从左到右排列在接口索引集合中。</p>
 <p>类索引和父类索引引用两个 u2 类型的索引值表示，他们各自指向一个类型为 CONSTANT_Class_info 的类描述符常量，通过 CONSTANT_Class_info 类型的常量中的索引值可以找到定义在 CONSTANT_Utf8_info 类型的常量中的全限定名字符串。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2395997-d30e2d2d0df2b6ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500"></p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/2395997-d30e2d2d0df2b6ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/500"></p>
 <h4 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h4><p>字段表(field_info)用于描述接口或者类中声明的变量，字段(field)包括类级变量以及实例级变量，但不包括局部变量。</p>
 <p>字段表结构如下：</p>
 <table>
@@ -732,9 +732,9 @@
 </tr>
 </tbody></table>
 <h4 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h4><p>在 Class 文件、字段表、方法表都可以携带自己的属性表集合。总共有 21 项预定义的属性，如下：</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/2395997-952f38c0c361dba3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700"></p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/2395997-952f38c0c361dba3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700"></p>
 <h3 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h3><p>类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载共 7 个阶段。其中验证、准备和解析 3 个部分统称为连接。如下图所示：</p>
-<p><img src="http://static.zybuluo.com/Rico123/ojhhtids41ivtuowfj74mkb2/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"></p>
+<p><img data-src="http://static.zybuluo.com/Rico123/ojhhtids41ivtuowfj74mkb2/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"></p>
 <p>其中，加载、验证、准备、初始化和卸载这 5 个阶段的顺序是确定的，类的加载过程必须按照这种顺序按部就班的<code>开始</code>，因为这些阶段通常都是相互交叉地混合式进行的，通常会在一个阶段执行的过程中调用、激活另外一个阶段。</p>
 <p>对于初始化阶段，严格规定了<code>有且只有</code>5 种情况必须立即对类进行初始化：</p>
 <ol>
@@ -799,7 +799,7 @@
 <li>扩展类加载器（Extension ClassLoader）：将存放在<JAVA_HOME>/lib/ext 目录中的，或呗 java.ext.dirs 系统变量指定路径中的所有类库加载到虚拟机内存中</li>
 <li>应用程序类加载器（Application ClassLoader）：负责加载用户类路径（ClassPath）上所指定的类库</li>
 </ol>
-<p><img src="/uploads/in-post/parent-delegate.png"></p>
+<p><img data-src="/uploads/in-post/parent-delegate.png"></p>
 <p>图中展示的类加载器之间的层次关系，称为类加载器的<code>双亲委派模型</code>，该模型要求除了启动类加载器外，其余的类加载器都应当有自己的父类加载器。类加载器的父子关系都是使用<code>组合关系</code>来复用父加载器的</p>
 <p>双亲委派模型的工作过程是：如果一个类加载器收到了类加载请求，他首先不会自己尝试去加载这个类，而是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的家在请求最终都应该传送到顶层的启动类加载器中，只有当父加载器在其搜索范围内没有找到所需的类时，子加载器才会尝试去加载。</p>
 <p>双亲委派模型的代码都集中在 java.lang.ClassLoader 的 loadClass()方法中，代码如下：</p>
@@ -934,13 +934,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">259k</span>
+    <span title="站点总字数">267k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:55</span>
+    <span title="站点阅读时长">4:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -970,9 +970,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   
   <script src="https://embed.widgetpack.com/widget.js" async></script>
@@ -988,7 +990,7 @@
   <script src="/js/third-party/nprogress.js"></script>
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
   <script class="next-config" data-name="leancloud_visitors" type="application/json">{&quot;enable&quot;:true,&quot;app_id&quot;:&quot;csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz&quot;,&quot;app_key&quot;:&quot;N3C8QGskdpq8h2cD7VpKj2rP&quot;,&quot;server_url&quot;:&quot;https:&#x2F;&#x2F;csvejoso.lc-cn-n1-shared.com&quot;,&quot;security&quot;:false}</script>
