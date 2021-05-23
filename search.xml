@@ -717,6 +717,120 @@
       </tags>
   </entry>
   <entry>
+    <title>七种基本排序算法</title>
+    <url>/2016/03/28/2016-03-28-seven-sort/</url>
+    <content><![CDATA[<blockquote>
+<p>“排序算法可以说是数据结构与算法当中最为基础的部分”</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>排序算法可以说是数据结构与算法当中最为基础的部分，针对的是数组这一数据结构。将数组中的无序数据元素通过算法整理为有序的数据元素即为排序。</p>
+<span id="more"></span>
+
+<h3 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>简介：</p>
+<p><code>冒泡排序</code>（Bubble Sort）是一种简单的排序算法。它重复地访问要排序的数列，将每次访问的最大值“浮”到数组尾部。</p>
+<p>步骤如下：</p>
+<ol>
+<li>   比较相邻的元素。如果第一个比第二个大，就交换他们两个，直到把最大的元素放到数组尾部。</li>
+<li>   遍历长度减一，对剩下的元素从头重复以上的步骤。</li>
+<li>   直到没有任何一对数字需要比较时完成。</li>
+</ol>
+<!--break-->
+
+<p>实现代码：</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">def</span> <span class="selector-tag">bubbleSort</span>(arr):</span><br><span class="line">    <span class="selector-tag">for</span> <span class="selector-tag">i</span> <span class="selector-tag">in</span> <span class="selector-tag">range</span>(len(arr))<span class="selector-attr">[::-1]</span>:</span><br><span class="line">        <span class="selector-tag">for</span> <span class="selector-tag">j</span> <span class="selector-tag">in</span> <span class="selector-tag">range</span>(i):</span><br><span class="line">            <span class="selector-tag">if</span> <span class="selector-tag">arr</span><span class="selector-attr">[j]</span> &gt; <span class="selector-tag">arr</span><span class="selector-attr">[j + 1]</span>:</span><br><span class="line">                <span class="selector-tag">swap</span>(arr[j], arr[j + <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><img data-src="/uploads/in-post/bubbleSort.gif" alt="冒泡排序"></p>
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>简介：</p>
+<p><code>选择排序</code>(Selection sort)是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小元素，存放到排序序列的起始位置，重复上述过程，直到所有元素均排序完毕。</p>
+<p>步骤如下：</p>
+<ol>
+<li>   遍历数组，找到最小的元素，将其置于数组起始位置。</li>
+<li>   从上次最小元素存放的后一个元素开始遍历至数组尾，将最小的元素置于开始处。</li>
+<li>   重复上述过程，直到元素排序完毕。</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectSort</span>(<span class="params">arr</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        <span class="built_in">min</span> = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, <span class="built_in">len</span>(arr)):</span><br><span class="line">            <span class="keyword">if</span> arr[j] &lt; arr[<span class="built_in">min</span>]:</span><br><span class="line">                <span class="built_in">min</span> = j</span><br><span class="line">        swap(arr[i], arr[<span class="built_in">min</span>])</span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><img data-src="/uploads/in-post/selectSort.gif" alt="选择排序"></p>
+<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>简介：</p>
+<p><code>插入排序</code>（Insertion Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
+<p>步骤如下：</p>
+<ol>
+<li>从第一个元素开始，该元素可以认为已经被排序</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</li>
+<li>将新元素插入到该位置中</li>
+<li>重复步骤2</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">def insertSort(arr):</span><br><span class="line">    <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        tmp = arr[i]</span><br><span class="line">        <span class="keyword">pre</span> = i - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">pre</span> &gt;= <span class="number">0</span> <span class="built_in">and</span> arr[<span class="keyword">pre</span>] &gt; tmp:</span><br><span class="line">            arr[<span class="keyword">pre</span> + <span class="number">1</span>] = arr[<span class="keyword">pre</span>]</span><br><span class="line">            <span class="keyword">pre</span> -= <span class="number">1</span></span><br><span class="line">        arr[<span class="keyword">pre</span> + <span class="number">1</span>] = tmp</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="高级排序"><a href="#高级排序" class="headerlink" title="高级排序"></a>高级排序</h3><h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>简介：</p>
+<p><code>希尔排序</code>(Shell Sort)是插入排序的一种。也称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法。</p>
+<p>步骤如下：</p>
+<ol>
+<li>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；</li>
+<li>随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">def insertSort(arr):</span><br><span class="line">    <span class="keyword">k</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">k</span> &lt; <span class="built_in">len</span>(arr) / <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">k</span> = <span class="number">3</span> * h + <span class="number">1</span> //此处为Knuth算法</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">k</span> &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="keyword">k</span>, <span class="built_in">len</span>(arr)):</span><br><span class="line">            tmp = arr[i]</span><br><span class="line">            <span class="keyword">pre</span> = i - <span class="keyword">k</span></span><br><span class="line">            <span class="keyword">while</span> <span class="keyword">pre</span> &gt;= <span class="number">0</span> <span class="built_in">and</span> arr[<span class="keyword">pre</span>] &gt; tmp:</span><br><span class="line">                arr[<span class="keyword">pre</span> + <span class="keyword">k</span>] = arr[<span class="keyword">pre</span>]</span><br><span class="line">                <span class="keyword">pre</span> -= <span class="keyword">k</span></span><br><span class="line">            arr[<span class="keyword">pre</span> + <span class="keyword">k</span>] = tmp</span><br><span class="line">        <span class="keyword">k</span> = (<span class="keyword">k</span> - <span class="number">1</span>) / <span class="number">3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><img data-src="/uploads/in-post/shellSort.gif" alt="希尔排序"></p>
+<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>简介：</p>
+<p><code>快速排序</code>（Quicksort）是对冒泡排序的一种改进。它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
+<p>步骤如下：</p>
+<p>步骤：</p>
+<ol>
+<li>从数列中挑出一个元素，称为 “基准”（pivot），</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作。</li>
+<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">def <span class="title">quickSort</span><span class="params">(arr, low, high)</span>:</span></span><br><span class="line"><span class="function">    if low &lt; high:</span></span><br><span class="line"><span class="function">        pivot =</span> <span class="built_in">partition</span>(arr, low, high)</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, low, pivot - <span class="number">1</span>)</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, pivot + <span class="number">1</span>, high)</span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">partition</span><span class="params">(arr, low, high)</span>:</span></span><br><span class="line"><span class="function">    pivot =</span> arr[low]</span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[high] &gt;= pivot:</span><br><span class="line">            high -= <span class="number">1</span></span><br><span class="line">        arr[low] = arr[high]</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[low] &lt;= pivot:</span><br><span class="line">            low += <span class="number">1</span></span><br><span class="line">        arr[high] = arr[low]</span><br><span class="line">    arr[low] = pivot</span><br><span class="line">    <span class="keyword">return</span> low</span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><img data-src="/uploads/in-post/quickSort.gif" alt="快速排序"></p>
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>简介：</p>
+<p><code>归并排序</code>(Merge Sort)是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
+<p>步骤如下：</p>
+<ol>
+<li>申请空间，创建两个数组，长度分别为两个有序数组的长度</li>
+<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
+<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
+<li>重复步骤3直到某一指针达到序列尾</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">def mergeSort(arr, low, high):</span><br><span class="line">    <span class="keyword">if</span> low &lt; high:</span><br><span class="line">        <span class="keyword">mid</span> = low + (high - low) / <span class="number">2</span></span><br><span class="line">        mergeSort(arr, low, <span class="keyword">mid</span>)</span><br><span class="line">        mergeSort(arr, <span class="keyword">mid</span> + <span class="number">1</span>, high)</span><br><span class="line">        <span class="literal">return</span> <span class="built_in">merge</span>(arr, low, <span class="keyword">mid</span>, high)</span><br><span class="line"></span><br><span class="line">def <span class="built_in">merge</span>(arr, low, <span class="keyword">mid</span>, high):</span><br><span class="line">    leftArr = arr[low : <span class="keyword">mid</span> + <span class="number">1</span>]</span><br><span class="line">    rightArr = arr[<span class="keyword">mid</span> + <span class="number">1</span> : high + <span class="number">1</span>]</span><br><span class="line">    i, j, m = <span class="number">0</span>, <span class="number">0</span>, low</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(leftArr) <span class="keyword">and</span> j &lt; <span class="built_in">len</span>(rightArr)：</span><br><span class="line">        <span class="keyword">if</span> leftArr[i] &lt; rightArr[j]:</span><br><span class="line">            arr[m] = leftArr[i]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            arr[m] = rightArr[j]</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(leftArr):</span><br><span class="line">        arr[m] = leftArr[i]</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(rightArr):</span><br><span class="line">        arr[m] = rightArr[j]</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">        j += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>实现效果：</p>
+<p><img data-src="/uploads/in-post/mergeSort.gif" alt="归并排序"></p>
+<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><p>简介：</p>
+<p>堆积排序（Heap Sort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<p>步骤如下：</p>
+<ol>
+<li>按堆的定义将数组R[0..n]调整为堆（这个过程称为创建初始堆），交换R[0]和R[n]；</li>
+<li>将R[0..n-1]调整为堆，交换R[0]和R[n-1]；</li>
+<li>重复上述过程，直到交换了R[0]和R[1]为止。</li>
+</ol>
+<p>实现代码：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">def</span> heapSort(arr):</span><br><span class="line">    <span class="attribute">for</span> i in range(len(arr) / <span class="number">2</span>)[::-<span class="number">1</span>]:</span><br><span class="line">        <span class="attribute">heapAdjust</span>(arr, i, len(arr))</span><br><span class="line"></span><br><span class="line">    <span class="attribute">for</span> i in range(len(arr) - <span class="number">1</span>)[::-<span class="number">1</span>]:</span><br><span class="line">        <span class="attribute">swap</span>(arr[i], arr[<span class="number">0</span>])</span><br><span class="line">        <span class="attribute">heapAdjust</span>(arr, <span class="number">0</span>, i)</span><br><span class="line"></span><br><span class="line"><span class="attribute">def</span> heapAdjust(arr, parent, length)：</span><br><span class="line">    <span class="attribute">tmp</span> = arr[parent]</span><br><span class="line">    <span class="attribute">child</span> = <span class="number">2</span> * parent + <span class="number">1</span></span><br><span class="line">    <span class="attribute">while</span> child &lt; length:</span><br><span class="line">        <span class="attribute">if</span> child + <span class="number">1</span> &lt; length and arr[child + <span class="number">1</span>] &gt; arr[child]:</span><br><span class="line">            <span class="attribute">child</span> += <span class="number">1</span></span><br><span class="line">        <span class="attribute">if</span> arr[child] &lt;= tmp:</span><br><span class="line">            <span class="attribute">break</span></span><br><span class="line">        <span class="attribute">arr</span>[parent] = arr[child]</span><br><span class="line">        <span class="attribute">parent</span> = child</span><br><span class="line">        <span class="attribute">child</span> = <span class="number">2</span> * parent + <span class="number">1</span></span><br><span class="line">        <span class="attribute">arr</span>[parent] = tmp</span><br></pre></td></tr></table></figure>
+
+<p>效果图：</p>
+<p><img data-src="/uploads/in-post/heapSort.gif" alt="堆排序"></p>
+<h3 id="各排序算法时间空间复杂度"><a href="#各排序算法时间空间复杂度" class="headerlink" title="各排序算法时间空间复杂度"></a>各排序算法时间空间复杂度</h3><p><img data-src="/uploads/in-post/sortTimeComplexity.png"></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>单例模式的八种写法</title>
     <url>/2016/03/28/2016-03-28-singleton-eight-type/</url>
     <content><![CDATA[<blockquote>
@@ -779,48 +893,6 @@
         <tag>设计模式</tag>
         <tag>创建型模式</tag>
         <tag>Singleton</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符串匹配Sunday算法</title>
-    <url>/2016/05/28/2016-05-28-string-match-sunday/</url>
-    <content><![CDATA[<blockquote>
-<p>“Sunday算法是Daniel M.Sunday于1990年提出的字符串模式匹配。”</p>
-</blockquote>
-<h3 id="Sunday算法简介"><a href="#Sunday算法简介" class="headerlink" title="Sunday算法简介"></a>Sunday算法简介</h3><p>字符串查找算法中，最著名的两个是<code>KMP</code>算法(Knuth-Morris-Pratt)和<code>BM</code>算法(Boyer-Moore)。两个算法在最坏情况下均具有线性的查找时间。但是在实用上，KMP算法并不比c库函数<code>strstr()</code>快多少，而<code>BM</code>算法则往往比<code>KMP</code>算法快上3－5倍(未经验证)。而<code>Sunday</code>算法比<code>BM</code>还要快，而且更易理解。<code>Sunday</code>算法的核心思想是：在匹配过程中，模式串并不被要求一定要按从左向右进行比较还是从右向左进行比较，它在发现不匹配时，算法能跳过尽可能多的字符以进行下一步的匹配，从而提高了匹配效率。</p>
-<span id="more"></span>
-
-<h3 id="Sunday算法讲解"><a href="#Sunday算法讲解" class="headerlink" title="Sunday算法讲解"></a>Sunday算法讲解</h3><p>假设现在有两个字符串</p>
-<p>主串为 A = “What a nice algorithm”</p>
-<p>模式串为 B = “nice”</p>
-<p>Sunday算法的大致原理是：</p>
-<p>先从左到右逐个字符进行比较，以A和B字符串为例：初始状态i = 0, 指向A的第一个字符，j = 0 指向B的第一个字符，分别为<code>W</code>和<code>n</code>，不匹配，于是要把子串往后移动。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m|<br>|n|i|c|e|<br>|j|</p>
-<p>此时，Sunday算法要求，找到位于A字串中位于B字符串后面的第一个字符，即下图中m所指向的字符<code>空格</code>，在模式字符串B中从后向前查找是否存在<code>空格</code>，如果不存在，则直接将模式串置于m之后。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m| | | | |<br>| | | | | |n|i|c|e|<br>|j|</p>
-<p>然后将i和j置于新位置，继续进行匹配。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | |i| | | |m|<br>| | | | | |n|i|c|e|<br>| | | | | |j| |k| |</p>
-<p><code>a</code>和<code>n</code>不匹配，需要将子串向后移动，可以看到此时m所在位置的字符<code>c</code>和k所在位置的字符<code>c</code>相同，此时需要将相同的字符对齐，让j再次指向B字符串的头一个字符，相应地，将i指向主串对应的字符<code>n</code>。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | | | |i| | | |<br>| | | | | | | |n|i|c|e|<br>| | | | | | | |j| | | |</p>
-<p>此时找到匹配的字符串，算法结束。</p>
-<h3 id="Sunday算法代码"><a href="#Sunday算法代码" class="headerlink" title="Sunday算法代码"></a>Sunday算法代码</h3><p>java代码如下：</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">public</span> <span class="type">int</span> strStr(String <span class="type">text</span>, String pattern) &#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern == <span class="keyword">null</span> || <span class="type">text</span> == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.equals(&quot;&quot;)) <span class="keyword">return</span> <span class="number">0</span>;   // 如果模式串为空，认为第<span class="number">0</span>位已经匹配</span><br><span class="line">    <span class="type">int</span> tlen = <span class="type">text</span>.length(), plen = pattern.length();</span><br><span class="line">    <span class="keyword">if</span> (plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k;  // 分别记录<span class="type">text</span>索引，pattern索引和模式串计数索引</span><br><span class="line">    <span class="type">int</span> <span class="keyword">index</span>;  // 记录不匹配时字符（m所在位置）的索引</span><br><span class="line">    <span class="keyword">while</span> (i &lt; tlen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="type">text</span>.charAt(i) == pattern.charAt(j)) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">index</span> = result + plen;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">index</span> &gt;= tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (k = plen - <span class="number">1</span>; k &gt;= <span class="number">0</span> &amp;&amp; <span class="type">text</span>.charAt(<span class="keyword">index</span>) != pattern.charAt(k); k<span class="comment">--);</span></span><br><span class="line">        i = result;</span><br><span class="line">        i += plen - k;</span><br><span class="line">        result = i;</span><br><span class="line">        j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (result + plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;  // 如果匹配长度超过主串，匹配失败</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i &lt;= tlen? result: <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="需要注意的测试用例"><a href="#需要注意的测试用例" class="headerlink" title="需要注意的测试用例"></a>需要注意的测试用例</h3><ul>
-<li>“”, “”</li>
-<li>null, “a”</li>
-<li>“tartarget”, “target”</li>
-<li>“source”, “rced”</li>
-</ul>
-<h3 id="相关题目地址"><a href="#相关题目地址" class="headerlink" title="相关题目地址"></a>相关题目地址</h3><p>Leetcode:<br><a href="https://leetcode.com/problems/implement-strstr/">Implement strStr()</a></p>
-<p>Lintcode:<br><a href="http://www.lintcode.com/en/problem/strstr/">strStr</a></p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>String</tag>
-        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -903,6 +975,48 @@
       </tags>
   </entry>
   <entry>
+    <title>字符串匹配Sunday算法</title>
+    <url>/2016/05/28/2016-05-28-string-match-sunday/</url>
+    <content><![CDATA[<blockquote>
+<p>“Sunday算法是Daniel M.Sunday于1990年提出的字符串模式匹配。”</p>
+</blockquote>
+<h3 id="Sunday算法简介"><a href="#Sunday算法简介" class="headerlink" title="Sunday算法简介"></a>Sunday算法简介</h3><p>字符串查找算法中，最著名的两个是<code>KMP</code>算法(Knuth-Morris-Pratt)和<code>BM</code>算法(Boyer-Moore)。两个算法在最坏情况下均具有线性的查找时间。但是在实用上，KMP算法并不比c库函数<code>strstr()</code>快多少，而<code>BM</code>算法则往往比<code>KMP</code>算法快上3－5倍(未经验证)。而<code>Sunday</code>算法比<code>BM</code>还要快，而且更易理解。<code>Sunday</code>算法的核心思想是：在匹配过程中，模式串并不被要求一定要按从左向右进行比较还是从右向左进行比较，它在发现不匹配时，算法能跳过尽可能多的字符以进行下一步的匹配，从而提高了匹配效率。</p>
+<span id="more"></span>
+
+<h3 id="Sunday算法讲解"><a href="#Sunday算法讲解" class="headerlink" title="Sunday算法讲解"></a>Sunday算法讲解</h3><p>假设现在有两个字符串</p>
+<p>主串为 A = “What a nice algorithm”</p>
+<p>模式串为 B = “nice”</p>
+<p>Sunday算法的大致原理是：</p>
+<p>先从左到右逐个字符进行比较，以A和B字符串为例：初始状态i = 0, 指向A的第一个字符，j = 0 指向B的第一个字符，分别为<code>W</code>和<code>n</code>，不匹配，于是要把子串往后移动。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m|<br>|n|i|c|e|<br>|j|</p>
+<p>此时，Sunday算法要求，找到位于A字串中位于B字符串后面的第一个字符，即下图中m所指向的字符<code>空格</code>，在模式字符串B中从后向前查找是否存在<code>空格</code>，如果不存在，则直接将模式串置于m之后。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m| | | | |<br>| | | | | |n|i|c|e|<br>|j|</p>
+<p>然后将i和j置于新位置，继续进行匹配。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | |i| | | |m|<br>| | | | | |n|i|c|e|<br>| | | | | |j| |k| |</p>
+<p><code>a</code>和<code>n</code>不匹配，需要将子串向后移动，可以看到此时m所在位置的字符<code>c</code>和k所在位置的字符<code>c</code>相同，此时需要将相同的字符对齐，让j再次指向B字符串的头一个字符，相应地，将i指向主串对应的字符<code>n</code>。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | | | |i| | | |<br>| | | | | | | |n|i|c|e|<br>| | | | | | | |j| | | |</p>
+<p>此时找到匹配的字符串，算法结束。</p>
+<h3 id="Sunday算法代码"><a href="#Sunday算法代码" class="headerlink" title="Sunday算法代码"></a>Sunday算法代码</h3><p>java代码如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">public</span> <span class="type">int</span> strStr(String <span class="type">text</span>, String pattern) &#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern == <span class="keyword">null</span> || <span class="type">text</span> == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.equals(&quot;&quot;)) <span class="keyword">return</span> <span class="number">0</span>;   // 如果模式串为空，认为第<span class="number">0</span>位已经匹配</span><br><span class="line">    <span class="type">int</span> tlen = <span class="type">text</span>.length(), plen = pattern.length();</span><br><span class="line">    <span class="keyword">if</span> (plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k;  // 分别记录<span class="type">text</span>索引，pattern索引和模式串计数索引</span><br><span class="line">    <span class="type">int</span> <span class="keyword">index</span>;  // 记录不匹配时字符（m所在位置）的索引</span><br><span class="line">    <span class="keyword">while</span> (i &lt; tlen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="type">text</span>.charAt(i) == pattern.charAt(j)) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">index</span> = result + plen;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">index</span> &gt;= tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (k = plen - <span class="number">1</span>; k &gt;= <span class="number">0</span> &amp;&amp; <span class="type">text</span>.charAt(<span class="keyword">index</span>) != pattern.charAt(k); k<span class="comment">--);</span></span><br><span class="line">        i = result;</span><br><span class="line">        i += plen - k;</span><br><span class="line">        result = i;</span><br><span class="line">        j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (result + plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;  // 如果匹配长度超过主串，匹配失败</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i &lt;= tlen? result: <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="需要注意的测试用例"><a href="#需要注意的测试用例" class="headerlink" title="需要注意的测试用例"></a>需要注意的测试用例</h3><ul>
+<li>“”, “”</li>
+<li>null, “a”</li>
+<li>“tartarget”, “target”</li>
+<li>“source”, “rced”</li>
+</ul>
+<h3 id="相关题目地址"><a href="#相关题目地址" class="headerlink" title="相关题目地址"></a>相关题目地址</h3><p>Leetcode:<br><a href="https://leetcode.com/problems/implement-strstr/">Implement strStr()</a></p>
+<p>Lintcode:<br><a href="http://www.lintcode.com/en/problem/strstr/">strStr</a></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>面试必会题目（1）—— String</title>
     <url>/2016/05/31/2016-05-31-interview-algorithm-string/</url>
     <content><![CDATA[<blockquote>
@@ -964,8 +1078,8 @@
         <category>Algorithm</category>
       </categories>
       <tags>
-        <tag>String</tag>
         <tag>Algorithm</tag>
+        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -1582,192 +1696,6 @@
       </tags>
   </entry>
   <entry>
-    <title>grep模式匹配命令</title>
-    <url>/2016/09/06/2016-09-06-grep/</url>
-    <content><![CDATA[<blockquote>
-<p>“grep是一种强大的文本搜索工具。”</p>
-</blockquote>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>grep</code>全称<code>Globally search a Regular Expression and Print</code>是一种强大的文本搜索工具。它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
-<p><code>grep</code>的工作方式是在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到屏幕，不影响原文件内容。<code>grep</code>可用于<code>shell</code>脚本，因为<code>grep</code>通过返回一个状态值来说明搜索的状态，如果模板搜索成功，则返回<code>0</code>，如果搜索不成功，则返回<code>1</code>，如果搜索的文件不存在，则返回<code>2</code>。<code>grep</code>命令中允许指定的串语句是一个规则表达式，这是一种允许使用某些特殊键盘字符的指定字符串的方法，这种方法中的特殊键盘字符可以用于代表其他字符也可以进一步定义模式匹配工作方式。</p>
-<span id="more"></span>
-
-<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p><code>grep</code>命令用于打印输出文本中匹配的模式串，它使用正则表达式作为模式匹配的条件。<code>grep</code>支持三种正则表达式引擎，分别用三个参数指定：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>-E</code></td>
-<td>POSIX扩展正则表达式，<code>ERE</code></td>
-</tr>
-<tr>
-<td><code>-G</code></td>
-<td>POSIX基本正则表达式，<code>BRE</code></td>
-</tr>
-<tr>
-<td><code>-P</code></td>
-<td>Perl正则表达式，<code>PCRE</code></td>
-</tr>
-</tbody></table>
-<p>在没学过<code>perl</code>语言的大多数情况下你将只会使用到<code>ERE</code>和<code>BRE</code>。</p>
-<p>先介绍一下<code>grep</code>命令的常用参数：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>-b</code></td>
-<td>将二进制文件作为文本来进行匹配</td>
-</tr>
-<tr>
-<td><code>-c</code></td>
-<td>统计以模式匹配的数目</td>
-</tr>
-<tr>
-<td><code>-i</code></td>
-<td>忽略大小写</td>
-</tr>
-<tr>
-<td><code>-n</code></td>
-<td>显示匹配文本所在行的行号</td>
-</tr>
-<tr>
-<td><code>-v</code></td>
-<td>反选，输出不匹配行的内容</td>
-</tr>
-<tr>
-<td><code>-r</code></td>
-<td>递归匹配查找</td>
-</tr>
-<tr>
-<td><code>-A n</code></td>
-<td>n为正整数，表示after的意思，除了列出匹配行之外，还列出后面的n行</td>
-</tr>
-<tr>
-<td><code>-B n</code></td>
-<td>n为正整数，表示before的意思，除了列出匹配行之外，还列出前面的n行</td>
-</tr>
-<tr>
-<td><code>--color=auto</code></td>
-<td>将输出中的匹配项设置为自动颜色显示</td>
-</tr>
-</tbody></table>
-<p>注：在大多数发行版中是默认设置了<code>grep</code>的颜色的，你可以通过参数指定或修改<code>GREP_COLOR</code>环境变量。</p>
-<p><img data-src="/uploads/in-post/grep/grep_basic.png" alt="grep basic"></p>
-<h3 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h3><h4 id="使用基本正则表达式，BRE"><a href="#使用基本正则表达式，BRE" class="headerlink" title="使用基本正则表达式，BRE"></a>使用基本正则表达式，BRE</h4><ul>
-<li>位置</li>
-</ul>
-<p>查找<code>test</code>文件中以<code>wen</code>开头的行</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep <span class="string">&#x27;wen&#x27;</span> <span class="built_in">test</span></span><br><span class="line">grep <span class="string">&#x27;^wen&#x27;</span> <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_head.png" alt="grep head"></p>
-<ul>
-<li>数量</li>
-</ul>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头以<span class="string">&#x27;o&#x27;</span>结尾的所有字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;h.*o&#x27;</span></span><br><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头以<span class="string">&#x27;o&#x27;</span>结尾，中间包含一个任意字符的字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;h.o&#x27;</span></span><br><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头,以任意多个<span class="string">&#x27;o&#x27;</span>结尾的字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;ho*&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_bre.png" alt="grep bre"></p>
-<ul>
-<li>选择</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment"># grep默认是区分大小写的，这里将匹配所有的小写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[a-z]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的数字</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[0-9]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的数字</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:digit:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的小写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:lower:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的大写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:upper:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的字母和数字，包括0-9,a-z,A-Z</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:alnum:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:alpha:]]&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_select.png" alt="grep select"></p>
-<p>下面包含完整的特殊符号及说明：</p>
-<table>
-<thead>
-<tr>
-<th>特殊符号</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>[:alnum:]</code></td>
-<td>代表英文大小写字节及数字，亦即 0-9, A-Z, a-z</td>
-</tr>
-<tr>
-<td><code>[:alpha:]</code></td>
-<td>代表任何英文大小写字节，亦即 A-Z, a-z</td>
-</tr>
-<tr>
-<td><code>[:blank:]</code></td>
-<td>代表空白键与 [Tab] 按键两者</td>
-</tr>
-<tr>
-<td><code>[:cntrl:]</code></td>
-<td>代表键盘上面的控制按键，亦即包括 CR, LF, Tab, Del.. 等等</td>
-</tr>
-<tr>
-<td><code>[:digit:]</code></td>
-<td>代表数字而已，亦即 0-9</td>
-</tr>
-<tr>
-<td><code>[:graph:]</code></td>
-<td>除了空白字节 (空白键与 [Tab] 按键) 外的其他所有按键</td>
-</tr>
-<tr>
-<td><code>[:lower:]</code></td>
-<td>代表小写字节，亦即 a-z</td>
-</tr>
-<tr>
-<td><code>[:print:]</code></td>
-<td>代表任何可以被列印出来的字节</td>
-</tr>
-<tr>
-<td><code>[:punct:]</code></td>
-<td>代表标点符号 (punctuation symbol)，亦即：” ‘ ? ! ; : # $…</td>
-</tr>
-<tr>
-<td><code>[:upper:]</code></td>
-<td>代表大写字节，亦即 A-Z</td>
-</tr>
-<tr>
-<td><code>[:space:]</code></td>
-<td>任何会产生空白的字节，包括空白键, [Tab], CR 等等</td>
-</tr>
-<tr>
-<td><code>[:xdigit:]</code></td>
-<td>代表 16 进位的数字类型，因此包括： 0-9, A-F, a-f 的数字与字节</td>
-</tr>
-</tbody></table>
-<p>注意：之所以要使用特殊符号，是因为<code>[a-z]</code>不是在所有情况下都管用，这还与主机当前的语系有关，即设置在<code>LANG</code>环境变量的值，<code>zh_CN.UTF-8</code>的<code>[a-z]</code>即为所有小写字母，其它语系可能是大小写交替的如，<code>a A b B...z Z</code>，<code>[a-z]</code>中就可能包含大写字母。所以在使用<code>[a-z]</code>时请确保当前语系的影响，使用<code>[:lower:]</code>则不会有这个问题。</p>
-<ul>
-<li>排除字符</li>
-</ul>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello|aloha&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;[^o]&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_exclude.png" alt="grep exclude"></p>
-<p>注意:当<code>^</code>放到中括号内为排除字符，否则表示行首。</p>
-<h4 id="使用扩展正则表达式，ERE"><a href="#使用扩展正则表达式，ERE" class="headerlink" title="使用扩展正则表达式，ERE"></a>使用扩展正则表达式，ERE</h4><p>要通过<code>grep</code>使用扩展正则表达式需要加上<code>-E</code>参数，或使用<code>egrep</code>。</p>
-<ul>
-<li>数量</li>
-</ul>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"># 只匹配<span class="string">&quot;zo&quot;</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;zero\nzo\nzoo&#x27;</span> | <span class="keyword">grep</span> -E <span class="string">&#x27;zo&#123;1&#125;&#x27;</span></span><br><span class="line"># 匹配以<span class="string">&quot;zo&quot;</span>开头的所有单词</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;zero\nzo\nzoo&#x27;</span> | <span class="keyword">grep</span> -E <span class="string">&#x27;zo&#123;1,&#125;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_e.png" alt="grep e"></p>
-<ul>
-<li>选择</li>
-</ul>
-<figure class="highlight sml"><table><tr><td class="code"><pre><span class="line"># 匹配<span class="string">&quot;www.baidu.com&quot;</span>和<span class="string">&quot;www.google.com&quot;</span></span><br><span class="line">echo <span class="symbol">&#x27;www</span>.qq.com\nwww.baidu.com\nwww.google.com&#x27; | grep -<span class="type">E</span> <span class="symbol">&#x27;www</span>\.(baidu|google)\.com&#x27;</span><br><span class="line"># 或者匹配不包含<span class="string">&quot;baidu&quot;</span>的内容</span><br><span class="line">echo <span class="symbol">&#x27;www</span>.qq.com\nwww.baidu.com\nwww.google.com&#x27; | grep -<span class="type">Ev</span> <span class="symbol">&#x27;www</span>\.baidu\.com&#x27;</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/uploads/in-post/grep/grep_ev.png" alt="grep ev"></p>
-<p>注意：因为<code>.</code>号有特殊含义，所以需要转义。</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>Grep</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>sed流编辑器</title>
     <url>/2016/10/15/2016-10-15-sed/</url>
     <content><![CDATA[<blockquote>
@@ -2007,6 +1935,192 @@
       <tags>
         <tag>Linux</tag>
         <tag>Sed</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>grep模式匹配命令</title>
+    <url>/2016/09/06/2016-09-06-grep/</url>
+    <content><![CDATA[<blockquote>
+<p>“grep是一种强大的文本搜索工具。”</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>grep</code>全称<code>Globally search a Regular Expression and Print</code>是一种强大的文本搜索工具。它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
+<p><code>grep</code>的工作方式是在一个或多个文件中搜索字符串模板。如果模板包括空格，则必须被引用，模板后的所有字符串被看作文件名。搜索的结果被送到屏幕，不影响原文件内容。<code>grep</code>可用于<code>shell</code>脚本，因为<code>grep</code>通过返回一个状态值来说明搜索的状态，如果模板搜索成功，则返回<code>0</code>，如果搜索不成功，则返回<code>1</code>，如果搜索的文件不存在，则返回<code>2</code>。<code>grep</code>命令中允许指定的串语句是一个规则表达式，这是一种允许使用某些特殊键盘字符的指定字符串的方法，这种方法中的特殊键盘字符可以用于代表其他字符也可以进一步定义模式匹配工作方式。</p>
+<span id="more"></span>
+
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p><code>grep</code>命令用于打印输出文本中匹配的模式串，它使用正则表达式作为模式匹配的条件。<code>grep</code>支持三种正则表达式引擎，分别用三个参数指定：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-E</code></td>
+<td>POSIX扩展正则表达式，<code>ERE</code></td>
+</tr>
+<tr>
+<td><code>-G</code></td>
+<td>POSIX基本正则表达式，<code>BRE</code></td>
+</tr>
+<tr>
+<td><code>-P</code></td>
+<td>Perl正则表达式，<code>PCRE</code></td>
+</tr>
+</tbody></table>
+<p>在没学过<code>perl</code>语言的大多数情况下你将只会使用到<code>ERE</code>和<code>BRE</code>。</p>
+<p>先介绍一下<code>grep</code>命令的常用参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-b</code></td>
+<td>将二进制文件作为文本来进行匹配</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>统计以模式匹配的数目</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>忽略大小写</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>显示匹配文本所在行的行号</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>反选，输出不匹配行的内容</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>递归匹配查找</td>
+</tr>
+<tr>
+<td><code>-A n</code></td>
+<td>n为正整数，表示after的意思，除了列出匹配行之外，还列出后面的n行</td>
+</tr>
+<tr>
+<td><code>-B n</code></td>
+<td>n为正整数，表示before的意思，除了列出匹配行之外，还列出前面的n行</td>
+</tr>
+<tr>
+<td><code>--color=auto</code></td>
+<td>将输出中的匹配项设置为自动颜色显示</td>
+</tr>
+</tbody></table>
+<p>注：在大多数发行版中是默认设置了<code>grep</code>的颜色的，你可以通过参数指定或修改<code>GREP_COLOR</code>环境变量。</p>
+<p><img data-src="/uploads/in-post/grep/grep_basic.png" alt="grep basic"></p>
+<h3 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h3><h4 id="使用基本正则表达式，BRE"><a href="#使用基本正则表达式，BRE" class="headerlink" title="使用基本正则表达式，BRE"></a>使用基本正则表达式，BRE</h4><ul>
+<li>位置</li>
+</ul>
+<p>查找<code>test</code>文件中以<code>wen</code>开头的行</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep <span class="string">&#x27;wen&#x27;</span> <span class="built_in">test</span></span><br><span class="line">grep <span class="string">&#x27;^wen&#x27;</span> <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_head.png" alt="grep head"></p>
+<ul>
+<li>数量</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头以<span class="string">&#x27;o&#x27;</span>结尾的所有字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;h.*o&#x27;</span></span><br><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头以<span class="string">&#x27;o&#x27;</span>结尾，中间包含一个任意字符的字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;h.o&#x27;</span></span><br><span class="line"># 将匹配以<span class="string">&#x27;h&#x27;</span>开头,以任意多个<span class="string">&#x27;o&#x27;</span>结尾的字符串</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello\nho\nhio&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;ho*&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_bre.png" alt="grep bre"></p>
+<ul>
+<li>选择</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment"># grep默认是区分大小写的，这里将匹配所有的小写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[a-z]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的数字</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[0-9]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的数字</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:digit:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的小写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:lower:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的大写字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:upper:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的字母和数字，包括0-9,a-z,A-Z</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:alnum:]]&#x27;</span></span><br><span class="line"><span class="comment"># 将匹配所有的字母</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;1234\nabcd\nABCD&#x27;</span> | grep <span class="string">&#x27;[[:alpha:]]&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_select.png" alt="grep select"></p>
+<p>下面包含完整的特殊符号及说明：</p>
+<table>
+<thead>
+<tr>
+<th>特殊符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[:alnum:]</code></td>
+<td>代表英文大小写字节及数字，亦即 0-9, A-Z, a-z</td>
+</tr>
+<tr>
+<td><code>[:alpha:]</code></td>
+<td>代表任何英文大小写字节，亦即 A-Z, a-z</td>
+</tr>
+<tr>
+<td><code>[:blank:]</code></td>
+<td>代表空白键与 [Tab] 按键两者</td>
+</tr>
+<tr>
+<td><code>[:cntrl:]</code></td>
+<td>代表键盘上面的控制按键，亦即包括 CR, LF, Tab, Del.. 等等</td>
+</tr>
+<tr>
+<td><code>[:digit:]</code></td>
+<td>代表数字而已，亦即 0-9</td>
+</tr>
+<tr>
+<td><code>[:graph:]</code></td>
+<td>除了空白字节 (空白键与 [Tab] 按键) 外的其他所有按键</td>
+</tr>
+<tr>
+<td><code>[:lower:]</code></td>
+<td>代表小写字节，亦即 a-z</td>
+</tr>
+<tr>
+<td><code>[:print:]</code></td>
+<td>代表任何可以被列印出来的字节</td>
+</tr>
+<tr>
+<td><code>[:punct:]</code></td>
+<td>代表标点符号 (punctuation symbol)，亦即：” ‘ ? ! ; : # $…</td>
+</tr>
+<tr>
+<td><code>[:upper:]</code></td>
+<td>代表大写字节，亦即 A-Z</td>
+</tr>
+<tr>
+<td><code>[:space:]</code></td>
+<td>任何会产生空白的字节，包括空白键, [Tab], CR 等等</td>
+</tr>
+<tr>
+<td><code>[:xdigit:]</code></td>
+<td>代表 16 进位的数字类型，因此包括： 0-9, A-F, a-f 的数字与字节</td>
+</tr>
+</tbody></table>
+<p>注意：之所以要使用特殊符号，是因为<code>[a-z]</code>不是在所有情况下都管用，这还与主机当前的语系有关，即设置在<code>LANG</code>环境变量的值，<code>zh_CN.UTF-8</code>的<code>[a-z]</code>即为所有小写字母，其它语系可能是大小写交替的如，<code>a A b B...z Z</code>，<code>[a-z]</code>中就可能包含大写字母。所以在使用<code>[a-z]</code>时请确保当前语系的影响，使用<code>[:lower:]</code>则不会有这个问题。</p>
+<ul>
+<li>排除字符</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;hello|aloha&#x27;</span> | <span class="keyword">grep</span> <span class="string">&#x27;[^o]&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_exclude.png" alt="grep exclude"></p>
+<p>注意:当<code>^</code>放到中括号内为排除字符，否则表示行首。</p>
+<h4 id="使用扩展正则表达式，ERE"><a href="#使用扩展正则表达式，ERE" class="headerlink" title="使用扩展正则表达式，ERE"></a>使用扩展正则表达式，ERE</h4><p>要通过<code>grep</code>使用扩展正则表达式需要加上<code>-E</code>参数，或使用<code>egrep</code>。</p>
+<ul>
+<li>数量</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"># 只匹配<span class="string">&quot;zo&quot;</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;zero\nzo\nzoo&#x27;</span> | <span class="keyword">grep</span> -E <span class="string">&#x27;zo&#123;1&#125;&#x27;</span></span><br><span class="line"># 匹配以<span class="string">&quot;zo&quot;</span>开头的所有单词</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;zero\nzo\nzoo&#x27;</span> | <span class="keyword">grep</span> -E <span class="string">&#x27;zo&#123;1,&#125;&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_e.png" alt="grep e"></p>
+<ul>
+<li>选择</li>
+</ul>
+<figure class="highlight sml"><table><tr><td class="code"><pre><span class="line"># 匹配<span class="string">&quot;www.baidu.com&quot;</span>和<span class="string">&quot;www.google.com&quot;</span></span><br><span class="line">echo <span class="symbol">&#x27;www</span>.qq.com\nwww.baidu.com\nwww.google.com&#x27; | grep -<span class="type">E</span> <span class="symbol">&#x27;www</span>\.(baidu|google)\.com&#x27;</span><br><span class="line"># 或者匹配不包含<span class="string">&quot;baidu&quot;</span>的内容</span><br><span class="line">echo <span class="symbol">&#x27;www</span>.qq.com\nwww.baidu.com\nwww.google.com&#x27; | grep -<span class="type">Ev</span> <span class="symbol">&#x27;www</span>\.baidu\.com&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/uploads/in-post/grep/grep_ev.png" alt="grep ev"></p>
+<p>注意：因为<code>.</code>号有特殊含义，所以需要转义。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Grep</tag>
       </tags>
   </entry>
   <entry>
@@ -2251,120 +2365,6 @@
       </categories>
       <tags>
         <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>七种基本排序算法</title>
-    <url>/2016/03/28/2016-03-28-seven-sort/</url>
-    <content><![CDATA[<blockquote>
-<p>“排序算法可以说是数据结构与算法当中最为基础的部分”</p>
-</blockquote>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>排序算法可以说是数据结构与算法当中最为基础的部分，针对的是数组这一数据结构。将数组中的无序数据元素通过算法整理为有序的数据元素即为排序。</p>
-<span id="more"></span>
-
-<h3 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>简介：</p>
-<p><code>冒泡排序</code>（Bubble Sort）是一种简单的排序算法。它重复地访问要排序的数列，将每次访问的最大值“浮”到数组尾部。</p>
-<p>步骤如下：</p>
-<ol>
-<li>   比较相邻的元素。如果第一个比第二个大，就交换他们两个，直到把最大的元素放到数组尾部。</li>
-<li>   遍历长度减一，对剩下的元素从头重复以上的步骤。</li>
-<li>   直到没有任何一对数字需要比较时完成。</li>
-</ol>
-<!--break-->
-
-<p>实现代码：</p>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">def</span> <span class="selector-tag">bubbleSort</span>(arr):</span><br><span class="line">    <span class="selector-tag">for</span> <span class="selector-tag">i</span> <span class="selector-tag">in</span> <span class="selector-tag">range</span>(len(arr))<span class="selector-attr">[::-1]</span>:</span><br><span class="line">        <span class="selector-tag">for</span> <span class="selector-tag">j</span> <span class="selector-tag">in</span> <span class="selector-tag">range</span>(i):</span><br><span class="line">            <span class="selector-tag">if</span> <span class="selector-tag">arr</span><span class="selector-attr">[j]</span> &gt; <span class="selector-tag">arr</span><span class="selector-attr">[j + 1]</span>:</span><br><span class="line">                <span class="selector-tag">swap</span>(arr[j], arr[j + <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<p><img data-src="/uploads/in-post/bubbleSort.gif" alt="冒泡排序"></p>
-<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>简介：</p>
-<p><code>选择排序</code>(Selection sort)是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小元素，存放到排序序列的起始位置，重复上述过程，直到所有元素均排序完毕。</p>
-<p>步骤如下：</p>
-<ol>
-<li>   遍历数组，找到最小的元素，将其置于数组起始位置。</li>
-<li>   从上次最小元素存放的后一个元素开始遍历至数组尾，将最小的元素置于开始处。</li>
-<li>   重复上述过程，直到元素排序完毕。</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">selectSort</span>(<span class="params">arr</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        <span class="built_in">min</span> = i</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, <span class="built_in">len</span>(arr)):</span><br><span class="line">            <span class="keyword">if</span> arr[j] &lt; arr[<span class="built_in">min</span>]:</span><br><span class="line">                <span class="built_in">min</span> = j</span><br><span class="line">        swap(arr[i], arr[<span class="built_in">min</span>])</span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<p><img data-src="/uploads/in-post/selectSort.gif" alt="选择排序"></p>
-<h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>简介：</p>
-<p><code>插入排序</code>（Insertion Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
-<p>步骤如下：</p>
-<ol>
-<li>从第一个元素开始，该元素可以认为已经被排序</li>
-<li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
-<li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
-<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</li>
-<li>将新元素插入到该位置中</li>
-<li>重复步骤2</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">def insertSort(arr):</span><br><span class="line">    <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        tmp = arr[i]</span><br><span class="line">        <span class="keyword">pre</span> = i - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">pre</span> &gt;= <span class="number">0</span> <span class="built_in">and</span> arr[<span class="keyword">pre</span>] &gt; tmp:</span><br><span class="line">            arr[<span class="keyword">pre</span> + <span class="number">1</span>] = arr[<span class="keyword">pre</span>]</span><br><span class="line">            <span class="keyword">pre</span> -= <span class="number">1</span></span><br><span class="line">        arr[<span class="keyword">pre</span> + <span class="number">1</span>] = tmp</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="高级排序"><a href="#高级排序" class="headerlink" title="高级排序"></a>高级排序</h3><h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>简介：</p>
-<p><code>希尔排序</code>(Shell Sort)是插入排序的一种。也称缩小增量排序，是直接插入排序算法的一种更高效的改进版本。希尔排序是非稳定排序算法。</p>
-<p>步骤如下：</p>
-<ol>
-<li>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；</li>
-<li>随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">def insertSort(arr):</span><br><span class="line">    <span class="keyword">k</span> = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">k</span> &lt; <span class="built_in">len</span>(arr) / <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">k</span> = <span class="number">3</span> * h + <span class="number">1</span> //此处为Knuth算法</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">k</span> &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i in <span class="built_in">range</span>(<span class="keyword">k</span>, <span class="built_in">len</span>(arr)):</span><br><span class="line">            tmp = arr[i]</span><br><span class="line">            <span class="keyword">pre</span> = i - <span class="keyword">k</span></span><br><span class="line">            <span class="keyword">while</span> <span class="keyword">pre</span> &gt;= <span class="number">0</span> <span class="built_in">and</span> arr[<span class="keyword">pre</span>] &gt; tmp:</span><br><span class="line">                arr[<span class="keyword">pre</span> + <span class="keyword">k</span>] = arr[<span class="keyword">pre</span>]</span><br><span class="line">                <span class="keyword">pre</span> -= <span class="keyword">k</span></span><br><span class="line">            arr[<span class="keyword">pre</span> + <span class="keyword">k</span>] = tmp</span><br><span class="line">        <span class="keyword">k</span> = (<span class="keyword">k</span> - <span class="number">1</span>) / <span class="number">3</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<p><img data-src="/uploads/in-post/shellSort.gif" alt="希尔排序"></p>
-<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>简介：</p>
-<p><code>快速排序</code>（Quicksort）是对冒泡排序的一种改进。它的基本思想是：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
-<p>步骤如下：</p>
-<p>步骤：</p>
-<ol>
-<li>从数列中挑出一个元素，称为 “基准”（pivot），</li>
-<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作。</li>
-<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">def <span class="title">quickSort</span><span class="params">(arr, low, high)</span>:</span></span><br><span class="line"><span class="function">    if low &lt; high:</span></span><br><span class="line"><span class="function">        pivot =</span> <span class="built_in">partition</span>(arr, low, high)</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, low, pivot - <span class="number">1</span>)</span><br><span class="line">        <span class="built_in">quickSort</span>(arr, pivot + <span class="number">1</span>, high)</span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">partition</span><span class="params">(arr, low, high)</span>:</span></span><br><span class="line"><span class="function">    pivot =</span> arr[low]</span><br><span class="line">    <span class="keyword">while</span> low &lt; high:</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[high] &gt;= pivot:</span><br><span class="line">            high -= <span class="number">1</span></span><br><span class="line">        arr[low] = arr[high]</span><br><span class="line">        <span class="keyword">while</span> low &lt; high <span class="keyword">and</span> arr[low] &lt;= pivot:</span><br><span class="line">            low += <span class="number">1</span></span><br><span class="line">        arr[high] = arr[low]</span><br><span class="line">    arr[low] = pivot</span><br><span class="line">    <span class="keyword">return</span> low</span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<p><img data-src="/uploads/in-post/quickSort.gif" alt="快速排序"></p>
-<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>简介：</p>
-<p><code>归并排序</code>(Merge Sort)是建立在归并操作上的一种有效的排序算法,该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。</p>
-<p>步骤如下：</p>
-<ol>
-<li>申请空间，创建两个数组，长度分别为两个有序数组的长度</li>
-<li>设定两个指针，最初位置分别为两个已经排序序列的起始位置</li>
-<li>比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置</li>
-<li>重复步骤3直到某一指针达到序列尾</li>
-<li>将另一序列剩下的所有元素直接复制到合并序列尾</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">def mergeSort(arr, low, high):</span><br><span class="line">    <span class="keyword">if</span> low &lt; high:</span><br><span class="line">        <span class="keyword">mid</span> = low + (high - low) / <span class="number">2</span></span><br><span class="line">        mergeSort(arr, low, <span class="keyword">mid</span>)</span><br><span class="line">        mergeSort(arr, <span class="keyword">mid</span> + <span class="number">1</span>, high)</span><br><span class="line">        <span class="literal">return</span> <span class="built_in">merge</span>(arr, low, <span class="keyword">mid</span>, high)</span><br><span class="line"></span><br><span class="line">def <span class="built_in">merge</span>(arr, low, <span class="keyword">mid</span>, high):</span><br><span class="line">    leftArr = arr[low : <span class="keyword">mid</span> + <span class="number">1</span>]</span><br><span class="line">    rightArr = arr[<span class="keyword">mid</span> + <span class="number">1</span> : high + <span class="number">1</span>]</span><br><span class="line">    i, j, m = <span class="number">0</span>, <span class="number">0</span>, low</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(leftArr) <span class="keyword">and</span> j &lt; <span class="built_in">len</span>(rightArr)：</span><br><span class="line">        <span class="keyword">if</span> leftArr[i] &lt; rightArr[j]:</span><br><span class="line">            arr[m] = leftArr[i]</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            arr[m] = rightArr[j]</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(leftArr):</span><br><span class="line">        arr[m] = leftArr[i]</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(rightArr):</span><br><span class="line">        arr[m] = rightArr[j]</span><br><span class="line">        m += <span class="number">1</span></span><br><span class="line">        j += <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p>实现效果：</p>
-<p><img data-src="/uploads/in-post/mergeSort.gif" alt="归并排序"></p>
-<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><p>简介：</p>
-<p>堆积排序（Heap Sort）是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
-<p>步骤如下：</p>
-<ol>
-<li>按堆的定义将数组R[0..n]调整为堆（这个过程称为创建初始堆），交换R[0]和R[n]；</li>
-<li>将R[0..n-1]调整为堆，交换R[0]和R[n-1]；</li>
-<li>重复上述过程，直到交换了R[0]和R[1]为止。</li>
-</ol>
-<p>实现代码：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">def</span> heapSort(arr):</span><br><span class="line">    <span class="attribute">for</span> i in range(len(arr) / <span class="number">2</span>)[::-<span class="number">1</span>]:</span><br><span class="line">        <span class="attribute">heapAdjust</span>(arr, i, len(arr))</span><br><span class="line"></span><br><span class="line">    <span class="attribute">for</span> i in range(len(arr) - <span class="number">1</span>)[::-<span class="number">1</span>]:</span><br><span class="line">        <span class="attribute">swap</span>(arr[i], arr[<span class="number">0</span>])</span><br><span class="line">        <span class="attribute">heapAdjust</span>(arr, <span class="number">0</span>, i)</span><br><span class="line"></span><br><span class="line"><span class="attribute">def</span> heapAdjust(arr, parent, length)：</span><br><span class="line">    <span class="attribute">tmp</span> = arr[parent]</span><br><span class="line">    <span class="attribute">child</span> = <span class="number">2</span> * parent + <span class="number">1</span></span><br><span class="line">    <span class="attribute">while</span> child &lt; length:</span><br><span class="line">        <span class="attribute">if</span> child + <span class="number">1</span> &lt; length and arr[child + <span class="number">1</span>] &gt; arr[child]:</span><br><span class="line">            <span class="attribute">child</span> += <span class="number">1</span></span><br><span class="line">        <span class="attribute">if</span> arr[child] &lt;= tmp:</span><br><span class="line">            <span class="attribute">break</span></span><br><span class="line">        <span class="attribute">arr</span>[parent] = arr[child]</span><br><span class="line">        <span class="attribute">parent</span> = child</span><br><span class="line">        <span class="attribute">child</span> = <span class="number">2</span> * parent + <span class="number">1</span></span><br><span class="line">        <span class="attribute">arr</span>[parent] = tmp</span><br></pre></td></tr></table></figure>
-
-<p>效果图：</p>
-<p><img data-src="/uploads/in-post/heapSort.gif" alt="堆排序"></p>
-<h3 id="各排序算法时间空间复杂度"><a href="#各排序算法时间空间复杂度" class="headerlink" title="各排序算法时间空间复杂度"></a>各排序算法时间空间复杂度</h3><p><img data-src="/uploads/in-post/sortTimeComplexity.png"></p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
       </tags>
   </entry>
   <entry>
@@ -3128,9 +3128,9 @@
       </tags>
   </entry>
   <entry>
-    <title>双向反馈法</title>
-    <url>/2020/03/15/2020-03-15-double-side-feedback/</url>
-    <content><![CDATA[<p>当我们需要对他人的工作做出评价的时候，最好使用双向反馈法——既要给出激励性反馈，又要给出建设性反馈，每种反馈至少三条。激励性反馈是指找出其做得好的点，给出反馈，建设性反馈即找出可以改进的点，进行反馈。双向反馈法的好处是可以帮助我们更全面的考虑，避免出现片面的评价，同时又能为对方提出中肯的建议。</p>
+    <title>BBS 法则</title>
+    <url>/2020/03/06/2020-03-06-bbs-principle/</url>
+    <content><![CDATA[<p>这周学习到了一个很好的方法论【BBS】，分别是 learn from the Best，Basic way 和 Stop doing list，首先我们需要制定自己的 Stop doing list，这样才能够让自己不偏离正确的方向，Basic way 需要我们学习几种最基本的做事方法，然后应用在日常工作中，可以提升我们的工作效率，最后我们还要 learn from the Best，向身边或者业界的优秀者学习，学习他们的工作和思考方法，让自己不断进步。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3140,9 +3140,9 @@
       </tags>
   </entry>
   <entry>
-    <title>BBS 法则</title>
-    <url>/2020/03/06/2020-03-06-bbs-principle/</url>
-    <content><![CDATA[<p>这周学习到了一个很好的方法论【BBS】，分别是 learn from the Best，Basic way 和 Stop doing list，首先我们需要制定自己的 Stop doing list，这样才能够让自己不偏离正确的方向，Basic way 需要我们学习几种最基本的做事方法，然后应用在日常工作中，可以提升我们的工作效率，最后我们还要 learn from the Best，向身边或者业界的优秀者学习，学习他们的工作和思考方法，让自己不断进步。</p>
+    <title>双向反馈法</title>
+    <url>/2020/03/15/2020-03-15-double-side-feedback/</url>
+    <content><![CDATA[<p>当我们需要对他人的工作做出评价的时候，最好使用双向反馈法——既要给出激励性反馈，又要给出建设性反馈，每种反馈至少三条。激励性反馈是指找出其做得好的点，给出反馈，建设性反馈即找出可以改进的点，进行反馈。双向反馈法的好处是可以帮助我们更全面的考虑，避免出现片面的评价，同时又能为对方提出中肯的建议。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3200,18 +3200,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于我们的上下文切换</title>
-    <url>/2020/05/09/2020-05-09-context-switch/</url>
-    <content><![CDATA[<p>就像电脑的CPU一样，我们做事时，其实也是有上下文的，如果不断被其他事情打断，那我们切换回原来上下文的成本就会非常高，会极大的降低我们的工作效率，所以集中精力免打扰的完整的做完一件事情才能最大限度的利用好我们的精力和能力。应用在我们工作中，一天中可以在某几段需要集中的整块时间（oncall当天可能要做好没有整块时间的打算），开启勿扰模式，减少被打断的次数，才可能更高效的完成设计或者编写代码，提升整体的任务完成效率</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>个人思考</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>立即行动</title>
     <url>/2020/04/26/2020-04-26-act-immediately/</url>
     <content><![CDATA[<p>当你决定做一件事情时，你必须在72小时之内行动起来，否则你可能永远不会再做了。这是前两天从一本书上学习到的一句话，觉得很有道理，无关乎是不是三分钟热度，因为我们处在一个信息爆炸的时代，每天又在不断的被信息淹没，如果决定做一件事时不马上行动起来，很可能就会被后来的信息淹没。至少当我们有一个想法时，赶紧记录下来，然后根据四象限模型放到对应的优先级中，这样以后才有迹可循。我理解这句话的要点就是提高执行力，立即行动起来。</p>
@@ -3224,9 +3212,21 @@
       </tags>
   </entry>
   <entry>
-    <title>逆商</title>
-    <url>/2020/05/29/2020-05-29-anti-intelligence/</url>
-    <content><![CDATA[<p>如果把面对逆境比作攀登山峰，我们可能成为三种角色：放弃者，扎营者，攀登者，放弃者很好理解，遇到逆境便产生退缩的想法，屈服于逆境，觉得自己不行；扎营者是克服了几个逆境之后，觉得自己满足了，便不再举步向前，原地扎营；攀登者用于面对和发现逆境，并不断的克服，不断向前。大部分人都是扎营者，但我们都期望攀登者。遭遇困难时，我们可以使用夸张的方式告诉自己遇到了逆境，例如在脑海里告诉自己“叮！逆境来了”，这样我们便不会畏惧它，而是去想办法克服它，不断向前，我们终将成为攀登者。</p>
+    <title>关于我们的上下文切换</title>
+    <url>/2020/05/09/2020-05-09-context-switch/</url>
+    <content><![CDATA[<p>就像电脑的CPU一样，我们做事时，其实也是有上下文的，如果不断被其他事情打断，那我们切换回原来上下文的成本就会非常高，会极大的降低我们的工作效率，所以集中精力免打扰的完整的做完一件事情才能最大限度的利用好我们的精力和能力。应用在我们工作中，一天中可以在某几段需要集中的整块时间（oncall当天可能要做好没有整块时间的打算），开启勿扰模式，减少被打断的次数，才可能更高效的完成设计或者编写代码，提升整体的任务完成效率</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>非暴力沟通</title>
+    <url>/2020/05/15/2020-05-15-non-violence-communicate/</url>
+    <content><![CDATA[<p>本周阅读了《非暴力沟通》了解到我们周围其实充满了无意识的“暴力沟通”，比如直言“你这个方案不对”，“你应该这么这么做”等等，这种沟通很可能导致对方有很不好的感受，不利于后续的沟通。所以在沟通之前我们可以先把谈话目标说出来，然后采用四步法进行沟通：讲事实，讲感受，讲原因，讲需求。例如：妻子对丈夫说，我想和你谈谈你回家晚的情况，这周你有四次在22点之后回家（<strong>讲事实</strong>，不要添加主观感受，例如“经常回家晚”），这样让我感到很孤单（<strong>讲感受</strong>），因为你不在家我没人可以说话，也有点害怕（<strong>讲原因</strong>），我希望你今后尽量在22点之前回家（<strong>讲需求</strong>，明确的提出需求）。先提出谈话目标，可以让对方提前知道接下来要讨论的要点，然后通过<strong>事实，感受，原因，需求</strong>一步步让对方了解到自己做的事情造成的影响，应该如何去做，而不会引起情绪上的爆发。当然，非暴力沟通也不是适用于所有的场景，使用前需要视谈论的话题而定。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3236,9 +3236,9 @@
       </tags>
   </entry>
   <entry>
-    <title>非暴力沟通</title>
-    <url>/2020/05/15/2020-05-15-non-violence-communicate/</url>
-    <content><![CDATA[<p>本周阅读了《非暴力沟通》了解到我们周围其实充满了无意识的“暴力沟通”，比如直言“你这个方案不对”，“你应该这么这么做”等等，这种沟通很可能导致对方有很不好的感受，不利于后续的沟通。所以在沟通之前我们可以先把谈话目标说出来，然后采用四步法进行沟通：讲事实，讲感受，讲原因，讲需求。例如：妻子对丈夫说，我想和你谈谈你回家晚的情况，这周你有四次在22点之后回家（<strong>讲事实</strong>，不要添加主观感受，例如“经常回家晚”），这样让我感到很孤单（<strong>讲感受</strong>），因为你不在家我没人可以说话，也有点害怕（<strong>讲原因</strong>），我希望你今后尽量在22点之前回家（<strong>讲需求</strong>，明确的提出需求）。先提出谈话目标，可以让对方提前知道接下来要讨论的要点，然后通过<strong>事实，感受，原因，需求</strong>一步步让对方了解到自己做的事情造成的影响，应该如何去做，而不会引起情绪上的爆发。当然，非暴力沟通也不是适用于所有的场景，使用前需要视谈论的话题而定。</p>
+    <title>逆商</title>
+    <url>/2020/05/29/2020-05-29-anti-intelligence/</url>
+    <content><![CDATA[<p>如果把面对逆境比作攀登山峰，我们可能成为三种角色：放弃者，扎营者，攀登者，放弃者很好理解，遇到逆境便产生退缩的想法，屈服于逆境，觉得自己不行；扎营者是克服了几个逆境之后，觉得自己满足了，便不再举步向前，原地扎营；攀登者用于面对和发现逆境，并不断的克服，不断向前。大部分人都是扎营者，但我们都期望攀登者。遭遇困难时，我们可以使用夸张的方式告诉自己遇到了逆境，例如在脑海里告诉自己“叮！逆境来了”，这样我们便不会畏惧它，而是去想办法克服它，不断向前，我们终将成为攀登者。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3483,18 +3483,6 @@
       </tags>
   </entry>
   <entry>
-    <title>为什么需要积极主动</title>
-    <url>/2020/10/26/2020-10-26-be-positive-willing/</url>
-    <content><![CDATA[<p>以前在穿山甲的时候，有一句话其实说的很对：「成长是个人的事情」，正对应了那句老话「师傅领进门，修行在个人」，我们的 mentor 或者 leader，是我们成长道路上的领路人，可以给我们指出错误，帮助我们调整方向，但是他们是没有义务也没有办法像父母一样拖着拽着让我们进步的，每个人都有自己需要处理的事情，不可能时时刻刻关注到其他人的状态。《刻意练习》里面提到过，练习最重要的步骤就是练习之后需要有即时反馈，让自己能够适时调整错误的姿态和动作，所以积极主动地向周围的人寻求反馈是很重要的，无论是平级还是 leader，都能够为我们提出相应的反馈，这些反馈对于我们的成长是至关重要的。此外，我们还需要更加积极主动的参与到每一份工作当中，从中汲取成长的养分，并主动进行思考，推陈出新。</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>个人思考</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>读书让我们进步，实践方能巩固</title>
     <url>/2020/10/13/2020-10-13-reading-and-practise/</url>
     <content><![CDATA[<p>书籍凝聚了各类高手关于他们对于这个世界或者某些事件的理解，我们可以更加高效的从中获取知识，而不用通过日常生活中自己去慢慢踩坑总结，可以极大提高我们获取信息的效率。</p>
@@ -3510,16 +3498,28 @@
       </tags>
   </entry>
   <entry>
-    <title>提升自己思考问题的 level</title>
-    <url>/2020/11/02/2020-11-02-upward-thinking-level/</url>
-    <content><![CDATA[<p>上次和育亮 one one 时，他提到要提升自己思考问题的层次，不要仅仅思考如何解决当前的问题，这样会不断的陷入细节当中，而应该提升关注问题的层次，抽象出来，理解业务的痛点，当理解并解决了业务的痛点之后，还应该举一反三，更深入的思考是否其他业务也可能存在类似的痛点，如何更好地去解决这类共同的问题。再往上一层，还应该能够考虑到如何协调资源以落地方案。再往上，还应该考虑到业界是如何解决此类问题的，能否辅助我们解决问题，我们今后应该如何继续推进系统的演进等等问题，提升自己的 insight。</p>
-<p>总结下来就是，不要仅仅关注如何解决当前的问题，要理解业务痛点举一反三，并能够考虑如何推动方案落地，还需要考虑方案的后续发展演进并持续推动。</p>
+    <title>从曾国藩身上我们可以学习到的东西</title>
+    <url>/2020/10/15/2020-10-15-learn-from-zengguofan/</url>
+    <content><![CDATA[<p>曾国藩，我们耳熟能详的一位伟人，组建湘军、平叛太平天国之乱、剿灭捻军、兴办洋务运动，为晚清朝廷立下了赫赫功勋，在我的眼中他一直就是一个有着丰功伟绩，可望而不可及的一位人物。但是张宏杰先生的《曾国藩的正面与侧面》经过严密的考证和整理，从曾国藩日常生活和工作中的一件件小事讲起，将曾国藩一生的故事娓娓道来，将曾国藩这一位“圣人”的形象有血有肉的，立体而丰富的展现在了我们的面前。</p>
+<p>为什么曾国藩的事迹总是能够为人们所称道，因为他只是一个智商中等，集各种矛盾于一体的人，就像我们每一位普通人一样，没有超高的智商，没有强硬的后台，靠的是自己的努力，最终成为了一位伟人，这样的成长路径对于普通人来说是可复制的可达到的。</p>
+<p>但同时他的成功又不是那么容易复制和达到的，他的性格中有四个要点，让他能够逐步的向上走，缓慢的到达巅峰，这几点真的不是一般人可以轻易做到的。</p>
+<p>他能获得成功最重要的一点就是“有恒”，琦玉老师（一拳超人）为什么那么强？贵在“有恒”，曾国藩更是这样，他的“有恒”体现在他的日课上，在日课上他记录了自己每一天的所作所为，包括各种糗事和不足，从而不断反思自己做的不好的地方，及时更正，然后坚持做得好的，这和《掌控习惯》所提出的“习惯是自我提高的复利”不谋而合，他几十年如一日的不断更正自己的错误，让自己不断变得更加优秀。我司的“始终创业”这一点中，“始终”二字便是“有恒”的一个最佳体现，能够一直以一家创业公司的心态要求自己，能自驱，能坚持，能有韧性的不断为之持续的努力，坚持稳步前进。</p>
+<p>除了有恒之外他还立志高远，他三十岁之后立志成为“完人”，“内圣外王”，内，俯仰无愧于天地，光明澄澈，不苟且，不退缩；外，经邦治国，建功立业，充分实现自我价值，并一直以“圣人”的言行要求自己，这个难以达到的目标却是驱使他一直不断向前的最大动力，是他面对艰难困苦、诱惑而不停步的指路明灯。这和我们的 OKR 和“追求极致”是多么的契合！我们在工作中也应该像曾国藩一样，以终为始，定下一个长远的目标作为我们的指路明灯，能够去追求长期价值而不是被当下所左右。此外当前所做的每一件事都应该考虑的更加全面，对每一个问题都能刨根问底，每一次思考都能更加贴近本质，追求更高的标准和结果，以求达到“内圣外王”的境界。</p>
+<p>还有一点是十分重要的，那就是他遇到挫折能够触底反弹，而不是被困难打倒，人生的五次大堑：科举被悬牌批评，画图甚陋被同事耻笑，批评皇帝遭反驳和挑战“大名大位”者被排挤，长沙“打脱牙和血吞”，江西之困“积泪涨江”，每一件都对他产生了巨大的影响，他在遭受挫折时，想到的不是抱怨，而是憋着一股气奋起向上，让他人刮目相看。其中最重要的一次是在江西去为父丁忧的时候逼迫皇帝给实权失败，在家中不断反思自己以前的做法，让他彻彻底底的变换了自己对人对事的姿态，不再众人皆醉我独醒，而是选择去“和光同尘”，让自己逐渐有了可以做大事的条件。“务实敢为”中也提到了这一点，我们要勇于开拓创新，有担当不畏艰难，敢于失败，并从失败中吸取经验，触底反弹，在不断快速试错迭代中修正我们的方向，最终达成更高的目标。</p>
+<p>另外他交友广泛，对待朋友十分真诚，所以能够获得众多臂助，这就是“坦诚清晰”和“开放谦逊”呀，人前人后一致，能够表达自己的真实想法，犯错了勇于承认和改正，能够善意假设，信任对方，久而久之就能够建立长期的友好合作关系，更加快速的推动事情的进展。</p>
+<p>曾国藩当时很多的做法都是为了顺应官场顺应时代的无奈之举，处于当今时代，我们能够从曾国藩身上学习到的最重要的几点：</p>
+<ol>
+<li>我们要立志高远，这样我们才能够不在小诱惑和小目标前止步</li>
+<li>为了达到高远的目标，我们需要不断坚持，“有恒”地去为达到目标不断努力</li>
+<li>一个人要坚持下来是很难的，我们有时还需要借助外力来监督自己，让身边的朋友或家人看到并督促自己</li>
+<li>要多交朋友，用“诚，敬，恕，浑”的方式来交朋友，待人以诚，尊敬他人，宽恕他人，不嫉妒和过于计较，拓宽自己的人脉，多一个朋友多一条路。</li>
+</ol>
 ]]></content>
       <categories>
         <category>思考与感想</category>
       </categories>
       <tags>
-        <tag>个人思考</tag>
+        <tag>阅读感想</tag>
       </tags>
   </entry>
   <entry>
@@ -3562,6 +3562,31 @@
       </tags>
   </entry>
   <entry>
+    <title>为什么需要积极主动</title>
+    <url>/2020/10/26/2020-10-26-be-positive-willing/</url>
+    <content><![CDATA[<p>以前在穿山甲的时候，有一句话其实说的很对：「成长是个人的事情」，正对应了那句老话「师傅领进门，修行在个人」，我们的 mentor 或者 leader，是我们成长道路上的领路人，可以给我们指出错误，帮助我们调整方向，但是他们是没有义务也没有办法像父母一样拖着拽着让我们进步的，每个人都有自己需要处理的事情，不可能时时刻刻关注到其他人的状态。《刻意练习》里面提到过，练习最重要的步骤就是练习之后需要有即时反馈，让自己能够适时调整错误的姿态和动作，所以积极主动地向周围的人寻求反馈是很重要的，无论是平级还是 leader，都能够为我们提出相应的反馈，这些反馈对于我们的成长是至关重要的。此外，我们还需要更加积极主动的参与到每一份工作当中，从中汲取成长的养分，并主动进行思考，推陈出新。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提升自己思考问题的 level</title>
+    <url>/2020/11/02/2020-11-02-upward-thinking-level/</url>
+    <content><![CDATA[<p>上次和育亮 one one 时，他提到要提升自己思考问题的层次，不要仅仅思考如何解决当前的问题，这样会不断的陷入细节当中，而应该提升关注问题的层次，抽象出来，理解业务的痛点，当理解并解决了业务的痛点之后，还应该举一反三，更深入的思考是否其他业务也可能存在类似的痛点，如何更好地去解决这类共同的问题。再往上一层，还应该能够考虑到如何协调资源以落地方案。再往上，还应该考虑到业界是如何解决此类问题的，能否辅助我们解决问题，我们今后应该如何继续推进系统的演进等等问题，提升自己的 insight。</p>
+<p>总结下来就是，不要仅仅关注如何解决当前的问题，要理解业务痛点举一反三，并能够考虑如何推动方案落地，还需要考虑方案的后续发展演进并持续推动。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何编写一篇产品设计文档之我见</title>
     <url>/2020/11/08/2020-11-08-how-to-write-product-design-document/</url>
     <content><![CDATA[<p>最近编写产品设计文档时，发现了一些方法论，在这里分享出来。首先，要写一篇产品设计文档时，要明确产品设计的背景是什么，是由于什么问题无法解决才需要这个产品，这个产品针对的用户是哪些人，产品设计出来是要帮他们在什么场景下解决什么问题，为了解决这些问题我们需要提供哪些核心能力，这些核心能力有哪些使用场景，产品要如何呈现才能更好的让用户使用，最后才是详细的架构和技术设计，总结下来一般框架为：</p>
@@ -3580,31 +3605,6 @@
       </categories>
       <tags>
         <tag>方法论</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>从曾国藩身上我们可以学习到的东西</title>
-    <url>/2020/10/15/2020-10-15-learn-from-zengguofan/</url>
-    <content><![CDATA[<p>曾国藩，我们耳熟能详的一位伟人，组建湘军、平叛太平天国之乱、剿灭捻军、兴办洋务运动，为晚清朝廷立下了赫赫功勋，在我的眼中他一直就是一个有着丰功伟绩，可望而不可及的一位人物。但是张宏杰先生的《曾国藩的正面与侧面》经过严密的考证和整理，从曾国藩日常生活和工作中的一件件小事讲起，将曾国藩一生的故事娓娓道来，将曾国藩这一位“圣人”的形象有血有肉的，立体而丰富的展现在了我们的面前。</p>
-<p>为什么曾国藩的事迹总是能够为人们所称道，因为他只是一个智商中等，集各种矛盾于一体的人，就像我们每一位普通人一样，没有超高的智商，没有强硬的后台，靠的是自己的努力，最终成为了一位伟人，这样的成长路径对于普通人来说是可复制的可达到的。</p>
-<p>但同时他的成功又不是那么容易复制和达到的，他的性格中有四个要点，让他能够逐步的向上走，缓慢的到达巅峰，这几点真的不是一般人可以轻易做到的。</p>
-<p>他能获得成功最重要的一点就是“有恒”，琦玉老师（一拳超人）为什么那么强？贵在“有恒”，曾国藩更是这样，他的“有恒”体现在他的日课上，在日课上他记录了自己每一天的所作所为，包括各种糗事和不足，从而不断反思自己做的不好的地方，及时更正，然后坚持做得好的，这和《掌控习惯》所提出的“习惯是自我提高的复利”不谋而合，他几十年如一日的不断更正自己的错误，让自己不断变得更加优秀。我司的“始终创业”这一点中，“始终”二字便是“有恒”的一个最佳体现，能够一直以一家创业公司的心态要求自己，能自驱，能坚持，能有韧性的不断为之持续的努力，坚持稳步前进。</p>
-<p>除了有恒之外他还立志高远，他三十岁之后立志成为“完人”，“内圣外王”，内，俯仰无愧于天地，光明澄澈，不苟且，不退缩；外，经邦治国，建功立业，充分实现自我价值，并一直以“圣人”的言行要求自己，这个难以达到的目标却是驱使他一直不断向前的最大动力，是他面对艰难困苦、诱惑而不停步的指路明灯。这和我们的 OKR 和“追求极致”是多么的契合！我们在工作中也应该像曾国藩一样，以终为始，定下一个长远的目标作为我们的指路明灯，能够去追求长期价值而不是被当下所左右。此外当前所做的每一件事都应该考虑的更加全面，对每一个问题都能刨根问底，每一次思考都能更加贴近本质，追求更高的标准和结果，以求达到“内圣外王”的境界。</p>
-<p>还有一点是十分重要的，那就是他遇到挫折能够触底反弹，而不是被困难打倒，人生的五次大堑：科举被悬牌批评，画图甚陋被同事耻笑，批评皇帝遭反驳和挑战“大名大位”者被排挤，长沙“打脱牙和血吞”，江西之困“积泪涨江”，每一件都对他产生了巨大的影响，他在遭受挫折时，想到的不是抱怨，而是憋着一股气奋起向上，让他人刮目相看。其中最重要的一次是在江西去为父丁忧的时候逼迫皇帝给实权失败，在家中不断反思自己以前的做法，让他彻彻底底的变换了自己对人对事的姿态，不再众人皆醉我独醒，而是选择去“和光同尘”，让自己逐渐有了可以做大事的条件。“务实敢为”中也提到了这一点，我们要勇于开拓创新，有担当不畏艰难，敢于失败，并从失败中吸取经验，触底反弹，在不断快速试错迭代中修正我们的方向，最终达成更高的目标。</p>
-<p>另外他交友广泛，对待朋友十分真诚，所以能够获得众多臂助，这就是“坦诚清晰”和“开放谦逊”呀，人前人后一致，能够表达自己的真实想法，犯错了勇于承认和改正，能够善意假设，信任对方，久而久之就能够建立长期的友好合作关系，更加快速的推动事情的进展。</p>
-<p>曾国藩当时很多的做法都是为了顺应官场顺应时代的无奈之举，处于当今时代，我们能够从曾国藩身上学习到的最重要的几点：</p>
-<ol>
-<li>我们要立志高远，这样我们才能够不在小诱惑和小目标前止步</li>
-<li>为了达到高远的目标，我们需要不断坚持，“有恒”地去为达到目标不断努力</li>
-<li>一个人要坚持下来是很难的，我们有时还需要借助外力来监督自己，让身边的朋友或家人看到并督促自己</li>
-<li>要多交朋友，用“诚，敬，恕，浑”的方式来交朋友，待人以诚，尊敬他人，宽恕他人，不嫉妒和过于计较，拓宽自己的人脉，多一个朋友多一条路。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>阅读感想</tag>
       </tags>
   </entry>
   <entry>
@@ -3665,7 +3665,7 @@
   </entry>
   <entry>
     <title>重要的 15.87%</title>
-    <url>/2020/11/30/2020-11-30-important-15.87%25/</url>
+    <url>/2020/11/30/2020-11-30-important-15.87-percent/</url>
     <content><![CDATA[<p>今天看到万维钢的一篇文章，讲到我们学习的三个区域：舒适区，学习区和恐慌区，在学习区我们可以达到心流状态，让我们的工作挑战和技能形成平衡，这也就需要我们要在已有的知识技能的基础上增加“意外”，也就是学习新的内容，这个新内容比例经过研究表明是 15.87%，当学习的新知识是这个比例时可以让人获得最快的成长，这个理论同样适用于人工智能学习。</p>
 <p>所以想要让我们的学习效率获得提升，最好是基于我们熟悉的内容，再增加 15% 左右的新内容，这样可以让我们的大脑获得更多学习能力的提升，达到学习效率最大化</p>
 ]]></content>
@@ -3829,6 +3829,19 @@
       </categories>
       <tags>
         <tag>方法论</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>方法论的作用</title>
+    <url>/2021/03/30/2021-03-30-about-methodology/</url>
+    <content><![CDATA[<p>今天周年庆的仪式上，一鸣提到了他觉得方法论可以说是没有什么作用，抽象相当于在思维上加杠杆，是一种思考上的偷懒，并列举了一个“赋能、闭环”的例子来论证这个事。我部分赞同他的观点，但我还是觉得方法论是有其意义和使用场景的，在我看来，方法论其实是一种对日常工作工程中的经验模型的一种总结，可以帮助我们快速找到一个正确的方式来应对某些事件，比如做预案的时候，需要考虑到哪些方面的内容才能做到不缺不漏，需要联系哪些方向的同学进行共同处理，这些一点一点沉淀下来的经验我认为是一种有用的方法论，是有其实际意义的，如果没有这种方法论进行参考，下次做预案的时候又要重新去想类似的内容，还可能会有缺漏。当然如果只按照方法论沉淀下来的既定内容做事，就会出现一鸣说的“思考上的偷懒”这个问题，所以我们不仅仅要按照方法论做事情，还应该去思考这个方法论是不是适用于当前的环境，是否有更加优化的方式来进行实施，能否把当前的方法论再进行优化，这样方法论不仅能够避免犯一些人为的错误，同样也能够锻炼我们的思维，做到思考上不偷懒。</p>
+<p>此外，我觉得方法论对于不同的人来说其实意义也是不一样的，对于已经有很多成熟经验的人来说，方法论可能会在一定程度上限制他的思想；但是对于小白或者首次经历做事的人来说，方法论可以指导他快速上手，有章法的做事，避免在并没有形成良好的工作习惯的时候犯下超过限制的错误。在框架内做事是能够防止犯大错的，总的来说方法论就像是一个框，在这个框里做事不容易犯错，但是无法做跳出这个框的事，当我们在这个框中已经形成了良好的习惯之后，我们却要敢于打破这个框，打破他的限制，让我们的思考和思想能够不断的发散，甚至于把这个框变得更大，限制更小，更加灵活。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
       </tags>
   </entry>
   <entry>
@@ -4119,35 +4132,6 @@
       </tags>
   </entry>
   <entry>
-    <title>如何提升记忆水平</title>
-    <url>/2021/05/15/2021-05-15-raise-memory-level/</url>
-    <content><![CDATA[<p>我们都知道记忆其实是大脑中神经回路的形成，分为短期记忆和长期记忆，通过重复我们可以把短期记忆变为长期记忆，艾宾浩斯遗忘曲线大家肯定也不陌生，费曼学习法是耳熟能详，今天看了一篇文章，提到了一些其他方式，感觉比较新奇，和大家分享一下：LTP 增强法，狮子记忆法</p>
-<ol>
-<li>LTP 增强法主要有三点：</li>
-</ol>
-<ul>
-<li>调动好奇心，让自己兴奋和期待，激发θ波，当θ波出现之后记忆效率会提升 十倍，我们平时应该也有这种感觉，背不感兴趣的课文很困难，但是背同样长度的歌词却轻松得多；</li>
-<li>用情绪波动辅助记忆，当我们快乐的时候记忆力会更好，莫扎特的音乐可以提升学习效率也是因为可以让人快乐，此外在记忆时带入情绪也可以让我们记得更牢，比如秦始皇公元前 221 年统一六国，死记硬背是比较困难的，但是如果我们想象一些秦始皇统一六国时坐在龙椅上是多么自豪，一下子就记下来了</li>
-<li>减少压力，压力会抑制 LTP（长时程增强作用），降低记忆效率，当我们压力大的时候可以坐直，深呼吸来降低压力</li>
-</ul>
-<ol start="2">
-<li>狮子记忆法：</li>
-</ol>
-<ul>
-<li>饥饿激素可以促进海马体产生 LTP，提升记忆力，而饭后血液会流向胃部，大脑供血效率降低，所以吃饭前饥饿时更适合学习，所以最好饭前学习而不是饭后学习</li>
-<li>走动或者坐在行驶的车上可以促进产生θ波提升记忆力，对于这点我表示存疑，因为没有实际的例子可以说服我相信这个说法。</li>
-<li>降低温度可以提升身体的危机感，促进血液循环，从而提升记忆力，这点相信我们都经历过，当温度比较高时我们会觉得很舒适而导致不想思考或者思考变慢</li>
-</ul>
-<p>除此之外，睡觉其实也是帮助我们整理记忆内容的好方法，把学习内容划分为一个一个小步骤，分阶段循序渐进的学更能加深我们的印象，当我们掌握了某种能力，再去学习类似的能力时更加容易进行能力迁移，所以学习最好的方式是先提升自己擅长的能力，扩大优势，然后在学习新知识的时候进行能力迁移。</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>阅读感想</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>垃圾回收和 Golang 内存管理</title>
     <url>/2021/05/06/2021-05-06-go-gc-memory/</url>
     <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>陆老师今天的课程从 GC 的发展历程讲起，渐次讲解了垃圾回收的流派以及基础的垃圾回收方法，从而引出 Golang 的 GC，向我们讲述了 Golang 垃圾回收的特点与触发时机，最终为我们简述了一些编程过程中可能使用到的工具和指标，帮助我们更快的找到和分析问题。</p>
@@ -4238,6 +4222,35 @@
       <tags>
         <tag>Golang</tag>
         <tag>垃圾回收</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何提升记忆水平</title>
+    <url>/2021/05/15/2021-05-15-raise-memory-level/</url>
+    <content><![CDATA[<p>我们都知道记忆其实是大脑中神经回路的形成，分为短期记忆和长期记忆，通过重复我们可以把短期记忆变为长期记忆，艾宾浩斯遗忘曲线大家肯定也不陌生，费曼学习法是耳熟能详，今天看了一篇文章，提到了一些其他方式，感觉比较新奇，和大家分享一下：LTP 增强法，狮子记忆法</p>
+<ol>
+<li>LTP 增强法主要有三点：</li>
+</ol>
+<ul>
+<li>调动好奇心，让自己兴奋和期待，激发θ波，当θ波出现之后记忆效率会提升 十倍，我们平时应该也有这种感觉，背不感兴趣的课文很困难，但是背同样长度的歌词却轻松得多；</li>
+<li>用情绪波动辅助记忆，当我们快乐的时候记忆力会更好，莫扎特的音乐可以提升学习效率也是因为可以让人快乐，此外在记忆时带入情绪也可以让我们记得更牢，比如秦始皇公元前 221 年统一六国，死记硬背是比较困难的，但是如果我们想象一些秦始皇统一六国时坐在龙椅上是多么自豪，一下子就记下来了</li>
+<li>减少压力，压力会抑制 LTP（长时程增强作用），降低记忆效率，当我们压力大的时候可以坐直，深呼吸来降低压力</li>
+</ul>
+<ol start="2">
+<li>狮子记忆法：</li>
+</ol>
+<ul>
+<li>饥饿激素可以促进海马体产生 LTP，提升记忆力，而饭后血液会流向胃部，大脑供血效率降低，所以吃饭前饥饿时更适合学习，所以最好饭前学习而不是饭后学习</li>
+<li>走动或者坐在行驶的车上可以促进产生θ波提升记忆力，对于这点我表示存疑，因为没有实际的例子可以说服我相信这个说法。</li>
+<li>降低温度可以提升身体的危机感，促进血液循环，从而提升记忆力，这点相信我们都经历过，当温度比较高时我们会觉得很舒适而导致不想思考或者思考变慢</li>
+</ul>
+<p>除此之外，睡觉其实也是帮助我们整理记忆内容的好方法，把学习内容划分为一个一个小步骤，分阶段循序渐进的学更能加深我们的印象，当我们掌握了某种能力，再去学习类似的能力时更加容易进行能力迁移，所以学习最好的方式是先提升自己擅长的能力，扩大优势，然后在学习新知识的时候进行能力迁移。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>阅读感想</tag>
       </tags>
   </entry>
   <entry>
@@ -4460,96 +4473,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Wenknows的利器</title>
-    <url>/2016/06/27/benefit_others/</url>
-    <content><![CDATA[<blockquote>
-<p>“工具和灵感，都是利器。当来自不同的领域，不同类型的创造者的工具和灵感互相碰撞的时候，才会迸发出更多的可能性。”</p>
-</blockquote>
-<p><strong>更新记录</strong></p>
-<p>2016-06-27  研二期间创建本篇博文<br>2018-05-21  更新工作，更新使用的软件</p>
-<h3 id="我和我所做的工作"><a href="#我和我所做的工作" class="headerlink" title="我和我所做的工作"></a>我和我所做的工作</h3><p>我是<code>Wenknows</code>，现在工作于小红书，职位为电商商户平台后台开发，平时喜欢运动和吃吃吃，业余弹弹尤克里里，喜欢听音乐和评书，喜爱编程，希望在程序猿的道路上能走得更远。</p>
-<h3 id="我当前使用的硬件"><a href="#我当前使用的硬件" class="headerlink" title="我当前使用的硬件"></a>我当前使用的硬件</h3><p>电脑是 14 年的 15 寸 MacBook Pro with Retina，i7处理器，16 GB RAM＋256 GB SSD。<br><img data-src="/uploads/in-post/macbookpro.png" alt="macbookpro"></p>
-<span id="more"></span>
-
-<p>键盘是Cherry的红轴机械键盘MX-BOARD 3.0，键盘比较软，按起来很舒服。</p>
-<p><img data-src="/uploads/in-post/cherry.jpg" alt="cherry"></p>
-<p>鼠标是罗技的G502。</p>
-<p><img data-src="/uploads/in-post/mouse.jpg" alt="Logitech"></p>
-<p>手机是小米 Note 3，照相很清晰，但是使用时偶尔会有卡顿。<br><img data-src="/uploads/in-post/xiaomi-mi-note3.jpg" alt="Xiaomi Note 3"></p>
-<p>喜欢听音乐，但算不上发烧友，有一个beats录音师的全包式耳机。<br><img data-src="/uploads/in-post/beats.png" alt="beats"></p>
-<h3 id="我当前使用的软件"><a href="#我当前使用的软件" class="headerlink" title="我当前使用的软件"></a>我当前使用的软件</h3><h4 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h4><h5 id="工作相关"><a href="#工作相关" class="headerlink" title="工作相关"></a>工作相关</h5><ul>
-<li>科学上网：<code>Tunnelblick</code>和<code>Lantern</code>，前者是免费的OpenVPN客户端，后者是直接科学上网的工具。</li>
-<li>Java：<code>IDEA</code>，感觉是目前最好用的Java IDE，功能强大，界面也很好看。</li>
-<li>Python：<code>Pycharm</code>，和IDEA是同一家公司的软件，同样有强大的功能，美观的界面。</li>
-<li>Terminal：<code>iTerm2</code>，好用的终端软件，在各大论坛也得到了大家的推荐。</li>
-<li>MySQL：<code>MySQL Workbench</code>，MySQL自带可视化管理软件，兼容性好，速度快。</li>
-<li>API：<code>Dash</code>，使用MAC的程序员应该都知道这款软件吧。</li>
-<li>论文：<code>EndNote</code>，各大论文网站都能生成EndNote格式的引用。</li>
-<li>FTP：<code>Cyberduck</code>，被大家广泛推荐的FTP客户端。</li>
-</ul>
-<h5 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h5><ul>
-<li>浏览器：<code>chrome</code> + 插件，插件安装了Adblock，vimium，Infinity，crxMouse Chrome Gestures，Tampermonkey + 百度网盘助手</li>
-<li>邮件：<code>MAC自带邮件</code>，兼容性好，速度飞快。</li>
-<li>虚拟机：<code>Parallels Desktop</code>，安装了win 8.1和Fedora 23.</li>
-<li>词典：<code>有道词典</code>。</li>
-<li>音乐播放器：<code>网易云音乐</code>，感觉它的推荐算法做得很好。</li>
-<li>视频播放器：<code>MPlayer</code>，QuickTime和射手播放器。</li>
-<li>视频下载：<code>硕鼠MAC</code>，可以下载搜狐等网站的视频。</li>
-<li>pdf阅读器：<code>预览</code>和<code>Skim</code>，优点是速度快，都有缺点就是不能创建目录，创建目录的话要用Adobe Acrobat。</li>
-<li>压缩软件：<code>keka</code>和<code>Unarchiver</code>，小巧而精致，也得到了大家的推荐。</li>
-<li>聊天软件：<code>QQ</code>，<code>微信</code>，应该都是必装的吧。</li>
-<li>下载软件：<code>迅雷</code>，<code>uTorrent</code>，迅雷虽然很流氓，但是速度确实快，uTorrent是用于下载bt资源的。</li>
-</ul>
-<h5 id="系统增强和提升效率"><a href="#系统增强和提升效率" class="headerlink" title="系统增强和提升效率"></a>系统增强和提升效率</h5><ul>
-<li>全局搜索：<code>Alfred</code>，大家应该对这款软件也不陌生。</li>
-<li>窗口调整：<code>Moom</code>，预设了几种窗口位置和大小。</li>
-<li>个人笔记：<code>有道云笔记</code>和<code>Evernote</code>，用于组织不同形式的文档。</li>
-<li>防止睡眠：<code>Caffeine</code>，应该也是耳熟能详的软件了。</li>
-<li>文档编辑器：<code>Atom</code>，我是从Sublime转过来的，觉得Atom美观，易用，但是速度方面貌似不如Sublime快。</li>
-<li>思维导图：<code>Xmind</code>，实验室导师推荐的思维导图软件，全平台都有。</li>
-<li>快捷键：<code>Karabiner</code>，快捷键不够用了吗，使用这款软件吧！</li>
-<li>切换：<code>Contexts</code>，一款增强了程序间切换功能的软件。</li>
-</ul>
-<h5 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h5><ul>
-<li>音乐：<code>Guitar Pro 6</code></li>
-<li>游戏：<code>Lost Castle</code></li>
-<li>平台：<code>Steam</code></li>
-</ul>
-<h4 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h4><h5 id="生活-1"><a href="#生活-1" class="headerlink" title="生活"></a>生活</h5><ul>
-<li>聊天软件：<code>QQ</code>，<code>微信</code>，这个应该是现在每台中国智能机都会装的软件了吧。</li>
-<li>阅读软件：<code>追书小说</code>，<code>Kindle</code>，<code>UC 浏览器</code>，都是用来看书的。</li>
-<li>音乐：<code>网易云音乐</code>，比较喜欢的还是中国风和轻音乐。</li>
-<li>日历：<code>中华万年历</code>，功能丰富，缺点是广告多了点。</li>
-<li>购物：<code>淘宝</code>，<code>京东</code>。</li>
-<li>运动：<code>Keep</code>，<code>Pocket Yoga</code>，锻炼身体，责无旁贷。</li>
-<li>科学上网：<code>无码VPN</code>，4G也可以科学上网。</li>
-<li>音乐学习：<code>Finger</code>，用来练习尤克里里的软件。</li>
-<li>记账：<code>口袋记账</code>，功能完善，界面美观。</li>
-</ul>
-<h5 id="游戏"><a href="#游戏" class="headerlink" title="游戏"></a>游戏</h5><ul>
-<li><code>小鸡模拟器</code>，可以玩各种主机的游戏</li>
-<li><code>开罗系列游戏--暖暖温泉乡等</code>，小巧而精致的时间杀手游戏</li>
-<li><code>崩溃大陆</code>，非常棒的Rogue like游戏</li>
-<li><code>王者荣耀</code>，最高段位星耀3</li>
-</ul>
-<h3 id="最理想的工作环境"><a href="#最理想的工作环境" class="headerlink" title="最理想的工作环境"></a>最理想的工作环境</h3><p>喜欢扁平化的管理氛围，每个人都积极向上，朝着同一个目标努力。同时也喜欢轻松愉快的企业文化氛围，愿意和能够让自己得到提升的人一起工作。</p>
-<h3 id="平时或者工作灵感的方式"><a href="#平时或者工作灵感的方式" class="headerlink" title="平时或者工作灵感的方式"></a>平时或者工作灵感的方式</h3><p>灵感的迸发不是突然的事情，而必定是靠长期的积累从量变达到质变的过程。</p>
-<p>最好的积累方式便是阅读，无论是读书，还是读他人博客的文章，都能得到很好的积累。</p>
-<p>还有一个很好的积累方式就是和比自己强的人聊天，了解他们的思维方式，平时的学习习惯，进而对自己进行改变。</p>
-<p>工作不要太长时间，要注意劳逸结合，放松的头脑更容易迸发出不一样的能力。</p>
-<h3 id="推荐一件生活中的利器给大家"><a href="#推荐一件生活中的利器给大家" class="headerlink" title="推荐一件生活中的利器给大家"></a>推荐一件生活中的利器给大家</h3><p>一个是我正在使用的科学上网利器：<code>lantern</code>，中文名是蓝灯，免费，速度快。</p>
-<p>另一个是高端的桌游：<code>一夜终极狼人</code>，喜欢和小伙伴们撕撕撕的你一定不要错过！</p>
-<h3 id="利他社群计划"><a href="#利他社群计划" class="headerlink" title="利他社群计划"></a>利他社群计划</h3><p>本文参与了「利器社群计划」，发现更多创造者和他们的工具：<a href="http://liqi.io/community/">利他社群计划</a></p>
-]]></content>
-      <categories>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Mac</tag>
-        <tag>Software</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Golang 性能问题排查定位</title>
     <url>/2021/05/21/2021-05-21-golang-pprof/</url>
     <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>梁潇老师从一个使用 pprof 定位问题的实例 step by step 的向我们讲述了如何利用 pprof 工具的不同命令排查不同类型的问题，然后深度剖析了 pprof 采样的流程和原理。</p>
@@ -4639,16 +4562,93 @@
       </tags>
   </entry>
   <entry>
-    <title>方法论的作用</title>
-    <url>/2021/03/30/2021-03-30-about-methodology/</url>
-    <content><![CDATA[<p>今天周年庆的仪式上，一鸣提到了他觉得方法论可以说是没有什么作用，抽象相当于在思维上加杠杆，是一种思考上的偷懒，并列举了一个“赋能、闭环”的例子来论证这个事。我部分赞同他的观点，但我还是觉得方法论是有其意义和使用场景的，在我看来，方法论其实是一种对日常工作工程中的经验模型的一种总结，可以帮助我们快速找到一个正确的方式来应对某些事件，比如做预案的时候，需要考虑到哪些方面的内容才能做到不缺不漏，需要联系哪些方向的同学进行共同处理，这些一点一点沉淀下来的经验我认为是一种有用的方法论，是有其实际意义的，如果没有这种方法论进行参考，下次做预案的时候又要重新去想类似的内容，还可能会有缺漏。当然如果只按照方法论沉淀下来的既定内容做事，就会出现一鸣说的“思考上的偷懒”这个问题，所以我们不仅仅要按照方法论做事情，还应该去思考这个方法论是不是适用于当前的环境，是否有更加优化的方式来进行实施，能否把当前的方法论再进行优化，这样方法论不仅能够避免犯一些人为的错误，同样也能够锻炼我们的思维，做到思考上不偷懒。</p>
-<p>此外，我觉得方法论对于不同的人来说其实意义也是不一样的，对于已经有很多成熟经验的人来说，方法论可能会在一定程度上限制他的思想；但是对于小白或者首次经历做事的人来说，方法论可以指导他快速上手，有章法的做事，避免在并没有形成良好的工作习惯的时候犯下超过限制的错误。在框架内做事是能够防止犯大错的，总的来说方法论就像是一个框，在这个框里做事不容易犯错，但是无法做跳出这个框的事，当我们在这个框中已经形成了良好的习惯之后，我们却要敢于打破这个框，打破他的限制，让我们的思考和思想能够不断的发散，甚至于把这个框变得更大，限制更小，更加灵活。</p>
+    <title>Wenknows的利器</title>
+    <url>/2016/06/27/benefit_others/</url>
+    <content><![CDATA[<blockquote>
+<p>“工具和灵感，都是利器。当来自不同的领域，不同类型的创造者的工具和灵感互相碰撞的时候，才会迸发出更多的可能性。”</p>
+</blockquote>
+<p><strong>更新记录</strong></p>
+<p>2016-06-27  研二期间创建本篇博文<br>2018-05-21  更新工作，更新使用的软件</p>
+<h3 id="我和我所做的工作"><a href="#我和我所做的工作" class="headerlink" title="我和我所做的工作"></a>我和我所做的工作</h3><p>我是<code>Wenknows</code>，现在工作于小红书，职位为电商商户平台后台开发，平时喜欢运动和吃吃吃，业余弹弹尤克里里，喜欢听音乐和评书，喜爱编程，希望在程序猿的道路上能走得更远。</p>
+<h3 id="我当前使用的硬件"><a href="#我当前使用的硬件" class="headerlink" title="我当前使用的硬件"></a>我当前使用的硬件</h3><p>电脑是 14 年的 15 寸 MacBook Pro with Retina，i7处理器，16 GB RAM＋256 GB SSD。<br><img data-src="/uploads/in-post/macbookpro.png" alt="macbookpro"></p>
+<span id="more"></span>
+
+<p>键盘是Cherry的红轴机械键盘MX-BOARD 3.0，键盘比较软，按起来很舒服。</p>
+<p><img data-src="/uploads/in-post/cherry.jpg" alt="cherry"></p>
+<p>鼠标是罗技的G502。</p>
+<p><img data-src="/uploads/in-post/mouse.jpg" alt="Logitech"></p>
+<p>手机是小米 Note 3，照相很清晰，但是使用时偶尔会有卡顿。<br><img data-src="/uploads/in-post/xiaomi-mi-note3.jpg" alt="Xiaomi Note 3"></p>
+<p>喜欢听音乐，但算不上发烧友，有一个beats录音师的全包式耳机。<br><img data-src="/uploads/in-post/beats.png" alt="beats"></p>
+<h3 id="我当前使用的软件"><a href="#我当前使用的软件" class="headerlink" title="我当前使用的软件"></a>我当前使用的软件</h3><h4 id="MAC"><a href="#MAC" class="headerlink" title="MAC"></a>MAC</h4><h5 id="工作相关"><a href="#工作相关" class="headerlink" title="工作相关"></a>工作相关</h5><ul>
+<li>科学上网：<code>Tunnelblick</code>和<code>Lantern</code>，前者是免费的OpenVPN客户端，后者是直接科学上网的工具。</li>
+<li>Java：<code>IDEA</code>，感觉是目前最好用的Java IDE，功能强大，界面也很好看。</li>
+<li>Python：<code>Pycharm</code>，和IDEA是同一家公司的软件，同样有强大的功能，美观的界面。</li>
+<li>Terminal：<code>iTerm2</code>，好用的终端软件，在各大论坛也得到了大家的推荐。</li>
+<li>MySQL：<code>MySQL Workbench</code>，MySQL自带可视化管理软件，兼容性好，速度快。</li>
+<li>API：<code>Dash</code>，使用MAC的程序员应该都知道这款软件吧。</li>
+<li>论文：<code>EndNote</code>，各大论文网站都能生成EndNote格式的引用。</li>
+<li>FTP：<code>Cyberduck</code>，被大家广泛推荐的FTP客户端。</li>
+</ul>
+<h5 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h5><ul>
+<li>浏览器：<code>chrome</code> + 插件，插件安装了Adblock，vimium，Infinity，crxMouse Chrome Gestures，Tampermonkey + 百度网盘助手</li>
+<li>邮件：<code>MAC自带邮件</code>，兼容性好，速度飞快。</li>
+<li>虚拟机：<code>Parallels Desktop</code>，安装了win 8.1和Fedora 23.</li>
+<li>词典：<code>有道词典</code>。</li>
+<li>音乐播放器：<code>网易云音乐</code>，感觉它的推荐算法做得很好。</li>
+<li>视频播放器：<code>MPlayer</code>，QuickTime和射手播放器。</li>
+<li>视频下载：<code>硕鼠MAC</code>，可以下载搜狐等网站的视频。</li>
+<li>pdf阅读器：<code>预览</code>和<code>Skim</code>，优点是速度快，都有缺点就是不能创建目录，创建目录的话要用Adobe Acrobat。</li>
+<li>压缩软件：<code>keka</code>和<code>Unarchiver</code>，小巧而精致，也得到了大家的推荐。</li>
+<li>聊天软件：<code>QQ</code>，<code>微信</code>，应该都是必装的吧。</li>
+<li>下载软件：<code>迅雷</code>，<code>uTorrent</code>，迅雷虽然很流氓，但是速度确实快，uTorrent是用于下载bt资源的。</li>
+</ul>
+<h5 id="系统增强和提升效率"><a href="#系统增强和提升效率" class="headerlink" title="系统增强和提升效率"></a>系统增强和提升效率</h5><ul>
+<li>全局搜索：<code>Alfred</code>，大家应该对这款软件也不陌生。</li>
+<li>窗口调整：<code>Moom</code>，预设了几种窗口位置和大小。</li>
+<li>个人笔记：<code>有道云笔记</code>和<code>Evernote</code>，用于组织不同形式的文档。</li>
+<li>防止睡眠：<code>Caffeine</code>，应该也是耳熟能详的软件了。</li>
+<li>文档编辑器：<code>Atom</code>，我是从Sublime转过来的，觉得Atom美观，易用，但是速度方面貌似不如Sublime快。</li>
+<li>思维导图：<code>Xmind</code>，实验室导师推荐的思维导图软件，全平台都有。</li>
+<li>快捷键：<code>Karabiner</code>，快捷键不够用了吗，使用这款软件吧！</li>
+<li>切换：<code>Contexts</code>，一款增强了程序间切换功能的软件。</li>
+</ul>
+<h5 id="娱乐"><a href="#娱乐" class="headerlink" title="娱乐"></a>娱乐</h5><ul>
+<li>音乐：<code>Guitar Pro 6</code></li>
+<li>游戏：<code>Lost Castle</code></li>
+<li>平台：<code>Steam</code></li>
+</ul>
+<h4 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h4><h5 id="生活-1"><a href="#生活-1" class="headerlink" title="生活"></a>生活</h5><ul>
+<li>聊天软件：<code>QQ</code>，<code>微信</code>，这个应该是现在每台中国智能机都会装的软件了吧。</li>
+<li>阅读软件：<code>追书小说</code>，<code>Kindle</code>，<code>UC 浏览器</code>，都是用来看书的。</li>
+<li>音乐：<code>网易云音乐</code>，比较喜欢的还是中国风和轻音乐。</li>
+<li>日历：<code>中华万年历</code>，功能丰富，缺点是广告多了点。</li>
+<li>购物：<code>淘宝</code>，<code>京东</code>。</li>
+<li>运动：<code>Keep</code>，<code>Pocket Yoga</code>，锻炼身体，责无旁贷。</li>
+<li>科学上网：<code>无码VPN</code>，4G也可以科学上网。</li>
+<li>音乐学习：<code>Finger</code>，用来练习尤克里里的软件。</li>
+<li>记账：<code>口袋记账</code>，功能完善，界面美观。</li>
+</ul>
+<h5 id="游戏"><a href="#游戏" class="headerlink" title="游戏"></a>游戏</h5><ul>
+<li><code>小鸡模拟器</code>，可以玩各种主机的游戏</li>
+<li><code>开罗系列游戏--暖暖温泉乡等</code>，小巧而精致的时间杀手游戏</li>
+<li><code>崩溃大陆</code>，非常棒的Rogue like游戏</li>
+<li><code>王者荣耀</code>，最高段位星耀3</li>
+</ul>
+<h3 id="最理想的工作环境"><a href="#最理想的工作环境" class="headerlink" title="最理想的工作环境"></a>最理想的工作环境</h3><p>喜欢扁平化的管理氛围，每个人都积极向上，朝着同一个目标努力。同时也喜欢轻松愉快的企业文化氛围，愿意和能够让自己得到提升的人一起工作。</p>
+<h3 id="平时或者工作灵感的方式"><a href="#平时或者工作灵感的方式" class="headerlink" title="平时或者工作灵感的方式"></a>平时或者工作灵感的方式</h3><p>灵感的迸发不是突然的事情，而必定是靠长期的积累从量变达到质变的过程。</p>
+<p>最好的积累方式便是阅读，无论是读书，还是读他人博客的文章，都能得到很好的积累。</p>
+<p>还有一个很好的积累方式就是和比自己强的人聊天，了解他们的思维方式，平时的学习习惯，进而对自己进行改变。</p>
+<p>工作不要太长时间，要注意劳逸结合，放松的头脑更容易迸发出不一样的能力。</p>
+<h3 id="推荐一件生活中的利器给大家"><a href="#推荐一件生活中的利器给大家" class="headerlink" title="推荐一件生活中的利器给大家"></a>推荐一件生活中的利器给大家</h3><p>一个是我正在使用的科学上网利器：<code>lantern</code>，中文名是蓝灯，免费，速度快。</p>
+<p>另一个是高端的桌游：<code>一夜终极狼人</code>，喜欢和小伙伴们撕撕撕的你一定不要错过！</p>
+<h3 id="利他社群计划"><a href="#利他社群计划" class="headerlink" title="利他社群计划"></a>利他社群计划</h3><p>本文参与了「利器社群计划」，发现更多创造者和他们的工具：<a href="http://liqi.io/community/">利他社群计划</a></p>
 ]]></content>
       <categories>
-        <category>思考与感想</category>
+        <category>Mac</category>
       </categories>
       <tags>
-        <tag>个人思考</tag>
+        <tag>Mac</tag>
+        <tag>Software</tag>
       </tags>
   </entry>
   <entry>
