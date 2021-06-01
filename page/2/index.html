@@ -96,7 +96,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">49</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">16</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">95</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">96</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -169,7 +169,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">96</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -242,6 +242,124 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2021/04/18/2021-04-18-gott/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/18/2021-04-18-gott/" class="post-title-link" itemprop="url">Golang On The Toilet</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-18 12:00:00" itemprop="dateCreated datePublished" datetime="2021-04-18T12:00:00+08:00">2021-04-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/18/2021-04-18-gott/" class="post-meta-item leancloud_visitors" data-flag-title="Golang On The Toilet" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/18/2021-04-18-gott/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/18/2021-04-18-gott/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>本文提供了一些 Golang 工程项目的最佳实践，分别从可读性、健壮性和效率三个方面进行描述。</p>
+<h1 id="Readable"><a href="#Readable" class="headerlink" title="Readable"></a>Readable</h1><p>可读性对于机器来说其实没有什么区别，但是对于作为开发者的每一个<code>人</code>来说，可读性就显得极其重要了。对于个人开发者来说，一个人不可能记住他写的每一行代码，很多时候我们自己写的代码，经过两三个月之后，我们基本上就会忘记当初写的逻辑，高可读的代码可以让我们更加轻易地进行阅读回忆；而对于协同开发来说，代码的可读性直接决定了多人合作开发的效率，高可读的代码可以让我们协作开发的效率得到巨大的提升，那么常用的代码中有哪些方式可以提升代码的可读性呢？</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/18/2021-04-18-gott/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1252,121 +1370,6 @@
 <li>不要删除已有的 tag，然后重新发一个同名的 tag，之前也是一个组件库的同学进行了这个样的操作，导致已经下载的文件的 checksum 和线上不一致，导致编译错误。</li>
 <li>不要在新版本 tag 还没有准备好的情况下，就把老版本的 tag 删除了，即便老版本的 tag 可能有 bug，但是不一定会影响使用，但是一旦删除了，导致无法通过编译而无法上线，所造成的影响可能会更大，比如有一个紧急发布需要上线，但是由于老 tag 删除了而无法打包，后果不堪设想。</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2021/01/11/2021-01-11-about-persevere/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
-      <meta itemprop="name" content="温智全">
-      <meta itemprop="description" content="爱唱歌健身的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="温智全的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/11/2021-01-11-about-persevere/" class="post-title-link" itemprop="url">关于系统设计抽象一层的思考</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-11 12:00:00" itemprop="dateCreated datePublished" datetime="2021-01-11T12:00:00+08:00">2021-01-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%80%9D%E8%80%83%E4%B8%8E%E6%84%9F%E6%83%B3/" itemprop="url" rel="index"><span itemprop="name">思考与感想</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/01/11/2021-01-11-about-persevere/" class="post-meta-item leancloud_visitors" data-flag-title="关于系统设计抽象一层的思考" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2021/01/11/2021-01-11-about-persevere/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/11/2021-01-11-about-persevere/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>429</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>从我开始用「不背单词」APP 背单词和「多邻国」APP 学日语已经 50 天了，以前都说 21 天养成一个习惯，那我这个习惯也算是养成了，但是其实能够坚持下来也是有一些条件的，这也和《掌控习惯》里面提到的一些方法不谋而合–让习惯简单易行和让习惯令人愉悦，其中我背单词的时候没有每天背非常多的单词个数，因为那样复习的时候会让自己产生压力，让坚持变的困难，而「多邻国」每个单元的学习比较简短，并且在每次学习之后给出一个及时反馈，给一些奖励，并且有学习排名，让我更有动力继续学习下去。</p>
-<p>反映到我们生活中的其他方面，其实我们也可以使用类似的方法让自己能够更长久的坚持下来</p>
-<ul>
-<li>看书不用看太多，每次看一章或者看一节，看完之后合上书，回顾一下刚刚看完的内容，总结一下自己的理解，最好能够找个人讲出来，化被动为主动。</li>
-<li>适当的做总结，而不是等年终的时候才做总结，一次总结太多东西会令人懈怠，每周都回顾一下自己做的事情，学到的内容，最好也能总结下来找个人讲出来，不知不觉之中自己就会获得更快的成长。</li>
-</ul>
 
       
     </div>
