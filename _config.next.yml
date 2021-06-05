@@ -588,23 +588,27 @@ comments:
   style: tabs
   # Choose a comment system to be displayed by default.
   # Available values: disqus | disqusjs | changyan | livere | gitalk | utterances
-  active:
+  active: gitalk
   # Setting `true` means remembering the comment system selected by the visitor.
   storage: true
   # Lazyload all comment systems.
   lazyload: true
   # Modify texts or order for any navs, here are some examples.
   nav:
-    #disqus:
-    #  text: Load Disqus
-    #  order: -1
-    #gitalk:
-    #  order: -2
+    gitalk:
+     text: Gitalk
+     order: -3
+    disqus:
+     text: Disqus
+     order: -2
+    changyan:
+     text: Changyan
+     order: -1
 
 # Disqus
 # For more information: https://disqus.com
 disqus:
-  enable: false
+  enable: true
   shortname: wenzhiquan
   count: true
 
@@ -623,9 +627,9 @@ disqusjs:
 # Changyan
 # For more information: https://changyan.kuaizhan.com
 changyan:
-  enable: false
-  appid:
-  appkey:
+  enable: true
+  appid: cyvusvn54
+  appkey: b774389dc98f67e4cc50cca8a69aab1e
 
 # LiveRe comments system
 # You can get your uid from https://livere.com/insight/myCode (General web site)
@@ -642,7 +646,7 @@ gitalk:
   admin_user: wenzhiquan # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
-  proxy: https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token # This is official proxy adress
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token # This is official proxy adress
   # Gitalk's display language depends on user's browser or system environment
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
   # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
@@ -930,8 +934,8 @@ vendors:
   disqusjs_css:
 
   # Gitalk
-  gitalk_js:
-  gitalk_css:
+  gitalk_js: //cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js
+  gitalk_css: //cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css
 
   # Firebase
   firebase_app:
