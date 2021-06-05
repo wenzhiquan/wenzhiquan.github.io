@@ -102,7 +102,7 @@ binlog 用于记录数据库执行的写入性操作（不包括查询）信息�
 ## Redo Log 与 Binlog 区别
 
 ||redo log|binlog|
-|-|-|-|
+|:-:|:-:|:-:|
 |文件大小|redo log 的大小是固定的。|binlog 可通过配置参数 max_binlog_size 设置每个 binlog 文件的大小。|
 |实现方式|redo log 是 InnoDB 引擎层实现的，并不是所有引擎都有。|binlog 是 Server 层实现的，所有引擎都可以使用 binlog|
 |日志记录方式|redo log 采用循环写的方式记录，当写到结尾时，会回到开头循环写日志。|binlog 通过追加的方式记录，当文件大小大于给定值后，后续的日志会记录到新的文件上|
@@ -110,6 +110,17 @@ binlog 用于记录数据库执行的写入性操作（不包括查询）信息�
 |适用场景|redo log 适用于崩溃恢复 (crash-safe)|binlog 适用于主从复制和数据恢复|
 
 由 binlog 和 redo log 的区别可知：binlog 日志只用于归档，只依靠 binlog 是没有 crash-safe 能力的。但只有 redo log 也不行，因为 redo log 是 InnoDB 特有的，且日志上的记录落盘后会被覆盖掉。因此需要 binlog 和 redo log 二者同时记录，才能保证当数据库发生宕机重启时，数据不会丢失。
+
+那么为什么 redo log 具有 crash-safe 的能力，而 binlog 没有？
+
+举个栗子，binlog 记录了两条日志：
+```
+1. 给 ID=2 这一行的 c 字段加 1
+2. 给 ID=2 这一行的 c 字段加 2
+```
+在记录 1 刷盘后，记录 2 未刷盘时，数据库 crash。重启后，只通过 binlog 数据库无法判断这两条记录哪条已经写入磁盘，哪条没有写入磁盘，不管是两条都恢复至内存，还是都不恢复，对 ID=2 这行数据来说，都不对。
+
+但 redo log 不一样，只要刷入磁盘的数据，都会从 redo log 中抹掉，数据库重启后，直接把 redo log 中的数据都恢复至内存就可以了。这就是为什么 redo log 具有 crash-safe 的能力，而 binlog 不具备。
 
 ## Update 执行流程
 
