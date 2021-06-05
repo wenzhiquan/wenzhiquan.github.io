@@ -96,7 +96,7 @@
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">50</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">17</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">97</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">98</span></a></li>
         <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -169,7 +169,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -242,6 +242,145 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2021/04/24/2021-04-24-golang-lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/04/24/2021-04-24-golang-lock/" class="post-title-link" itemprop="url">Golang 的强人锁难</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-24 12:00:00" itemprop="dateCreated datePublished" datetime="2021-04-24T12:00:00+08:00">2021-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/04/24/2021-04-24-golang-lock/" class="post-meta-item leancloud_visitors" data-flag-title="Golang 的强人锁难" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    
+      <a title="changyan" href="/2021/04/24/2021-04-24-golang-lock/#SOHUCS" itemprop="discussionUrl">
+        <span id="url::http://wenzhiquan.github.io/2021/04/24/2021-04-24-golang-lock/" class="cy_cmt_count" data-xid="2021/04/24/2021-04-24-golang-lock/" itemprop="commentCount"></span>
+      </a>
+    
+  </span>
+  
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/24/2021-04-24-golang-lock/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/24/2021-04-24-golang-lock/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+      </div>
+      <div class="post-meta">
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>冯敏老师从一个不加锁并发修改导致出现问题的例子讲起，用最佳实践匹配我们工作中的实际场景，提出一些避免踩坑的建议，从而引出锁的进化和原理。</p>
+<h1 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h1><h2 id="减少持有时间"><a href="#减少持有时间" class="headerlink" title="减少持有时间"></a>减少持有时间</h2><h3 id="缩小临界区，注意-defer-的使用"><a href="#缩小临界区，注意-defer-的使用" class="headerlink" title="缩小临界区，注意 defer 的使用"></a>缩小临界区，注意 defer 的使用</h3><p>通过缩小临界区的方式，可以避免在加锁和解锁之间，由于有较为耗时的代码，导致锁持有时间过长，从而造成性能问题，例子如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Users = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span> &#123;</span><br><span class="line">    <span class="string">&quot;user&quot;</span>: <span class="string">&quot;password&quot;</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> mu sync.Mutex</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CheckUser</span><span class="params">(name, password <span class="keyword">string</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> mu.Unlock()</span><br><span class="line">    realPwd, exist: = Users[name]</span><br><span class="line">    <span class="keyword">return</span> exist &amp; realPwd == password</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>乍看之下这段代码是没有什么问题的，但是如果代码像下面这样</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Func SomeFunc() &#123;</span><br><span class="line">    <span class="regexp">//</span> <span class="keyword">do</span> sth</span><br><span class="line">    mu.Lock()</span><br><span class="line">    defer mu.Unlock()</span><br><span class="line">    ...</span><br><span class="line">    ...<span class="regexp">//</span> long code</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 defer 之后的代码特别耗时，那这个 mu 锁的时间就会非常长了，会拖慢整个程序的速度。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/04/24/2021-04-24-golang-lock/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1414,136 +1553,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
-      <meta itemprop="name" content="温智全">
-      <meta itemprop="description" content="爱唱歌健身的程序员">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="温智全的博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/" class="post-title-link" itemprop="url">如何看待看似不公正的待遇</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-01-28 12:00:00" itemprop="dateCreated datePublished" datetime="2021-01-28T12:00:00+08:00">2021-01-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%80%9D%E8%80%83%E4%B8%8E%E6%84%9F%E6%83%B3/" itemprop="url" rel="index"><span itemprop="name">思考与感想</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/" class="post-meta-item leancloud_visitors" data-flag-title="如何看待看似不公正的待遇" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Changyan：</span>
-    
-    
-      <a title="changyan" href="/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/#SOHUCS" itemprop="discussionUrl">
-        <span id="url::http://wenzhiquan.github.io/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/" class="cy_cmt_count" data-xid="2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/" itemprop="commentCount"></span>
-      </a>
-    
-  </span>
-  
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/28/2021-01-28-how-to-deal-with-unfair-treat/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-      </div>
-      <div class="post-meta">
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>617</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>有时候会听到一些同学的吐槽，说自己遭受了上级的不公正待遇，把更好的机会给了另一位同学而不是自己，导致自己的绩效不出彩，甚至会心生怨怼。其实我们可以设身处地的从两个方面来考虑这个问题：</p>
-<ol>
-<li>让自己站在上级的角度，思考一下为什么上级会把这个机会交给另一位同学而不是你，可能有以下原因：1. 觉得你能力不够，还不足以按照他的预期完成这个项目；2. 另一位同学经常能够按照预期甚至超预期完成项目。无非就是这两个原因，对于第一点很好解决，先从上级觉得你能够预期完成的事情入手，做到每个项目都能够超预期完成，要不了多久就能够让自己成为第二种情况，也就能够获得更好的机会了。第二点和第一点也是同样的处理方法，当你在上级心中的地位也是能够经常超预期的人了，下次有项目的时候肯定会将你也加入优先队列当中。信赖的建立是需要时间的，不要老想着一蹴而就，一次次信任的积累才能达成更好的信赖</li>
-<li>站在自己的角度，觉得上级不认可自己的能力，那么我们换一种思考方式呢？是不是我们没有让上级了解到自己的能力呢？工作中确实容易出现一种马太效应，愿意把项目交给自己信赖的人去做，然后做得好的就有继续的正向循环，而一直缩在后面不展示自己能力的人，可能就会一直得不到能力展示的机会。俗话说的很好：“师傅领进门，修行在个人”，如果自己一直缩在后面，而不愿展示自己的能力，那谁能如伯乐一般偏偏挑中了我们呢？所以我们需要更加主动一些，展示出自己的能力，通过做好一个又一个的项目，得到更多人的认可。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1568,13 +1577,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">272k</span>
+    <span title="站点总字数">276k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:07</span>
+    <span title="站点阅读时长">4:11</span>
   </span>
 </div>
 <div class="busuanzi-count">
