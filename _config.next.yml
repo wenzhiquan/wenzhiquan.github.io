@@ -604,7 +604,7 @@ comments:
 # Disqus
 # For more information: https://disqus.com
 disqus:
-  enable: true
+  enable: false
   shortname: wenzhiquan
   count: true
 
@@ -634,12 +634,12 @@ livere_uid: # <your_uid>
 # Gitalk
 # For more information: https://gitalk.github.io
 gitalk:
-  enable: false
-  github_id: # GitHub repo owner
-  repo: # Repository name to store issues
-  client_id: # GitHub Application Client ID
-  client_secret: # GitHub Application Client Secret
-  admin_user: # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
+  enable: true
+  github_id: wenzhiquan # GitHub repo owner
+  repo: wenzhiquan.github.io # Repository name to store issues
+  client_id: 1ced0f287f20a7338810 # GitHub Application Client ID
+  client_secret: 8eb1ba40087cd6c1087df3f356cbdea9a7ec367c # GitHub Application Client Secret
+  admin_user: wenzhiquan # GitHub repo owner and collaborators, only these guys can initialize gitHub issues
   distraction_free_mode: true # Facebook-like distraction free mode
   # When the official proxy is not available, you can change it to your own proxy address
   proxy: https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token # This is official proxy adress
