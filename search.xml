@@ -327,6 +327,111 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac OS Yosemite 配置sublime text C语言开发环境</title>
+    <url>/2015/05/04/2015-05-04-mac-sublime-c/</url>
+    <content><![CDATA[<blockquote>
+<p>“Sublime Text是一个轻便的文本编辑器”</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text</a> 是一个代码编辑器，也是HTML和散文先进的文本编辑器。它是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的<a href="http://www.vim.org/download.php" title="Vim">Vim</a>。<br><a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text</a>具有漂亮的用户界面和强大的功能，例如代码缩略图，代码段等。还可自定义键绑定，菜单和工具栏。它的主要功能包括：拼写检查，书签，Goto 功能，即时项目切换，多选择，多窗口等等。它是一个跨平台的编辑器，同时支持Windows、Linux、Mac OS X等操作系统。它还具有大量的可扩展插件，极大地丰富了这款编辑器的功能。</p>
+<span id="more"></span>
+
+<h3 id="安装配置sublime-text"><a href="#安装配置sublime-text" class="headerlink" title="安装配置sublime text"></a>安装配置sublime text</h3><h4 id="安装sublime-text-3"><a href="#安装sublime-text-3" class="headerlink" title="安装sublime text 3"></a>安装sublime text 3</h4><p>首先可以前往<a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text官方网站</a>下载对应平台的软件，安装完成后即可使用。但是为了更好地使用这一款强大的软件，我们可以安装一些插件。</p>
+<p>这款软件是永久免费的，但是免费版会时不时的弹出购买提示，下面提供一个注册码，可以直接注册这个软件：</p>
+<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">—– BEGIN LICENSE —–</span><br><span class="line">Andrew Weber</span><br><span class="line">Single User License</span><br><span class="line">EA7E-<span class="number">855605</span></span><br><span class="line"><span class="number">813</span>A03DD <span class="number">5</span>E4AD9E6 <span class="number">6</span>C0EEB94 BC99798F</span><br><span class="line"><span class="number">942194A6</span> <span class="number">02396E98</span> E62C9979 <span class="number">4</span>BB979FE</span><br><span class="line"><span class="number">91424</span>C9D A45400BF F6747D88 <span class="number">2</span>FB88078</span><br><span class="line"><span class="number">90</span>F5CC94 <span class="number">1</span>CDC92DC <span class="number">8457107</span><span class="keyword">A</span> F151657B</span><br><span class="line"><span class="number">1D22E383</span> <span class="keyword">A</span><span class="number">997F016</span> <span class="number">42397640</span> <span class="number">33</span>F41CFC</span><br><span class="line">E1D0AE85 A0BBD039 <span class="number">0E9C8D55</span> E1B89D5D</span><br><span class="line"><span class="number">5</span>CDB7036 E56DE1C0 EFCC0840 <span class="number">650</span>CD3A6</span><br><span class="line">B98FC99C <span class="number">8</span>FAC73EE D<span class="number">2B95564</span> DF450523</span><br><span class="line">—— END LICENSE ——</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装sublime-text-3-插件"><a href="#安装sublime-text-3-插件" class="headerlink" title="安装sublime text 3 插件"></a>安装sublime text 3 插件</h4><p><em>Package Control组件：</em></p>
+<ul>
+<li><p>按control+`(键盘上1左边的按钮)调出console控制台</p>
+</li>
+<li><p>粘贴以下代码到底部命令行并回车：</p>
+</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">&#x27;Package Control.sublime-package&#x27;</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); <span class="keyword">open</span>(os.path.<span class="keyword">join</span>(ipp, pf), <span class="string">&#x27;wb&#x27;</span>).<span class="keyword">write</span>(urllib.request.urlopen( <span class="string">&#x27;http://sublime.wbond.net/&#x27;</span> + pf.replace(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span>)).<span class="keyword">read</span>())</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>重启Sublime Text 3</p>
+</li>
+<li><p>如果在Perferences-&gt;package settings中看到package control这一项，则安装成功</p>
+</li>
+</ul>
+<p>下面是sublime text 2 的安装命令：</p>
+<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">import urllib2,<span class="built_in">os</span>; pf=<span class="string">&#x27;Package Control.sublime-package&#x27;</span>; ipp = sublime.installed_packages_path(); <span class="built_in">os</span>.makedirs( ipp ) <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">os</span>.<span class="built_in">path</span>.exists(ipp) <span class="keyword">else</span> None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); <span class="built_in">open</span>( <span class="built_in">os</span>.<span class="built_in">path</span>.join( ipp, pf), <span class="string">&#x27;wb&#x27;</span> ).<span class="built_in">write</span>( urllib2.urlopen( <span class="string">&#x27;http://sublime.wbond.net/&#x27;</span> +pf.replace( <span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span> )).<span class="built_in">read</span>()); <span class="built_in">print</span>( <span class="string">&#x27;Please restart Sublime Text to finish installation&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>用Package Control安装插件的方法：</p>
+</blockquote>
+<ul>
+<li><p>按下Ctrl+Shift+P调出命令面板</p>
+</li>
+<li><p>输入pcic 调出 Install Package 选项并回车，然后在列表中选中要安装的插件</p>
+</li>
+</ul>
+<p><em>较为常用的一些插件</em></p>
+<ol>
+<li><p><code>ConvertToUTF8</code>　　支持 GBK, BIG5, EUC-KR, EUC-JP, Shift_JIS 等编码的插件</p>
+</li>
+<li><p><code>Bracket Highlighter</code>　　用于匹配括号，引号和html标签。对于很长的代码很有用。安装好之后，不需要设置插件会自动生效</p>
+</li>
+<li><p><code>DocBlockr</code>　　DocBlockr可以自动生成PHPDoc风格的注释。它支持的语言有Javascript, PHP, ActionScript, CoffeeScript, Java, Objective C, C, C++</p>
+</li>
+<li><p><code>Emmet(Zen Coding)</code>　　快速生成HTML代码段的插件，强大到无与伦比，不知道的请自行google</p>
+</li>
+<li><p><code>SideBar Enhancements</code>　　这个插件改进了侧边栏，增加了许多功能</p>
+</li>
+<li><p><code>SideBar Folders</code>　　增加了侧边栏对于文件夹的支持</p>
+</li>
+<li><p><code>SublimeCodeIntel</code>    提供了代码提示和自动补全功能</p>
+</li>
+</ol>
+<p>sublime text 还具有很多插件，读者可以根据自己所使用的语言和需要进行相应的安装</p>
+<p><em>配置sublime text主题</em></p>
+<p>Sublime Text本身对于主题的扩展也是十分的强大，一些推荐的主题可以前往<a href="http://designbeep.com/2014/06/10/35-cool-sublime-text-themes/">design beep网站</a>进行选择和安装</p>
+<p>下面介绍一下我安装的主题和相应的配置文件：</p>
+<p>在package control中分别输入<code>numix</code>和<code>itg.flat</code>进行主题的安装，然后安装插件<code>markdown extend</code>增加对markdown语法的支持，然后编辑<code>Settings-User</code>，加入以下内容：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;color_scheme&quot;</span>: <span class="string">&quot;Packages/Theme - itg.flat/itg.dark.tmTheme&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;numix_sidebar_tree_medium&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;numix_small_tabs&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;theme&quot;</span>: <span class="string">&quot;Numix.sublime-theme&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img data-src="/uploads/in-post/sublime_theme.png" alt="numix主题"></p>
+<h3 id="安装gcc"><a href="#安装gcc" class="headerlink" title="安装gcc"></a>安装gcc</h3><p>安装完sublime text后，编辑C语言的文本编辑器就已经配置好了，但是想要编译C文件，则需要安装<a href="http://gcc.gnu.org/" title="gcc官方网站">gcc</a>，在Mac OS中，直接使用<code>brew</code>命令进行安装即可，安装命令如下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>gcc</span><br></pre></td></tr></table></figure>
+
+<p>等待安装完成</p>
+<p>输入命令<code>gcc -v</code>验证是否安装成功，如果安装成功，应该有以下提示：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Configured</span> with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/<span class="number">4</span>.<span class="number">2</span>.<span class="number">1</span></span><br><span class="line"><span class="attribute">Apple</span> LLVM version <span class="number">6</span>.<span class="number">1</span>.<span class="number">0</span> (clang-<span class="number">602</span>.<span class="number">0</span>.<span class="number">49</span>) (based <span class="literal">on</span> LLVM <span class="number">3</span>.<span class="number">6</span>.<span class="number">0</span>svn)</span><br><span class="line"><span class="attribute">Target</span>: x<span class="number">86</span>_<span class="number">64</span>-apple-darwin<span class="number">14</span>.<span class="number">3</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">Thread</span> model: posix</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置sublime-text的C语言编译系统"><a href="#配置sublime-text的C语言编译系统" class="headerlink" title="配置sublime text的C语言编译系统"></a>配置sublime text的C语言编译系统</h3><p>经过前面的步骤，就可以分别进行C语言的编辑和编译，但是为了方便，只需要简单地配置就可以直接用sublime text进行编译了</p>
+<p>打开Tools-&gt;Build System-&gt;New Build System，在新建的文件中输入以下内容：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;gcc -o $&#123;file_base_name&#125; $file_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;shell&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;working_dir&quot;</span> : <span class="string">&quot;$file_path&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;selector&quot;</span>: <span class="string">&quot;source.c&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;encoding&quot;</span>:<span class="string">&quot;utf-8&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;variants&quot;</span> :</span><br><span class="line">    [&#123;</span><br><span class="line">        <span class="attr">&quot;name&quot;</span> : <span class="string">&quot;Run&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;cmd&quot;</span> : <span class="string">&quot;./$&#123;file_base_name&#125;&quot;</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用control+B进行编译文件，使用control+shift+B运行编译好的文件</p>
+<p>以下是sublime text 2的内容</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;gcc&quot;</span>,  <span class="string">&quot;-o&quot;</span>, <span class="string">&quot;$file_base_name&quot;</span>, <span class="string">&quot;$file_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;./$file_base_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;selector&quot;</span> : <span class="string">&quot;source.c&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;shell&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;working_dir&quot;</span> : <span class="string">&quot;$file_path&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>第一行相当于在shell中输入命令<code>gcc -o 文件名 文件名.c</code></p>
+</li>
+<li><p>第二行则是运行编译成功的文件</p>
+</li>
+<li><p>第三行的意思是对后缀为<code>.c</code>的文件进行选择</p>
+</li>
+</ul>
+<p>编辑完成后，保存文件，命名为C.sublime-build，然后就可以在Build System中选中这个编译方式了</p>
+<p>编辑文件hello.c:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用命令<code>command + B</code>编译并运行，效果如下:</p>
+<p><img data-src="/uploads/in-post/hello_world_c.png" alt="hello world"></p>
+<p>至此，就可以在你的Mac OS中使用sublime text进行C语言的开发了</p>
+]]></content>
+      <categories>
+        <category>Mac</category>
+      </categories>
+      <tags>
+        <tag>Sublime</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>fedora22 配置Nginx,Mysql,PHP</title>
     <url>/2014/12/09/2014-12-09-nginx-mysql-php-fedora/</url>
     <content><![CDATA[<blockquote>
@@ -464,213 +569,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mac OS Yosemite 配置sublime text C语言开发环境</title>
-    <url>/2015/05/04/2015-05-04-mac-sublime-c/</url>
-    <content><![CDATA[<blockquote>
-<p>“Sublime Text是一个轻便的文本编辑器”</p>
-</blockquote>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text</a> 是一个代码编辑器，也是HTML和散文先进的文本编辑器。它是由程序员Jon Skinner于2008年1月份所开发出来，它最初被设计为一个具有丰富扩展功能的<a href="http://www.vim.org/download.php" title="Vim">Vim</a>。<br><a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text</a>具有漂亮的用户界面和强大的功能，例如代码缩略图，代码段等。还可自定义键绑定，菜单和工具栏。它的主要功能包括：拼写检查，书签，Goto 功能，即时项目切换，多选择，多窗口等等。它是一个跨平台的编辑器，同时支持Windows、Linux、Mac OS X等操作系统。它还具有大量的可扩展插件，极大地丰富了这款编辑器的功能。</p>
-<span id="more"></span>
-
-<h3 id="安装配置sublime-text"><a href="#安装配置sublime-text" class="headerlink" title="安装配置sublime text"></a>安装配置sublime text</h3><h4 id="安装sublime-text-3"><a href="#安装sublime-text-3" class="headerlink" title="安装sublime text 3"></a>安装sublime text 3</h4><p>首先可以前往<a href="http://www.sublimetext.com/3" title="sublime text 3">Sublime Text官方网站</a>下载对应平台的软件，安装完成后即可使用。但是为了更好地使用这一款强大的软件，我们可以安装一些插件。</p>
-<p>这款软件是永久免费的，但是免费版会时不时的弹出购买提示，下面提供一个注册码，可以直接注册这个软件：</p>
-<figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">—– BEGIN LICENSE —–</span><br><span class="line">Andrew Weber</span><br><span class="line">Single User License</span><br><span class="line">EA7E-<span class="number">855605</span></span><br><span class="line"><span class="number">813</span>A03DD <span class="number">5</span>E4AD9E6 <span class="number">6</span>C0EEB94 BC99798F</span><br><span class="line"><span class="number">942194A6</span> <span class="number">02396E98</span> E62C9979 <span class="number">4</span>BB979FE</span><br><span class="line"><span class="number">91424</span>C9D A45400BF F6747D88 <span class="number">2</span>FB88078</span><br><span class="line"><span class="number">90</span>F5CC94 <span class="number">1</span>CDC92DC <span class="number">8457107</span><span class="keyword">A</span> F151657B</span><br><span class="line"><span class="number">1D22E383</span> <span class="keyword">A</span><span class="number">997F016</span> <span class="number">42397640</span> <span class="number">33</span>F41CFC</span><br><span class="line">E1D0AE85 A0BBD039 <span class="number">0E9C8D55</span> E1B89D5D</span><br><span class="line"><span class="number">5</span>CDB7036 E56DE1C0 EFCC0840 <span class="number">650</span>CD3A6</span><br><span class="line">B98FC99C <span class="number">8</span>FAC73EE D<span class="number">2B95564</span> DF450523</span><br><span class="line">—— END LICENSE ——</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装sublime-text-3-插件"><a href="#安装sublime-text-3-插件" class="headerlink" title="安装sublime text 3 插件"></a>安装sublime text 3 插件</h4><p><em>Package Control组件：</em></p>
-<ul>
-<li><p>按control+`(键盘上1左边的按钮)调出console控制台</p>
-</li>
-<li><p>粘贴以下代码到底部命令行并回车：</p>
-</li>
-</ul>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os; pf = <span class="string">&#x27;Package Control.sublime-package&#x27;</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); <span class="keyword">open</span>(os.path.<span class="keyword">join</span>(ipp, pf), <span class="string">&#x27;wb&#x27;</span>).<span class="keyword">write</span>(urllib.request.urlopen( <span class="string">&#x27;http://sublime.wbond.net/&#x27;</span> + pf.replace(<span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span>)).<span class="keyword">read</span>())</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>重启Sublime Text 3</p>
-</li>
-<li><p>如果在Perferences-&gt;package settings中看到package control这一项，则安装成功</p>
-</li>
-</ul>
-<p>下面是sublime text 2 的安装命令：</p>
-<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">import urllib2,<span class="built_in">os</span>; pf=<span class="string">&#x27;Package Control.sublime-package&#x27;</span>; ipp = sublime.installed_packages_path(); <span class="built_in">os</span>.makedirs( ipp ) <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">os</span>.<span class="built_in">path</span>.exists(ipp) <span class="keyword">else</span> None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); <span class="built_in">open</span>( <span class="built_in">os</span>.<span class="built_in">path</span>.join( ipp, pf), <span class="string">&#x27;wb&#x27;</span> ).<span class="built_in">write</span>( urllib2.urlopen( <span class="string">&#x27;http://sublime.wbond.net/&#x27;</span> +pf.replace( <span class="string">&#x27; &#x27;</span>,<span class="string">&#x27;%20&#x27;</span> )).<span class="built_in">read</span>()); <span class="built_in">print</span>( <span class="string">&#x27;Please restart Sublime Text to finish installation&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>用Package Control安装插件的方法：</p>
-</blockquote>
-<ul>
-<li><p>按下Ctrl+Shift+P调出命令面板</p>
-</li>
-<li><p>输入pcic 调出 Install Package 选项并回车，然后在列表中选中要安装的插件</p>
-</li>
-</ul>
-<p><em>较为常用的一些插件</em></p>
-<ol>
-<li><p><code>ConvertToUTF8</code>　　支持 GBK, BIG5, EUC-KR, EUC-JP, Shift_JIS 等编码的插件</p>
-</li>
-<li><p><code>Bracket Highlighter</code>　　用于匹配括号，引号和html标签。对于很长的代码很有用。安装好之后，不需要设置插件会自动生效</p>
-</li>
-<li><p><code>DocBlockr</code>　　DocBlockr可以自动生成PHPDoc风格的注释。它支持的语言有Javascript, PHP, ActionScript, CoffeeScript, Java, Objective C, C, C++</p>
-</li>
-<li><p><code>Emmet(Zen Coding)</code>　　快速生成HTML代码段的插件，强大到无与伦比，不知道的请自行google</p>
-</li>
-<li><p><code>SideBar Enhancements</code>　　这个插件改进了侧边栏，增加了许多功能</p>
-</li>
-<li><p><code>SideBar Folders</code>　　增加了侧边栏对于文件夹的支持</p>
-</li>
-<li><p><code>SublimeCodeIntel</code>    提供了代码提示和自动补全功能</p>
-</li>
-</ol>
-<p>sublime text 还具有很多插件，读者可以根据自己所使用的语言和需要进行相应的安装</p>
-<p><em>配置sublime text主题</em></p>
-<p>Sublime Text本身对于主题的扩展也是十分的强大，一些推荐的主题可以前往<a href="http://designbeep.com/2014/06/10/35-cool-sublime-text-themes/">design beep网站</a>进行选择和安装</p>
-<p>下面介绍一下我安装的主题和相应的配置文件：</p>
-<p>在package control中分别输入<code>numix</code>和<code>itg.flat</code>进行主题的安装，然后安装插件<code>markdown extend</code>增加对markdown语法的支持，然后编辑<code>Settings-User</code>，加入以下内容：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;color_scheme&quot;</span>: <span class="string">&quot;Packages/Theme - itg.flat/itg.dark.tmTheme&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;numix_sidebar_tree_medium&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;numix_small_tabs&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;theme&quot;</span>: <span class="string">&quot;Numix.sublime-theme&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>效果如下：</p>
-<p><img data-src="/uploads/in-post/sublime_theme.png" alt="numix主题"></p>
-<h3 id="安装gcc"><a href="#安装gcc" class="headerlink" title="安装gcc"></a>安装gcc</h3><p>安装完sublime text后，编辑C语言的文本编辑器就已经配置好了，但是想要编译C文件，则需要安装<a href="http://gcc.gnu.org/" title="gcc官方网站">gcc</a>，在Mac OS中，直接使用<code>brew</code>命令进行安装即可，安装命令如下：</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>gcc</span><br></pre></td></tr></table></figure>
-
-<p>等待安装完成</p>
-<p>输入命令<code>gcc -v</code>验证是否安装成功，如果安装成功，应该有以下提示：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Configured</span> with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/usr/include/c++/<span class="number">4</span>.<span class="number">2</span>.<span class="number">1</span></span><br><span class="line"><span class="attribute">Apple</span> LLVM version <span class="number">6</span>.<span class="number">1</span>.<span class="number">0</span> (clang-<span class="number">602</span>.<span class="number">0</span>.<span class="number">49</span>) (based <span class="literal">on</span> LLVM <span class="number">3</span>.<span class="number">6</span>.<span class="number">0</span>svn)</span><br><span class="line"><span class="attribute">Target</span>: x<span class="number">86</span>_<span class="number">64</span>-apple-darwin<span class="number">14</span>.<span class="number">3</span>.<span class="number">0</span></span><br><span class="line"><span class="attribute">Thread</span> model: posix</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置sublime-text的C语言编译系统"><a href="#配置sublime-text的C语言编译系统" class="headerlink" title="配置sublime text的C语言编译系统"></a>配置sublime text的C语言编译系统</h3><p>经过前面的步骤，就可以分别进行C语言的编辑和编译，但是为了方便，只需要简单地配置就可以直接用sublime text进行编译了</p>
-<p>打开Tools-&gt;Build System-&gt;New Build System，在新建的文件中输入以下内容：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;gcc -o $&#123;file_base_name&#125; $file_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;shell&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;working_dir&quot;</span> : <span class="string">&quot;$file_path&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;selector&quot;</span>: <span class="string">&quot;source.c&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;encoding&quot;</span>:<span class="string">&quot;utf-8&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;variants&quot;</span> :</span><br><span class="line">    [&#123;</span><br><span class="line">        <span class="attr">&quot;name&quot;</span> : <span class="string">&quot;Run&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;cmd&quot;</span> : <span class="string">&quot;./$&#123;file_base_name&#125;&quot;</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用control+B进行编译文件，使用control+shift+B运行编译好的文件</p>
-<p>以下是sublime text 2的内容</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;gcc&quot;</span>,  <span class="string">&quot;-o&quot;</span>, <span class="string">&quot;$file_base_name&quot;</span>, <span class="string">&quot;$file_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;cmd&quot;</span> : [<span class="string">&quot;./$file_base_name&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;selector&quot;</span> : <span class="string">&quot;source.c&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;shell&quot;</span> : <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;working_dir&quot;</span> : <span class="string">&quot;$file_path&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>第一行相当于在shell中输入命令<code>gcc -o 文件名 文件名.c</code></p>
-</li>
-<li><p>第二行则是运行编译成功的文件</p>
-</li>
-<li><p>第三行的意思是对后缀为<code>.c</code>的文件进行选择</p>
-</li>
-</ul>
-<p>编辑完成后，保存文件，命名为C.sublime-build，然后就可以在Build System中选中这个编译方式了</p>
-<p>编辑文件hello.c:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用命令<code>command + B</code>编译并运行，效果如下:</p>
-<p><img data-src="/uploads/in-post/hello_world_c.png" alt="hello world"></p>
-<p>至此，就可以在你的Mac OS中使用sublime text进行C语言的开发了</p>
-]]></content>
-      <categories>
-        <category>Mac</category>
-      </categories>
-      <tags>
-        <tag>Sublime</tag>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mac OS上搭建Nginx,Mysql,PHP开发环境</title>
-    <url>/2015/05/29/2015-05-29-install-nginx-php-mysql-mac/</url>
-    <content><![CDATA[<blockquote>
-<p>“LNMP开发环境是PHP语言开发网站的主流环境。”</p>
-</blockquote>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>LNMP代表的就是：Linux系统下Nginx+MySQL+PHP这种网站服务器架构。Linux是一类Unix计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo等。<a href="http://nginx.org/">Nginx</a>是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。<a href="http://www.mysql.com/">Mysql</a>是一个小型关系型数据库管理系统。<a href="http://php.net/">PHP</a>是一种在服务器端执行的嵌入HTML文档的脚本语言。这四种软件均为免费开源软件，组合到一起，成为一个免费、高效、扩展性强的网站服务系统。</p>
-<span id="more"></span>
-
-<h3 id="安装Homebrew"><a href="#安装Homebrew" class="headerlink" title="安装Homebrew"></a>安装Homebrew</h3><p>使用Mac的程序员必不可少的一步便是安装Homebrew，他就像是centOS的<code>yum</code>命令和ubuntu的<code>apt-get</code>命令一样，通过<code>brew</code>命令，我们可以快速的安装一些软件包。<br>使用命令行安装Homebrew的命令如下：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e &quot;$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster/install)<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>使用<code>brew doctor</code>检查是否存在冲突，然后使用<code>brew update &amp;&amp; brew upgrade</code>对brew进行升级。</p>
-<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><p>nginx在Mac OS中可以直接使用brew命令进行安装：</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>nginx</span><br></pre></td></tr></table></figure>
-
-<p>如果需要使用80端口的话，需要将nginx加入root组当中：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo cp -v <span class="regexp">/usr/</span>local<span class="regexp">/opt/</span>nginx<span class="regexp">/*.plist /</span>Library<span class="regexp">/LaunchDaemons/</span></span><br><span class="line">sudo chown root:wheel <span class="regexp">/Library/</span>LaunchDaemons/homebrew.mxcl.nginx.plist</span><br></pre></td></tr></table></figure>
-
-<p>然后使用命令启动nginx服务：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sudo nginx</span></span><br></pre></td></tr></table></figure>
-
-<p>测试nginx是否安装成功，因为默认配置文件监听的是<code>8080</code>端口，所以先对<code>8080</code>端口发起请求：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">curl -IL http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span></span><br></pre></td></tr></table></figure>
-
-<p>结果应该类似于下：</p>
-<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.9.1</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Fri, 29 May 2015 14:50:47 GMT</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>612</span><br><span class="line"><span class="attribute">Last-Modified</span><span class="punctuation">: </span>Fri, 29 May 2015 14:40:47 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"><span class="attribute">ETag</span><span class="punctuation">: </span>&quot;5444dea7-264&quot;</span><br><span class="line"><span class="attribute">Accept-Ranges</span><span class="punctuation">: </span>bytes</span><br></pre></td></tr></table></figure>
-
-<p>nginx的相关操作如下：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo nginx <span class="regexp">//</span>启动nginx</span><br><span class="line">sudo nginx -s reload|reopen|quit <span class="regexp">//</span>重新加载|重启|退出</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装php-fpm"><a href="#安装php-fpm" class="headerlink" title="安装php-fpm"></a>安装php-fpm</h3><p>因为brew并没有php-fpm的源，所以首先要添加源：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">brew</span> tap homebrew/dupes</span><br><span class="line">brew tap homebrew/php</span><br></pre></td></tr></table></figure>
-
-<p>然后安装php-fpm，输入命令:</p>
-<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">brew</span> <span class="comment">install</span> <span class="comment">php56</span> --<span class="comment">whitout</span><span class="literal">-</span><span class="comment">apache</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">imap</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">tidy</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">debug</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">pgsql</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">mysql</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">fpm</span></span><br></pre></td></tr></table></figure>
-
-<p>程序会自动安装，等待几分钟后完成安装。</p>
-<p>安装完成后，还需要将php加入<code>$PATH</code>当中：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果使用bash的话</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;/usr/local/sbin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line">source ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用ZSH的话</span></span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;/usr/local/sbin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>然后可以设置php-fpm的开机自启动：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p ~<span class="regexp">/Library/</span>LaunchAgents</span><br><span class="line">ln -sfv <span class="regexp">/usr/</span>local<span class="regexp">/opt/</span>php56<span class="regexp">/homebrew.mxcl.php56.plist ~/</span>Library<span class="regexp">/LaunchAgents/</span></span><br><span class="line">launchctl load -w ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.php56.plist</span><br></pre></td></tr></table></figure>
-
-<p>使用以下命令监测php-fpm是否启动成功：</p>
-<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">lsof -Pni4 | <span class="type">grep</span> LISTEN | <span class="type">grep</span> php</span><br></pre></td></tr></table></figure>
-
-<p>如果启动成功应当有以下类似输出：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27578</span> wenzhiquan    <span class="number">9</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27628</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27629</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27630</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br></pre></td></tr></table></figure>
-
-<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><p>MySQL也可以使用brew命令直接进行安装：</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>mysql</span><br></pre></td></tr></table></figure>
-
-<p>同样，可以设置MySQL的开机自启动：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">ln -sfv <span class="regexp">/usr/</span>local<span class="regexp">/opt/my</span>sql<span class="regexp">/*.plist ~/</span>Library/LaunchAgents</span><br><span class="line">launchctl load ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.mysql.plist</span><br></pre></td></tr></table></figure>
-
-<p>然后进行MySQL的安全安装，使用以下命令，可以更改root密码、删除匿名用户、关闭远程连接等：</p>
-<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mysql_secure_installation</span></span><br></pre></td></tr></table></figure>
-
-<p>然后会输出以下内容：</p>
-<figure class="highlight node-repl"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span> <span class="javascript">Enter current password <span class="keyword">for</span> root (enter <span class="keyword">for</span> none):		<span class="comment">//默认没有密码，直接回车即可</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Change the root password? [Y/n]						<span class="comment">//是否更改root密码，选择是，然后输入并确认密码</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Remove anonymous users? [Y/n]							<span class="comment">//是否删除匿名用户，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Disallow root login remotely? [Y/n]					<span class="comment">//是否禁止远程登录，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Remove test database and access to it? [Y/n]			<span class="comment">//是否删除test数据库，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Reload privilege tables now? [Y/n]					<span class="comment">//是否重载表格数据，选择是</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>测试数据库是否安装成功：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">mysql -u root -<span class="selector-tag">p</span></span><br></pre></td></tr></table></figure>
-
-<p>然后输入刚才设置的root密码，将会输出以下内容：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> help. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">exit</span>			<span class="regexp">//</span>输入<span class="keyword">exit</span>退出数据库</span><br></pre></td></tr></table></figure>
-
-<h3 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h3><p>首先，为我们的配置文件创建一些文件夹，这些是仿照ubuntu的nginx结构进行建立的目录：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/logs</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/sites-available</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/sites-enabled</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/conf.d</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/ssl</span><br><span class="line"></span><br><span class="line">sudo mkdir -p <span class="regexp">/var/</span>www</span><br><span class="line">sudo chown :staff <span class="regexp">/var/</span>www</span><br><span class="line">sudo chmod <span class="number">775</span> <span class="regexp">/var/</span>www</span><br></pre></td></tr></table></figure>
-
-<p>然后修改nginx配置文件：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>将内容替换为：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">error_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span>error.log debug;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    <span class="keyword">include</span>             mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    access_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span>access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile            on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout   <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    index index.html index.php;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">include</span> <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/sites-enabled/</span>*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后创建php-fpm配置文件：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/ect/</span>nginx<span class="regexp">/conf.d/</span>php-fpm</span><br></pre></td></tr></table></figure>
-
-<p>输入以下内容：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~ \.php$</span> &#123;</span><br><span class="line">    <span class="attribute">try_files</span>      $uri = <span class="number">404</span>;</span><br><span class="line">    <span class="attribute">fastcgi_pass</span>   <span class="number">127.0.0.1:9000</span>;</span><br><span class="line">    <span class="attribute">fastcgi_index</span>  index.php;</span><br><span class="line">    <span class="attribute">fastcgi_param</span>  SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    <span class="attribute">include</span>        fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>然后加入站点配置文件：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/ect/</span>nginx<span class="regexp">/sites-enabled/</span><span class="keyword">default</span></span><br></pre></td></tr></table></figure>
-
-<p>输入以下内容：</p>
-<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">80</span>;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root       <span class="regexp">/var/</span>www/;</span><br><span class="line"></span><br><span class="line">    access_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span><span class="keyword">default</span>.access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        <span class="keyword">include</span>   <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span>php-fpm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location = /info &#123;</span><br><span class="line">        allow   <span class="number">127.0</span>.<span class="number">0.1</span>;</span><br><span class="line">        deny    all;</span><br><span class="line">        rewrite (.*) /.info.php;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page  <span class="number">404</span>     /<span class="number">404</span>.html;</span><br><span class="line">    error_page  <span class="number">403</span>     /<span class="number">403</span>.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>重启nginx，至此，配置完成，在www下写一个测试文件，进行测试即可</p>
-<p><strong>尽情的享受在Mac OS开发PHP的快感吧！</strong></p>
-]]></content>
-      <categories>
-        <category>PHP</category>
-      </categories>
-      <tags>
-        <tag>PHP</tag>
-        <tag>Nginx</tag>
-        <tag>Mysql</tag>
-        <tag>Mac</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Fedora 22上安装jekyll</title>
     <url>/2015/09/18/2015-09-18-install-jekyll-fedora/</url>
     <content><![CDATA[<blockquote>
@@ -714,6 +612,71 @@
       <tags>
         <tag>Fedora</tag>
         <tag>Jekyll</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>单例模式的八种写法</title>
+    <url>/2016/03/28/2016-03-28-singleton-eight-type/</url>
+    <content><![CDATA[<blockquote>
+<p>“单例模式是最常用到的设计模式之一，熟悉设计模式的朋友对单例模式都不会陌生。”</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>单例模式</code>（singleton）是一种常用的设计模式，其定义是单例对象的类只能允许创建一个实例，而可以被多次调用。</p>
+<p>单例模式是设计模式中最简单的形式之一。这一模式的目的是使得类的一个对象成为系统中的唯一实例。要实现这一点，可以从客户端对其进行实例化开始。因此需要用一种只允许生成对象类的唯一实例的机制，“阻止”所有想要生成对象的访问。使用工厂方法来限制实例化过程。这个方法应该是静态方法（类方法），因为让类的实例去生成另一个唯一实例毫无意义。</p>
+<span id="more"></span>
+
+<h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>显然单例模式的要点有三个：</p>
+<p>一是某个类只能有一个实例；</p>
+<p>二是它必须自行创建这个实例；</p>
+<p>三是它必须自行向整个系统提供这个实例。</p>
+<p>单例的实现主要是通过以下两个步骤：</p>
+<p>1). 将该类的构造方法定义为私有方法，这样其他处的代码就无法通过调用该类的构造方法来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例；</p>
+<p>2). 在该类内提供一个静态方法，当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，没有对创建实例的方法进行线程保护，会出现两个线程同时调用创建方法的情况，由于它们没有检测到实例的存在，从而同时各自创建了一个实例，这样就会构造出两个不同的实例，从而违反了单例模式中实例唯一的原则。所以需要对多线程状态下的单例模式进行线程保护。</p>
+<h3 id="八种写法"><a href="#八种写法" class="headerlink" title="八种写法"></a>八种写法</h3><h4 id="懒汉式（线程不安全）-不可用"><a href="#懒汉式（线程不安全）-不可用" class="headerlink" title="懒汉式（线程不安全）[不可用]"></a>懒汉式（线程不安全）[不可用]</h4><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="title">Singleton</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="function"><span class="title">getInstance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法起到了<code>Lazy Loading</code>的效果，即只有在需要调用类时才生成相应的实例。</p>
+<p>这种写法只能在单线程下使用。如果在多线程下，一个线程进入了<code>if(singleton == null)</code>判断语句块，还未往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。所以在多线程环境下不可使用这种方式。</p>
+<h4 id="懒汉式（线程安全，同步方法）-不推荐用"><a href="#懒汉式（线程安全，同步方法）-不推荐用" class="headerlink" title="懒汉式（线程安全，同步方法）[不推荐用]"></a>懒汉式（线程安全，同步方法）[不推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决了4.1的线程不安全问题，保证了同时只能有一个对<code>getInstance()</code>方法的调用。</p>
+<p>缺点：效率低下，每个线程在执行<code>getInstance()</code>方法时都要进行同步。而事实上只要保证第一次建立实例时同步即可。</p>
+<h4 id="懒汉式-线程安全，同步代码块-不可用"><a href="#懒汉式-线程安全，同步代码块-不可用" class="headerlink" title="懒汉式(线程安全，同步代码块)[不可用]"></a>懒汉式(线程安全，同步代码块)[不可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于4.2实现方式同步效率太低，所以摒弃同步方法，改为同步产生实例化的的代码块。</p>
+<p>但是这种同步并不能起到线程同步的作用。会遇到与4.1中的实现方式相同的问题，假如一个线程进入了<code>if (singleton == null)</code>判断语句块，还未往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。</p>
+<h4 id="双重校验锁-可用"><a href="#双重校验锁-可用" class="headerlink" title="双重校验锁[可用]"></a>双重校验锁[可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方法是针对4.2实现方式进行的改进，同时又避免了4.3中不能起到线程同步作用的问题。因为在同步代码块中再次进行了<code>if (singleton == null)</code>判断，保证了只会新建一个实例。</p>
+<p>注意：因为使用了<code>volatile</code>关键字，所以在JDK1.5之后，双重检查锁定才能够正常达到单例效果。</p>
+<h4 id="饿汉式（静态常量）-可用"><a href="#饿汉式（静态常量）-可用" class="headerlink" title="饿汉式（静态常量）[可用]"></a>饿汉式（静态常量）[可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优点：写法简单，在类装载时完成实例化。避免了线程同步问题。</p>
+<p>缺点：一定会实例化类，没有达到<code>Lazy Loading</code>的效果。如果从未使用过这个实例，会造成内存的浪费。</p>
+<h4 id="饿汉式（静态代码块）-可用"><a href="#饿汉式（静态代码块）-可用" class="headerlink" title="饿汉式（静态代码块）[可用]"></a>饿汉式（静态代码块）[可用]</h4><figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> static</span> &#123;</span><br><span class="line">       <span class="built_in"> instance </span>=<span class="built_in"> new </span>Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> Singleton() &#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> Singleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和4.5方法起到相同的作用，优缺点也相同。</p>
+<h4 id="静态内部类-推荐用"><a href="#静态内部类-推荐用" class="headerlink" title="静态内部类[推荐用]"></a>静态内部类[推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonInstance</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonInstance.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式与4.5和4.6的饿汉式写法采用的机制类似，但又不相同。两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要<code>Singleton</code>类被装载就会实例化，没有起到<code>Lazy Loading</code>的作用，而静态内部类方式在<code>Singleton</code>类被装载时并不会立即实例化，而是在调用<code>getInstance()</code>方法时，才会装载<code>SingletonInstance</code>类，进而完成<code>Singleton</code>的实例化。</p>
+<p>类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</p>
+<p>优点：线程安全，延迟加载，效率高。</p>
+<h4 id="枚举-推荐用"><a href="#枚举-推荐用" class="headerlink" title="枚举[推荐用]"></a>枚举[推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 这种方式是<code>Effective Java</code>作者<code>Josh Bloch</code>提倡的方式，借助JDK1.5中添加的枚举来实现单例模式，不仅能避免多线程同步问题，还能防止反序列化重新创建新的对象，可谓是很坚强的壁垒。</p>
+<h3 id="适用场合"><a href="#适用场合" class="headerlink" title="适用场合"></a>适用场合</h3><ul>
+<li>需要频繁的进行创建和销毁的对象；</li>
+<li>创建对象时耗时过多或耗费资源过多，但又经常用到的对象；</li>
+<li>工具类对象；</li>
+<li>频繁访问数据库或文件的对象。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>设计模式</tag>
+        <tag>创建型模式</tag>
+        <tag>Singleton</tag>
       </tags>
   </entry>
   <entry>
@@ -831,6 +794,108 @@
       </tags>
   </entry>
   <entry>
+    <title>Mac OS上搭建Nginx,Mysql,PHP开发环境</title>
+    <url>/2015/05/29/2015-05-29-install-nginx-php-mysql-mac/</url>
+    <content><![CDATA[<blockquote>
+<p>“LNMP开发环境是PHP语言开发网站的主流环境。”</p>
+</blockquote>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>LNMP代表的就是：Linux系统下Nginx+MySQL+PHP这种网站服务器架构。Linux是一类Unix计算机操作系统的统称，是目前最流行的免费操作系统。代表版本有：debian、centos、ubuntu、fedora、gentoo等。<a href="http://nginx.org/">Nginx</a>是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP代理服务器。<a href="http://www.mysql.com/">Mysql</a>是一个小型关系型数据库管理系统。<a href="http://php.net/">PHP</a>是一种在服务器端执行的嵌入HTML文档的脚本语言。这四种软件均为免费开源软件，组合到一起，成为一个免费、高效、扩展性强的网站服务系统。</p>
+<span id="more"></span>
+
+<h3 id="安装Homebrew"><a href="#安装Homebrew" class="headerlink" title="安装Homebrew"></a>安装Homebrew</h3><p>使用Mac的程序员必不可少的一步便是安装Homebrew，他就像是centOS的<code>yum</code>命令和ubuntu的<code>apt-get</code>命令一样，通过<code>brew</code>命令，我们可以快速的安装一些软件包。<br>使用命令行安装Homebrew的命令如下：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e &quot;$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster/install)<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>brew doctor</code>检查是否存在冲突，然后使用<code>brew update &amp;&amp; brew upgrade</code>对brew进行升级。</p>
+<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><p>nginx在Mac OS中可以直接使用brew命令进行安装：</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>nginx</span><br></pre></td></tr></table></figure>
+
+<p>如果需要使用80端口的话，需要将nginx加入root组当中：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo cp -v <span class="regexp">/usr/</span>local<span class="regexp">/opt/</span>nginx<span class="regexp">/*.plist /</span>Library<span class="regexp">/LaunchDaemons/</span></span><br><span class="line">sudo chown root:wheel <span class="regexp">/Library/</span>LaunchDaemons/homebrew.mxcl.nginx.plist</span><br></pre></td></tr></table></figure>
+
+<p>然后使用命令启动nginx服务：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">sudo nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>测试nginx是否安装成功，因为默认配置文件监听的是<code>8080</code>端口，所以先对<code>8080</code>端口发起请求：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">curl -IL http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8080</span></span><br></pre></td></tr></table></figure>
+
+<p>结果应该类似于下：</p>
+<figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.9.1</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Fri, 29 May 2015 14:50:47 GMT</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>612</span><br><span class="line"><span class="attribute">Last-Modified</span><span class="punctuation">: </span>Fri, 29 May 2015 14:40:47 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"><span class="attribute">ETag</span><span class="punctuation">: </span>&quot;5444dea7-264&quot;</span><br><span class="line"><span class="attribute">Accept-Ranges</span><span class="punctuation">: </span>bytes</span><br></pre></td></tr></table></figure>
+
+<p>nginx的相关操作如下：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo nginx <span class="regexp">//</span>启动nginx</span><br><span class="line">sudo nginx -s reload|reopen|quit <span class="regexp">//</span>重新加载|重启|退出</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装php-fpm"><a href="#安装php-fpm" class="headerlink" title="安装php-fpm"></a>安装php-fpm</h3><p>因为brew并没有php-fpm的源，所以首先要添加源：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">brew</span> tap homebrew/dupes</span><br><span class="line">brew tap homebrew/php</span><br></pre></td></tr></table></figure>
+
+<p>然后安装php-fpm，输入命令:</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">brew</span> <span class="comment">install</span> <span class="comment">php56</span> --<span class="comment">whitout</span><span class="literal">-</span><span class="comment">apache</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">imap</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">tidy</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">debug</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">pgsql</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">mysql</span> --<span class="comment">with</span><span class="literal">-</span><span class="comment">fpm</span></span><br></pre></td></tr></table></figure>
+
+<p>程序会自动安装，等待几分钟后完成安装。</p>
+<p>安装完成后，还需要将php加入<code>$PATH</code>当中：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果使用bash的话</span></span><br><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;/usr/local/sbin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line">source ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用ZSH的话</span></span><br><span class="line">vim ~/.zshrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;/usr/local/sbin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>然后可以设置php-fpm的开机自启动：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p ~<span class="regexp">/Library/</span>LaunchAgents</span><br><span class="line">ln -sfv <span class="regexp">/usr/</span>local<span class="regexp">/opt/</span>php56<span class="regexp">/homebrew.mxcl.php56.plist ~/</span>Library<span class="regexp">/LaunchAgents/</span></span><br><span class="line">launchctl load -w ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.php56.plist</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令监测php-fpm是否启动成功：</p>
+<figure class="highlight coq"><table><tr><td class="code"><pre><span class="line">lsof -Pni4 | <span class="type">grep</span> LISTEN | <span class="type">grep</span> php</span><br></pre></td></tr></table></figure>
+
+<p>如果启动成功应当有以下类似输出：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27578</span> wenzhiquan    <span class="number">9</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27628</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27629</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br><span class="line"><span class="attribute">php</span>-fpm   <span class="number">27630</span> wenzhiquan    <span class="number">0</span>u  IPv<span class="number">4</span> <span class="number">0</span>xf<span class="number">29</span>f<span class="number">8</span>b<span class="number">26</span>c<span class="number">08</span>fc<span class="number">27</span>      <span class="number">0</span>t<span class="number">0</span>  TCP <span class="number">127.0.0.1:9000</span> (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><p>MySQL也可以使用brew命令直接进行安装：</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>mysql</span><br></pre></td></tr></table></figure>
+
+<p>同样，可以设置MySQL的开机自启动：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">ln -sfv <span class="regexp">/usr/</span>local<span class="regexp">/opt/my</span>sql<span class="regexp">/*.plist ~/</span>Library/LaunchAgents</span><br><span class="line">launchctl load ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.mysql.plist</span><br></pre></td></tr></table></figure>
+
+<p>然后进行MySQL的安全安装，使用以下命令，可以更改root密码、删除匿名用户、关闭远程连接等：</p>
+<figure class="highlight ebnf"><table><tr><td class="code"><pre><span class="line"><span class="attribute">mysql_secure_installation</span></span><br></pre></td></tr></table></figure>
+
+<p>然后会输出以下内容：</p>
+<figure class="highlight node-repl"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;</span> <span class="javascript">Enter current password <span class="keyword">for</span> root (enter <span class="keyword">for</span> none):		<span class="comment">//默认没有密码，直接回车即可</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Change the root password? [Y/n]						<span class="comment">//是否更改root密码，选择是，然后输入并确认密码</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Remove anonymous users? [Y/n]							<span class="comment">//是否删除匿名用户，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Disallow root login remotely? [Y/n]					<span class="comment">//是否禁止远程登录，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Remove test database and access to it? [Y/n]			<span class="comment">//是否删除test数据库，选择是</span></span></span><br><span class="line"><span class="meta">&gt;</span> <span class="javascript">Reload privilege tables now? [Y/n]					<span class="comment">//是否重载表格数据，选择是</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>测试数据库是否安装成功：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">mysql -u root -<span class="selector-tag">p</span></span><br></pre></td></tr></table></figure>
+
+<p>然后输入刚才设置的root密码，将会输出以下内容：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">Type <span class="string">&#x27;help;&#x27;</span> or <span class="string">&#x27;\h&#x27;</span> <span class="keyword">for</span> help. Type <span class="string">&#x27;\c&#x27;</span> to clear the current input statement.</span><br><span class="line"></span><br><span class="line">mysql&gt; <span class="keyword">exit</span>			<span class="regexp">//</span>输入<span class="keyword">exit</span>退出数据库</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置nginx</h3><p>首先，为我们的配置文件创建一些文件夹，这些是仿照ubuntu的nginx结构进行建立的目录：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/logs</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/sites-available</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/sites-enabled</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/conf.d</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/ssl</span><br><span class="line"></span><br><span class="line">sudo mkdir -p <span class="regexp">/var/</span>www</span><br><span class="line">sudo chown :staff <span class="regexp">/var/</span>www</span><br><span class="line">sudo chmod <span class="number">775</span> <span class="regexp">/var/</span>www</span><br></pre></td></tr></table></figure>
+
+<p>然后修改nginx配置文件：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<p>将内容替换为：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">worker_processes  <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">error_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span>error.log debug;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  <span class="number">1024</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    <span class="keyword">include</span>             mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  <span class="string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span></span><br><span class="line">                      <span class="string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    access_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span>access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile            on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout   <span class="number">65</span>;</span><br><span class="line"></span><br><span class="line">    index index.html index.php;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">include</span> <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/sites-enabled/</span>*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后创建php-fpm配置文件：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/ect/</span>nginx<span class="regexp">/conf.d/</span>php-fpm</span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="attribute">location</span> <span class="regexp">~ \.php$</span> &#123;</span><br><span class="line">    <span class="attribute">try_files</span>      $uri = <span class="number">404</span>;</span><br><span class="line">    <span class="attribute">fastcgi_pass</span>   <span class="number">127.0.0.1:9000</span>;</span><br><span class="line">    <span class="attribute">fastcgi_index</span>  index.php;</span><br><span class="line">    <span class="attribute">fastcgi_param</span>  SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">    <span class="attribute">include</span>        fastcgi_params;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后加入站点配置文件：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">vim <span class="regexp">/usr/</span>local<span class="regexp">/ect/</span>nginx<span class="regexp">/sites-enabled/</span><span class="keyword">default</span></span><br></pre></td></tr></table></figure>
+
+<p>输入以下内容：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       <span class="number">80</span>;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    root       <span class="regexp">/var/</span>www/;</span><br><span class="line"></span><br><span class="line">    access_log  <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/logs/</span><span class="keyword">default</span>.access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        <span class="keyword">include</span>   <span class="regexp">/usr/</span>local<span class="regexp">/etc/</span>nginx<span class="regexp">/conf.d/</span>php-fpm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location = /info &#123;</span><br><span class="line">        allow   <span class="number">127.0</span>.<span class="number">0.1</span>;</span><br><span class="line">        deny    all;</span><br><span class="line">        rewrite (.*) /.info.php;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    error_page  <span class="number">404</span>     /<span class="number">404</span>.html;</span><br><span class="line">    error_page  <span class="number">403</span>     /<span class="number">403</span>.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重启nginx，至此，配置完成，在www下写一个测试文件，进行测试即可</p>
+<p><strong>尽情的享受在Mac OS开发PHP的快感吧！</strong></p>
+]]></content>
+      <categories>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>Nginx</tag>
+        <tag>Mysql</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用IDEA和gradle搭建Spring MVC和MyBatis开发环境</title>
     <url>/2016/04/12/2016-04-12-idea-gradle-ssm/</url>
     <content><![CDATA[<blockquote>
@@ -907,71 +972,6 @@
         <tag>Spring</tag>
         <tag>MyBatis</tag>
         <tag>Gradle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>单例模式的八种写法</title>
-    <url>/2016/03/28/2016-03-28-singleton-eight-type/</url>
-    <content><![CDATA[<blockquote>
-<p>“单例模式是最常用到的设计模式之一，熟悉设计模式的朋友对单例模式都不会陌生。”</p>
-</blockquote>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><code>单例模式</code>（singleton）是一种常用的设计模式，其定义是单例对象的类只能允许创建一个实例，而可以被多次调用。</p>
-<p>单例模式是设计模式中最简单的形式之一。这一模式的目的是使得类的一个对象成为系统中的唯一实例。要实现这一点，可以从客户端对其进行实例化开始。因此需要用一种只允许生成对象类的唯一实例的机制，“阻止”所有想要生成对象的访问。使用工厂方法来限制实例化过程。这个方法应该是静态方法（类方法），因为让类的实例去生成另一个唯一实例毫无意义。</p>
-<span id="more"></span>
-
-<h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>显然单例模式的要点有三个：</p>
-<p>一是某个类只能有一个实例；</p>
-<p>二是它必须自行创建这个实例；</p>
-<p>三是它必须自行向整个系统提供这个实例。</p>
-<p>单例的实现主要是通过以下两个步骤：</p>
-<p>1). 将该类的构造方法定义为私有方法，这样其他处的代码就无法通过调用该类的构造方法来实例化该类的对象，只有通过该类提供的静态方法来得到该类的唯一实例；</p>
-<p>2). 在该类内提供一个静态方法，当我们调用这个方法时，如果类持有的引用不为空就返回这个引用，如果类保持的引用为空就创建该类的实例并将实例的引用赋予该类保持的引用。</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>单例模式在多线程的应用场合下必须小心使用。如果当唯一实例尚未创建时，没有对创建实例的方法进行线程保护，会出现两个线程同时调用创建方法的情况，由于它们没有检测到实例的存在，从而同时各自创建了一个实例，这样就会构造出两个不同的实例，从而违反了单例模式中实例唯一的原则。所以需要对多线程状态下的单例模式进行线程保护。</p>
-<h3 id="八种写法"><a href="#八种写法" class="headerlink" title="八种写法"></a>八种写法</h3><h4 id="懒汉式（线程不安全）-不可用"><a href="#懒汉式（线程不安全）-不可用" class="headerlink" title="懒汉式（线程不安全）[不可用]"></a>懒汉式（线程不安全）[不可用]</h4><figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="title">Singleton</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="function"><span class="title">getInstance</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="literal">null</span>) &#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种写法起到了<code>Lazy Loading</code>的效果，即只有在需要调用类时才生成相应的实例。</p>
-<p>这种写法只能在单线程下使用。如果在多线程下，一个线程进入了<code>if(singleton == null)</code>判断语句块，还未往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。所以在多线程环境下不可使用这种方式。</p>
-<h4 id="懒汉式（线程安全，同步方法）-不推荐用"><a href="#懒汉式（线程安全，同步方法）-不推荐用" class="headerlink" title="懒汉式（线程安全，同步方法）[不推荐用]"></a>懒汉式（线程安全，同步方法）[不推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>解决了4.1的线程不安全问题，保证了同时只能有一个对<code>getInstance()</code>方法的调用。</p>
-<p>缺点：效率低下，每个线程在执行<code>getInstance()</code>方法时都要进行同步。而事实上只要保证第一次建立实例时同步即可。</p>
-<h4 id="懒汉式-线程安全，同步代码块-不可用"><a href="#懒汉式-线程安全，同步代码块-不可用" class="headerlink" title="懒汉式(线程安全，同步代码块)[不可用]"></a>懒汉式(线程安全，同步代码块)[不可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>由于4.2实现方式同步效率太低，所以摒弃同步方法，改为同步产生实例化的的代码块。</p>
-<p>但是这种同步并不能起到线程同步的作用。会遇到与4.1中的实现方式相同的问题，假如一个线程进入了<code>if (singleton == null)</code>判断语句块，还未往下执行，另一个线程也通过了这个判断语句，这时便会产生多个实例。</p>
-<h4 id="双重校验锁-可用"><a href="#双重校验锁-可用" class="headerlink" title="双重校验锁[可用]"></a>双重校验锁[可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singleton singleton;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    singleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种方法是针对4.2实现方式进行的改进，同时又避免了4.3中不能起到线程同步作用的问题。因为在同步代码块中再次进行了<code>if (singleton == null)</code>判断，保证了只会新建一个实例。</p>
-<p>注意：因为使用了<code>volatile</code>关键字，所以在JDK1.5之后，双重检查锁定才能够正常达到单例效果。</p>
-<h4 id="饿汉式（静态常量）-可用"><a href="#饿汉式（静态常量）-可用" class="headerlink" title="饿汉式（静态常量）[可用]"></a>饿汉式（静态常量）[可用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>优点：写法简单，在类装载时完成实例化。避免了线程同步问题。</p>
-<p>缺点：一定会实例化类，没有达到<code>Lazy Loading</code>的效果。如果从未使用过这个实例，会造成内存的浪费。</p>
-<h4 id="饿汉式（静态代码块）-可用"><a href="#饿汉式（静态代码块）-可用" class="headerlink" title="饿汉式（静态代码块）[可用]"></a>饿汉式（静态代码块）[可用]</h4><figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> Singleton instance;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> static</span> &#123;</span><br><span class="line">       <span class="built_in"> instance </span>=<span class="built_in"> new </span>Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> Singleton() &#123;&#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> Singleton getInstance() &#123;</span><br><span class="line">       <span class="built_in"> return </span>instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>和4.5方法起到相同的作用，优缺点也相同。</p>
-<h4 id="静态内部类-推荐用"><a href="#静态内部类-推荐用" class="headerlink" title="静态内部类[推荐用]"></a>静态内部类[推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonInstance</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonInstance.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种方式与4.5和4.6的饿汉式写法采用的机制类似，但又不相同。两者都是采用了类装载的机制来保证初始化实例时只有一个线程。不同的地方在饿汉式方式是只要<code>Singleton</code>类被装载就会实例化，没有起到<code>Lazy Loading</code>的作用，而静态内部类方式在<code>Singleton</code>类被装载时并不会立即实例化，而是在调用<code>getInstance()</code>方法时，才会装载<code>SingletonInstance</code>类，进而完成<code>Singleton</code>的实例化。</p>
-<p>类的静态属性只会在第一次加载类的时候初始化，所以在这里，JVM帮助我们保证了线程的安全性，在类进行初始化时，别的线程是无法进入的。</p>
-<p>优点：线程安全，延迟加载，效率高。</p>
-<h4 id="枚举-推荐用"><a href="#枚举-推荐用" class="headerlink" title="枚举[推荐用]"></a>枚举[推荐用]</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p> 这种方式是<code>Effective Java</code>作者<code>Josh Bloch</code>提倡的方式，借助JDK1.5中添加的枚举来实现单例模式，不仅能避免多线程同步问题，还能防止反序列化重新创建新的对象，可谓是很坚强的壁垒。</p>
-<h3 id="适用场合"><a href="#适用场合" class="headerlink" title="适用场合"></a>适用场合</h3><ul>
-<li>需要频繁的进行创建和销毁的对象；</li>
-<li>创建对象时耗时过多或耗费资源过多，但又经常用到的对象；</li>
-<li>工具类对象；</li>
-<li>频繁访问数据库或文件的对象。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>设计模式</tag>
-        <tag>创建型模式</tag>
-        <tag>Singleton</tag>
       </tags>
   </entry>
   <entry>
@@ -1295,111 +1295,6 @@
       </tags>
   </entry>
   <entry>
-    <title>面试必会题目（4）—— Math &amp; Bit Manipulation</title>
-    <url>/2016/07/04/2016-07-04-interview-algorithm-math-bit/</url>
-    <content><![CDATA[<blockquote>
-<p>“面试技术岗位应该掌握的算法题目–Math &amp; Bit Manipulation相关”</p>
-</blockquote>
-<span id="more"></span>
-
-<h3 id="Flip-Bits-easy"><a href="#Flip-Bits-easy" class="headerlink" title="Flip Bits - easy"></a>Flip Bits - easy</h3><p>题目</p>
-<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">Determine the number of bits required <span class="keyword">to</span> flip <span class="keyword">if</span> you want <span class="keyword">to</span> convert <span class="built_in">integer</span> n</span><br><span class="line"><span class="keyword">to</span> <span class="built_in">integer</span> m.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given</span><br><span class="line">n = <span class="number">31</span> (<span class="string">`1`</span><span class="number">111</span><span class="string">`1`</span>),</span><br><span class="line">m = <span class="number">14</span> (<span class="string">`0`</span><span class="number">111</span><span class="string">`0`</span>),</span><br><span class="line"><span class="keyword">return</span> <span class="number">2.</span></span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> bitSwapRequired(<span class="built_in">int</span> a, <span class="built_in">int</span> b) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="keyword">count</span> = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> c = a ^ b; c != <span class="number">0</span>; c &gt;&gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">count</span> += c &amp; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/flip-bits/">Flip Bits</a></p>
-<h3 id="O-1-Check-Power-of-2-easy"><a href="#O-1-Check-Power-of-2-easy" class="headerlink" title="O(1) Check Power of 2 - easy"></a>O(1) Check Power of 2 - easy</h3><p>题目</p>
-<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">Using O(1) time to<span class="built_in"> check </span>whether an integer n is a power of 2.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For n=4,<span class="built_in"> return </span>true;</span><br><span class="line"></span><br><span class="line">For n=5,<span class="built_in"> return </span>false;</span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkPowerOf2</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &amp; (n<span class="number">-1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/o1-check-power-of-2/">O(1) Check Power of 2</a></p>
-<h3 id="Unique-Paths-easy"><a href="#Unique-Paths-easy" class="headerlink" title="Unique Paths - easy"></a>Unique Paths - easy</h3><p>题目</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">A robot is located <span class="keyword">at</span> <span class="keyword">the</span> top-left corner <span class="keyword">of</span> <span class="keyword">a</span> m x n grid</span><br><span class="line">(marked <span class="string">&#x27;Start&#x27;</span> <span class="keyword">in</span> <span class="keyword">the</span> diagram below).</span><br><span class="line"></span><br><span class="line">The robot can only move either down <span class="keyword">or</span> <span class="literal">right</span> <span class="keyword">at</span> <span class="keyword">any</span> point <span class="keyword">in</span> <span class="built_in">time</span>. The robot is</span><br><span class="line">trying <span class="built_in">to</span> reach <span class="keyword">the</span> bottom-<span class="literal">right</span> corner <span class="keyword">of</span> <span class="keyword">the</span> grid(marked <span class="string">&#x27;Finish&#x27;</span> <span class="keyword">in</span> <span class="keyword">the</span> diagram</span><br><span class="line">below).</span><br><span class="line"></span><br><span class="line">How many possible unique paths are there?</span><br><span class="line"></span><br><span class="line">Example</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>1,1</th>
-<th>1,2</th>
-<th>1,3</th>
-<th>1,4</th>
-<th>1,5</th>
-<th>1,6</th>
-<th>1,7</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>2,1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>3,1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>3,7</td>
-</tr>
-</tbody></table>
-<p>代码</p>
-<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">Ja<span class="symbol">va:</span></span><br><span class="line"></span><br><span class="line">// space O(<span class="built_in">n</span>)</span><br><span class="line">public <span class="built_in">int</span> uniquePaths(<span class="built_in">int</span> m, <span class="built_in">int</span> <span class="built_in">n</span>) &#123;</span><br><span class="line">    <span class="built_in">if</span> (m &lt; <span class="number">1</span> || <span class="built_in">n</span> &lt; <span class="number">1</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">if</span> (m == <span class="number">1</span> || <span class="built_in">n</span> == <span class="number">1</span>) return <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">int</span>[] result = new <span class="built_in">int</span>[<span class="built_in">n</span>];</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">n</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">        for (<span class="built_in">int</span> j = <span class="number">1</span>; j &lt; <span class="built_in">n</span>; j++)</span><br><span class="line">            result[j] += result[j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    return result[<span class="built_in">n</span> - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/unique-paths/">Unique Paths</a></p>
-<h3 id="Trailing-Zeros-easy"><a href="#Trailing-Zeros-easy" class="headerlink" title="Trailing Zeros - easy"></a>Trailing Zeros - easy</h3><p>题目</p>
-<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Write</span> an algorithm which computes the <span class="keyword">number</span> of trailing zeros <span class="keyword">in</span> n factorial.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line"><span class="number">11</span><span class="comment">! = 39916800, so the out should be 2</span></span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">long</span> trailingZeros(<span class="built_in">long</span> n) &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">long</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">count</span> += n / <span class="number">5</span>;</span><br><span class="line">        n /= <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/trailing-zeros/">Trailing Zeros</a></p>
-<h3 id="Update-Bits-medium"><a href="#Update-Bits-medium" class="headerlink" title="Update Bits - medium"></a>Update Bits - medium</h3><p>题目</p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">Given two <span class="number">32</span>-<span class="keyword">bit </span>numbers, N <span class="keyword">and </span>M, <span class="keyword">and </span>two <span class="keyword">bit </span>positions, i <span class="keyword">and </span><span class="keyword">j. </span>Write a method</span><br><span class="line">to set all <span class="keyword">bits </span><span class="keyword">between </span>i <span class="keyword">and </span><span class="keyword">j </span>in N equal to M (e g , M <span class="keyword">becomes </span>a <span class="keyword">substring </span>of N</span><br><span class="line">located <span class="built_in">at</span> i <span class="keyword">and </span>starting <span class="built_in">at</span> <span class="keyword">j)</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">Clarification</span><br><span class="line">You can assume that the <span class="keyword">bits </span><span class="keyword">j </span>through i have enough space to fit all of M. That is,</span><br><span class="line">if M=<span class="number">10011</span>， you can assume that there are <span class="built_in">at</span> least <span class="number">5</span> <span class="keyword">bits </span><span class="keyword">between </span><span class="keyword">j </span><span class="keyword">and </span>i.</span><br><span class="line">You would not, for example, have <span class="keyword">j=3 </span><span class="keyword">and </span>i=<span class="number">2</span>, <span class="keyword">because </span>M could not fully fit <span class="keyword">between</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">bit </span><span class="number">3</span> <span class="keyword">and </span><span class="keyword">bit </span><span class="number">2</span>.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given N=(<span class="number">10000000000</span>)<span class="number">2</span>, M=(<span class="number">10101</span>)<span class="number">2</span>, i=<span class="number">2</span>, <span class="keyword">j=6</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">return N=(<span class="number">10001010100</span>)<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateBits</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = ~<span class="number">0</span>; <span class="comment">/* All 1’s */</span></span><br><span class="line">    <span class="comment">// 1’s through position j, then 0’s</span></span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">31</span>)</span><br><span class="line">        j = max;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        j = (<span class="number">1</span> &lt;&lt; (j + <span class="number">1</span>)) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = max - j;</span><br><span class="line">    <span class="comment">// 1’s after position i</span></span><br><span class="line">    <span class="keyword">int</span> right = ((<span class="number">1</span> &lt;&lt; i) - <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 1’s, with 0s between i and j</span></span><br><span class="line">    <span class="keyword">int</span> mask = left | right;</span><br><span class="line">    <span class="comment">// Clear i through j, then put m in there</span></span><br><span class="line">    <span class="keyword">return</span> ((n &amp; mask) | (m &lt;&lt; i));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/update-bits/">Update Bits</a></p>
-<h3 id="Unique-Binary-Search-Trees-medium"><a href="#Unique-Binary-Search-Trees-medium" class="headerlink" title="Unique Binary Search Trees - medium"></a>Unique Binary Search Trees - medium</h3><p>题目</p>
-<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">Given n, how many structurally unique BSTs (binary search trees) that store</span><br><span class="line">values 1...n?</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given n = 3, there are a total of<span class="number"> 5 </span>unique BST&#x27;s.</span><br><span class="line"></span><br><span class="line">1          <span class="number"> 3 </span>  <span class="number"> 3 </span>     <span class="number"> 2 </span>     1</span><br><span class="line"> \         /    /       / \      \</span><br><span class="line"> <span class="number"> 3 </span>    <span class="number"> 2 </span>   <span class="number"> 1 </span>     <span class="number"> 1 </span> <span class="number"> 3 </span>     2</span><br><span class="line"> /      /       \                  \</span><br><span class="line">2    <span class="number"> 1 </span>        <span class="number"> 2 </span>                 3</span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">            dp[i] += dp[j] * dp[i - j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/unique-binary-search-trees/">Unique Binary Search Trees</a></p>
-<h3 id="Fast-Power-medium"><a href="#Fast-Power-medium" class="headerlink" title="Fast Power - medium"></a>Fast Power - medium</h3><p>题目</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Calculate</span> the power(a, n) % b where a, b and n are <span class="literal">all</span> <span class="number">32</span>bit integers.</span><br><span class="line"></span><br><span class="line"><span class="attribute">Example</span></span><br><span class="line"><span class="attribute">For</span> power(<span class="number">2</span>, <span class="number">31</span>) % <span class="number">3</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">For</span> power(<span class="number">100</span>,<span class="number">1000</span>) % <span class="number">1000</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public <span class="built_in">int</span> fast<span class="constructor">Power(<span class="params">int</span> <span class="params">a</span>, <span class="params">int</span> <span class="params">b</span>, <span class="params">int</span> <span class="params">n</span>)</span> &#123;</span><br><span class="line">    long ret = get<span class="constructor">Power(<span class="params">a</span>, <span class="params">b</span>, <span class="params">n</span>)</span>;</span><br><span class="line">    return (<span class="built_in">int</span>)ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public long get<span class="constructor">Power(<span class="params">int</span> <span class="params">a</span>, <span class="params">int</span> <span class="params">b</span>, <span class="params">int</span> <span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a<span class="operator"> == </span><span class="number">0</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n<span class="operator"> == </span><span class="number">0</span>) return <span class="number">1</span> % b;</span><br><span class="line">    <span class="keyword">if</span>(n<span class="operator"> == </span><span class="number">1</span>) return a % b;</span><br><span class="line"></span><br><span class="line">    long ret = get<span class="constructor">Power(<span class="params">a</span>, <span class="params">b</span>, <span class="params">n</span><span class="operator">/</span>2)</span>;</span><br><span class="line">    ret *= ret;</span><br><span class="line">    ret %= b;</span><br><span class="line">    <span class="keyword">if</span>(n % <span class="number">2</span><span class="operator"> == </span><span class="number">1</span>)&#123;</span><br><span class="line">        ret = ret<span class="operator"> * </span>(a % b);</span><br><span class="line">    &#125;</span><br><span class="line">    return ret % b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/fast-power/">Fast Power</a></p>
-<h3 id="Binary-Representation-hard"><a href="#Binary-Representation-hard" class="headerlink" title="Binary Representation - hard"></a>Binary Representation - hard</h3><p>题目</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Given <span class="keyword">a</span> (decimal - e.g. <span class="number">3.72</span>) <span class="built_in">number</span> that is passed <span class="keyword">in</span> <span class="keyword">as</span> <span class="keyword">a</span> <span class="keyword">string</span>, <span class="literal">return</span> <span class="keyword">the</span></span><br><span class="line">binary representation that is passed <span class="keyword">in</span> <span class="keyword">as</span> <span class="keyword">a</span> <span class="keyword">string</span>. If <span class="keyword">the</span> fractional part <span class="keyword">of</span></span><br><span class="line"><span class="keyword">the</span> <span class="built_in">number</span> can <span class="keyword">not</span> be represented accurately <span class="keyword">in</span> binary <span class="keyword">with</span> <span class="keyword">at</span> most <span class="number">32</span> <span class="keyword">characters</span>,</span><br><span class="line"><span class="literal">return</span> ERROR.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For n = <span class="string">&quot;3.72&quot;</span>, <span class="literal">return</span> <span class="string">&quot;ERROR&quot;</span>.</span><br><span class="line"></span><br><span class="line">For n = <span class="string">&quot;3.5&quot;</span>, <span class="literal">return</span> <span class="string">&quot;11.1&quot;</span>.</span><br></pre></td></tr></table></figure>
-
-<p>代码</p>
-<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">String</span> binaryRepresentation(<span class="keyword">String</span> n) &#123;</span><br><span class="line">    <span class="comment">// write your code here</span></span><br><span class="line">    <span class="keyword">if</span> (n.indexOf(<span class="string">&#x27;.&#x27;</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> parseInteger(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">String</span>[] params = n.<span class="built_in">split</span>(<span class="string">&quot;\\.&quot;</span>);</span><br><span class="line">    <span class="keyword">String</span> flt = parseFloat(params[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (flt == <span class="string">&quot;ERROR&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> flt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flt.equals(<span class="string">&quot;0&quot;</span>) || flt.equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> parseInteger(params[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parseInteger(params[<span class="number">0</span>]) <span class="string">&quot;.&quot;</span> flt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">String</span> parseInteger(<span class="keyword">String</span> <span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="built_in">int</span> n = Integer.parseInt(<span class="built_in">str</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">str</span>.equals(<span class="string">&quot;&quot;</span>) || <span class="built_in">str</span>.equals(<span class="string">&quot;0&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">String</span> <span class="built_in">binary</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">binary</span> = Integer.toString(n % <span class="number">2</span>) <span class="built_in">binary</span>;</span><br><span class="line">        n = n / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">binary</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">String</span> parseFloat(<span class="keyword">String</span> <span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="keyword">double</span> d = Double.parseDouble(<span class="string">&quot;0.&quot;</span> <span class="built_in">str</span>);</span><br><span class="line">    StringBuilder <span class="built_in">binary</span> = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    HashSet&lt;Double&gt; <span class="built_in">set</span> = <span class="keyword">new</span> HashSet&lt;Double&gt;();</span><br><span class="line">    <span class="keyword">while</span> (d &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">binary</span>.length() &gt; <span class="number">32</span> || <span class="built_in">set</span>.contains(d)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">set</span>.<span class="built_in">add</span>(d);</span><br><span class="line">        d = d * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (d &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="built_in">binary</span>.<span class="built_in">append</span>(<span class="number">1</span>);</span><br><span class="line">            d = d - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">binary</span>.<span class="built_in">append</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">binary</span>.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>习题地址<br><a href="http://www.lintcode.com/en/problem/binary-representation/">Binary Representation</a></p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>Math</tag>
-        <tag>Bit Manipulation</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>正则表达式基础</title>
     <url>/2016/06/28/2016-06-28-regex/</url>
     <content><![CDATA[<blockquote>
@@ -1574,6 +1469,111 @@
       </categories>
       <tags>
         <tag>正则表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试必会题目（4）—— Math &amp; Bit Manipulation</title>
+    <url>/2016/07/04/2016-07-04-interview-algorithm-math-bit/</url>
+    <content><![CDATA[<blockquote>
+<p>“面试技术岗位应该掌握的算法题目–Math &amp; Bit Manipulation相关”</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="Flip-Bits-easy"><a href="#Flip-Bits-easy" class="headerlink" title="Flip Bits - easy"></a>Flip Bits - easy</h3><p>题目</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line">Determine the number of bits required <span class="keyword">to</span> flip <span class="keyword">if</span> you want <span class="keyword">to</span> convert <span class="built_in">integer</span> n</span><br><span class="line"><span class="keyword">to</span> <span class="built_in">integer</span> m.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given</span><br><span class="line">n = <span class="number">31</span> (<span class="string">`1`</span><span class="number">111</span><span class="string">`1`</span>),</span><br><span class="line">m = <span class="number">14</span> (<span class="string">`0`</span><span class="number">111</span><span class="string">`0`</span>),</span><br><span class="line"><span class="keyword">return</span> <span class="number">2.</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">int</span> bitSwapRequired(<span class="built_in">int</span> a, <span class="built_in">int</span> b) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="keyword">count</span> = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> c = a ^ b; c != <span class="number">0</span>; c &gt;&gt;&gt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">count</span> += c &amp; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/flip-bits/">Flip Bits</a></p>
+<h3 id="O-1-Check-Power-of-2-easy"><a href="#O-1-Check-Power-of-2-easy" class="headerlink" title="O(1) Check Power of 2 - easy"></a>O(1) Check Power of 2 - easy</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">Using O(1) time to<span class="built_in"> check </span>whether an integer n is a power of 2.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For n=4,<span class="built_in"> return </span>true;</span><br><span class="line"></span><br><span class="line">For n=5,<span class="built_in"> return </span>false;</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkPowerOf2</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> (n &amp; (n<span class="number">-1</span>)) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/o1-check-power-of-2/">O(1) Check Power of 2</a></p>
+<h3 id="Unique-Paths-easy"><a href="#Unique-Paths-easy" class="headerlink" title="Unique Paths - easy"></a>Unique Paths - easy</h3><p>题目</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">A robot is located <span class="keyword">at</span> <span class="keyword">the</span> top-left corner <span class="keyword">of</span> <span class="keyword">a</span> m x n grid</span><br><span class="line">(marked <span class="string">&#x27;Start&#x27;</span> <span class="keyword">in</span> <span class="keyword">the</span> diagram below).</span><br><span class="line"></span><br><span class="line">The robot can only move either down <span class="keyword">or</span> <span class="literal">right</span> <span class="keyword">at</span> <span class="keyword">any</span> point <span class="keyword">in</span> <span class="built_in">time</span>. The robot is</span><br><span class="line">trying <span class="built_in">to</span> reach <span class="keyword">the</span> bottom-<span class="literal">right</span> corner <span class="keyword">of</span> <span class="keyword">the</span> grid(marked <span class="string">&#x27;Finish&#x27;</span> <span class="keyword">in</span> <span class="keyword">the</span> diagram</span><br><span class="line">below).</span><br><span class="line"></span><br><span class="line">How many possible unique paths are there?</span><br><span class="line"></span><br><span class="line">Example</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>1,1</th>
+<th>1,2</th>
+<th>1,3</th>
+<th>1,4</th>
+<th>1,5</th>
+<th>1,6</th>
+<th>1,7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2,1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3,1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>3,7</td>
+</tr>
+</tbody></table>
+<p>代码</p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">Ja<span class="symbol">va:</span></span><br><span class="line"></span><br><span class="line">// space O(<span class="built_in">n</span>)</span><br><span class="line">public <span class="built_in">int</span> uniquePaths(<span class="built_in">int</span> m, <span class="built_in">int</span> <span class="built_in">n</span>) &#123;</span><br><span class="line">    <span class="built_in">if</span> (m &lt; <span class="number">1</span> || <span class="built_in">n</span> &lt; <span class="number">1</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">if</span> (m == <span class="number">1</span> || <span class="built_in">n</span> == <span class="number">1</span>) return <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">int</span>[] result = new <span class="built_in">int</span>[<span class="built_in">n</span>];</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">n</span>; i++) &#123;</span><br><span class="line">        result[i] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; m; i++) &#123;</span><br><span class="line">        for (<span class="built_in">int</span> j = <span class="number">1</span>; j &lt; <span class="built_in">n</span>; j++)</span><br><span class="line">            result[j] += result[j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    return result[<span class="built_in">n</span> - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/unique-paths/">Unique Paths</a></p>
+<h3 id="Trailing-Zeros-easy"><a href="#Trailing-Zeros-easy" class="headerlink" title="Trailing Zeros - easy"></a>Trailing Zeros - easy</h3><p>题目</p>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Write</span> an algorithm which computes the <span class="keyword">number</span> of trailing zeros <span class="keyword">in</span> n factorial.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line"><span class="number">11</span><span class="comment">! = 39916800, so the out should be 2</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight axapta"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">long</span> trailingZeros(<span class="built_in">long</span> n) &#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">long</span> <span class="keyword">count</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">count</span> += n / <span class="number">5</span>;</span><br><span class="line">        n /= <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">count</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/trailing-zeros/">Trailing Zeros</a></p>
+<h3 id="Update-Bits-medium"><a href="#Update-Bits-medium" class="headerlink" title="Update Bits - medium"></a>Update Bits - medium</h3><p>题目</p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">Given two <span class="number">32</span>-<span class="keyword">bit </span>numbers, N <span class="keyword">and </span>M, <span class="keyword">and </span>two <span class="keyword">bit </span>positions, i <span class="keyword">and </span><span class="keyword">j. </span>Write a method</span><br><span class="line">to set all <span class="keyword">bits </span><span class="keyword">between </span>i <span class="keyword">and </span><span class="keyword">j </span>in N equal to M (e g , M <span class="keyword">becomes </span>a <span class="keyword">substring </span>of N</span><br><span class="line">located <span class="built_in">at</span> i <span class="keyword">and </span>starting <span class="built_in">at</span> <span class="keyword">j)</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">Clarification</span><br><span class="line">You can assume that the <span class="keyword">bits </span><span class="keyword">j </span>through i have enough space to fit all of M. That is,</span><br><span class="line">if M=<span class="number">10011</span>， you can assume that there are <span class="built_in">at</span> least <span class="number">5</span> <span class="keyword">bits </span><span class="keyword">between </span><span class="keyword">j </span><span class="keyword">and </span>i.</span><br><span class="line">You would not, for example, have <span class="keyword">j=3 </span><span class="keyword">and </span>i=<span class="number">2</span>, <span class="keyword">because </span>M could not fully fit <span class="keyword">between</span></span><br><span class="line"><span class="keyword"></span><span class="keyword">bit </span><span class="number">3</span> <span class="keyword">and </span><span class="keyword">bit </span><span class="number">2</span>.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given N=(<span class="number">10000000000</span>)<span class="number">2</span>, M=(<span class="number">10101</span>)<span class="number">2</span>, i=<span class="number">2</span>, <span class="keyword">j=6</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">return N=(<span class="number">10001010100</span>)<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateBits</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> max = ~<span class="number">0</span>; <span class="comment">/* All 1’s */</span></span><br><span class="line">    <span class="comment">// 1’s through position j, then 0’s</span></span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">31</span>)</span><br><span class="line">        j = max;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        j = (<span class="number">1</span> &lt;&lt; (j + <span class="number">1</span>)) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> left = max - j;</span><br><span class="line">    <span class="comment">// 1’s after position i</span></span><br><span class="line">    <span class="keyword">int</span> right = ((<span class="number">1</span> &lt;&lt; i) - <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 1’s, with 0s between i and j</span></span><br><span class="line">    <span class="keyword">int</span> mask = left | right;</span><br><span class="line">    <span class="comment">// Clear i through j, then put m in there</span></span><br><span class="line">    <span class="keyword">return</span> ((n &amp; mask) | (m &lt;&lt; i));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/update-bits/">Update Bits</a></p>
+<h3 id="Unique-Binary-Search-Trees-medium"><a href="#Unique-Binary-Search-Trees-medium" class="headerlink" title="Unique Binary Search Trees - medium"></a>Unique Binary Search Trees - medium</h3><p>题目</p>
+<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">Given n, how many structurally unique BSTs (binary search trees) that store</span><br><span class="line">values 1...n?</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given n = 3, there are a total of<span class="number"> 5 </span>unique BST&#x27;s.</span><br><span class="line"></span><br><span class="line">1          <span class="number"> 3 </span>  <span class="number"> 3 </span>     <span class="number"> 2 </span>     1</span><br><span class="line"> \         /    /       / \      \</span><br><span class="line"> <span class="number"> 3 </span>    <span class="number"> 2 </span>   <span class="number"> 1 </span>     <span class="number"> 1 </span> <span class="number"> 3 </span>     2</span><br><span class="line"> /      /       \                  \</span><br><span class="line">2    <span class="number"> 1 </span>        <span class="number"> 2 </span>                 3</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numTrees</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">            dp[i] += dp[j] * dp[i - j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/unique-binary-search-trees/">Unique Binary Search Trees</a></p>
+<h3 id="Fast-Power-medium"><a href="#Fast-Power-medium" class="headerlink" title="Fast Power - medium"></a>Fast Power - medium</h3><p>题目</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Calculate</span> the power(a, n) % b where a, b and n are <span class="literal">all</span> <span class="number">32</span>bit integers.</span><br><span class="line"></span><br><span class="line"><span class="attribute">Example</span></span><br><span class="line"><span class="attribute">For</span> power(<span class="number">2</span>, <span class="number">31</span>) % <span class="number">3</span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">For</span> power(<span class="number">100</span>,<span class="number">1000</span>) % <span class="number">1000</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public <span class="built_in">int</span> fast<span class="constructor">Power(<span class="params">int</span> <span class="params">a</span>, <span class="params">int</span> <span class="params">b</span>, <span class="params">int</span> <span class="params">n</span>)</span> &#123;</span><br><span class="line">    long ret = get<span class="constructor">Power(<span class="params">a</span>, <span class="params">b</span>, <span class="params">n</span>)</span>;</span><br><span class="line">    return (<span class="built_in">int</span>)ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public long get<span class="constructor">Power(<span class="params">int</span> <span class="params">a</span>, <span class="params">int</span> <span class="params">b</span>, <span class="params">int</span> <span class="params">n</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a<span class="operator"> == </span><span class="number">0</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n<span class="operator"> == </span><span class="number">0</span>) return <span class="number">1</span> % b;</span><br><span class="line">    <span class="keyword">if</span>(n<span class="operator"> == </span><span class="number">1</span>) return a % b;</span><br><span class="line"></span><br><span class="line">    long ret = get<span class="constructor">Power(<span class="params">a</span>, <span class="params">b</span>, <span class="params">n</span><span class="operator">/</span>2)</span>;</span><br><span class="line">    ret *= ret;</span><br><span class="line">    ret %= b;</span><br><span class="line">    <span class="keyword">if</span>(n % <span class="number">2</span><span class="operator"> == </span><span class="number">1</span>)&#123;</span><br><span class="line">        ret = ret<span class="operator"> * </span>(a % b);</span><br><span class="line">    &#125;</span><br><span class="line">    return ret % b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/fast-power/">Fast Power</a></p>
+<h3 id="Binary-Representation-hard"><a href="#Binary-Representation-hard" class="headerlink" title="Binary Representation - hard"></a>Binary Representation - hard</h3><p>题目</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Given <span class="keyword">a</span> (decimal - e.g. <span class="number">3.72</span>) <span class="built_in">number</span> that is passed <span class="keyword">in</span> <span class="keyword">as</span> <span class="keyword">a</span> <span class="keyword">string</span>, <span class="literal">return</span> <span class="keyword">the</span></span><br><span class="line">binary representation that is passed <span class="keyword">in</span> <span class="keyword">as</span> <span class="keyword">a</span> <span class="keyword">string</span>. If <span class="keyword">the</span> fractional part <span class="keyword">of</span></span><br><span class="line"><span class="keyword">the</span> <span class="built_in">number</span> can <span class="keyword">not</span> be represented accurately <span class="keyword">in</span> binary <span class="keyword">with</span> <span class="keyword">at</span> most <span class="number">32</span> <span class="keyword">characters</span>,</span><br><span class="line"><span class="literal">return</span> ERROR.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For n = <span class="string">&quot;3.72&quot;</span>, <span class="literal">return</span> <span class="string">&quot;ERROR&quot;</span>.</span><br><span class="line"></span><br><span class="line">For n = <span class="string">&quot;3.5&quot;</span>, <span class="literal">return</span> <span class="string">&quot;11.1&quot;</span>.</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight processing"><table><tr><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">String</span> binaryRepresentation(<span class="keyword">String</span> n) &#123;</span><br><span class="line">    <span class="comment">// write your code here</span></span><br><span class="line">    <span class="keyword">if</span> (n.indexOf(<span class="string">&#x27;.&#x27;</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> parseInteger(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">String</span>[] params = n.<span class="built_in">split</span>(<span class="string">&quot;\\.&quot;</span>);</span><br><span class="line">    <span class="keyword">String</span> flt = parseFloat(params[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">if</span> (flt == <span class="string">&quot;ERROR&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> flt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (flt.equals(<span class="string">&quot;0&quot;</span>) || flt.equals(<span class="string">&quot;&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> parseInteger(params[<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parseInteger(params[<span class="number">0</span>]) <span class="string">&quot;.&quot;</span> flt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">String</span> parseInteger(<span class="keyword">String</span> <span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="built_in">int</span> n = Integer.parseInt(<span class="built_in">str</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">str</span>.equals(<span class="string">&quot;&quot;</span>) || <span class="built_in">str</span>.equals(<span class="string">&quot;0&quot;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;0&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">String</span> <span class="built_in">binary</span> = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span> (n != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">binary</span> = Integer.toString(n % <span class="number">2</span>) <span class="built_in">binary</span>;</span><br><span class="line">        n = n / <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">binary</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">String</span> parseFloat(<span class="keyword">String</span> <span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="keyword">double</span> d = Double.parseDouble(<span class="string">&quot;0.&quot;</span> <span class="built_in">str</span>);</span><br><span class="line">    StringBuilder <span class="built_in">binary</span> = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    HashSet&lt;Double&gt; <span class="built_in">set</span> = <span class="keyword">new</span> HashSet&lt;Double&gt;();</span><br><span class="line">    <span class="keyword">while</span> (d &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">binary</span>.length() &gt; <span class="number">32</span> || <span class="built_in">set</span>.contains(d)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">set</span>.<span class="built_in">add</span>(d);</span><br><span class="line">        d = d * <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (d &gt;= <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="built_in">binary</span>.<span class="built_in">append</span>(<span class="number">1</span>);</span><br><span class="line">            d = d - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">binary</span>.<span class="built_in">append</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">binary</span>.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a href="http://www.lintcode.com/en/problem/binary-representation/">Binary Representation</a></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>Math</tag>
+        <tag>Bit Manipulation</tag>
       </tags>
   </entry>
   <entry>
@@ -3176,18 +3176,6 @@
       </tags>
   </entry>
   <entry>
-    <title>「2+2」 原则</title>
-    <url>/2020/04/12/2020-04-12-2-plus-2/</url>
-    <content><![CDATA[<p>当我们遇到困难需要向上寻求帮助时，可以使用【2+2】原则，一共提出四个问题：1. 期望的结果是什么；2. 当前的进展是什么；3. 遇到了什么困难；4. 需要哪些资源帮助，这四个问题，前两个可以快速阐明问题的背景和进展，后两个可以明确阐明难点和需求，使用这种方式寻求帮助可以更高效的完成沟通，节约双方的时</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>方法论</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于坚持</title>
     <url>/2020/04/17/2020-04-17-about-consist/</url>
     <content><![CDATA[<p>最近听到了几个定律：荷花定律，竹子定律和金蝉定律，其核心思想都是要坚持不懈，荷花在最后一天开满池塘，而前一天只有一半而已，竹子4年时间发展根系，只为之后迸发的成长，蝉在底下长久深埋，只为最后的腾飞。这些其实都很符合当今的一个说法，苦练基本功，延迟满足感，不要因为眼前一时的得失产生放弃的心理，而是顶住压力，不断地保持学习和进步，这样才能让我们获得更好的成长。比如我们平常开发过程中，可能会遇到一些比较棘手的任务，导致站会的时候感觉没有什么进展，这个时候我们不应该失落而导致效率降低，而是更应该想办法解决问题或寻求帮助，从而锻炼自己的技术水平，更快更稳的成长。</p>
@@ -3197,6 +3185,18 @@
       </categories>
       <tags>
         <tag>个人思考</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>「2+2」 原则</title>
+    <url>/2020/04/12/2020-04-12-2-plus-2/</url>
+    <content><![CDATA[<p>当我们遇到困难需要向上寻求帮助时，可以使用【2+2】原则，一共提出四个问题：1. 期望的结果是什么；2. 当前的进展是什么；3. 遇到了什么困难；4. 需要哪些资源帮助，这四个问题，前两个可以快速阐明问题的背景和进展，后两个可以明确阐明难点和需求，使用这种方式寻求帮助可以更高效的完成沟通，节约双方的时</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>方法论</tag>
       </tags>
   </entry>
   <entry>
@@ -3224,9 +3224,9 @@
       </tags>
   </entry>
   <entry>
-    <title>非暴力沟通</title>
-    <url>/2020/05/15/2020-05-15-non-violence-communicate/</url>
-    <content><![CDATA[<p>本周阅读了《非暴力沟通》了解到我们周围其实充满了无意识的“暴力沟通”，比如直言“你这个方案不对”，“你应该这么这么做”等等，这种沟通很可能导致对方有很不好的感受，不利于后续的沟通。所以在沟通之前我们可以先把谈话目标说出来，然后采用四步法进行沟通：讲事实，讲感受，讲原因，讲需求。例如：妻子对丈夫说，我想和你谈谈你回家晚的情况，这周你有四次在22点之后回家（<strong>讲事实</strong>，不要添加主观感受，例如“经常回家晚”），这样让我感到很孤单（<strong>讲感受</strong>），因为你不在家我没人可以说话，也有点害怕（<strong>讲原因</strong>），我希望你今后尽量在22点之前回家（<strong>讲需求</strong>，明确的提出需求）。先提出谈话目标，可以让对方提前知道接下来要讨论的要点，然后通过<strong>事实，感受，原因，需求</strong>一步步让对方了解到自己做的事情造成的影响，应该如何去做，而不会引起情绪上的爆发。当然，非暴力沟通也不是适用于所有的场景，使用前需要视谈论的话题而定。</p>
+    <title>逆商</title>
+    <url>/2020/05/29/2020-05-29-anti-intelligence/</url>
+    <content><![CDATA[<p>如果把面对逆境比作攀登山峰，我们可能成为三种角色：放弃者，扎营者，攀登者，放弃者很好理解，遇到逆境便产生退缩的想法，屈服于逆境，觉得自己不行；扎营者是克服了几个逆境之后，觉得自己满足了，便不再举步向前，原地扎营；攀登者用于面对和发现逆境，并不断的克服，不断向前。大部分人都是扎营者，但我们都期望攀登者。遭遇困难时，我们可以使用夸张的方式告诉自己遇到了逆境，例如在脑海里告诉自己“叮！逆境来了”，这样我们便不会畏惧它，而是去想办法克服它，不断向前，我们终将成为攀登者。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3236,9 +3236,9 @@
       </tags>
   </entry>
   <entry>
-    <title>逆商</title>
-    <url>/2020/05/29/2020-05-29-anti-intelligence/</url>
-    <content><![CDATA[<p>如果把面对逆境比作攀登山峰，我们可能成为三种角色：放弃者，扎营者，攀登者，放弃者很好理解，遇到逆境便产生退缩的想法，屈服于逆境，觉得自己不行；扎营者是克服了几个逆境之后，觉得自己满足了，便不再举步向前，原地扎营；攀登者用于面对和发现逆境，并不断的克服，不断向前。大部分人都是扎营者，但我们都期望攀登者。遭遇困难时，我们可以使用夸张的方式告诉自己遇到了逆境，例如在脑海里告诉自己“叮！逆境来了”，这样我们便不会畏惧它，而是去想办法克服它，不断向前，我们终将成为攀登者。</p>
+    <title>非暴力沟通</title>
+    <url>/2020/05/15/2020-05-15-non-violence-communicate/</url>
+    <content><![CDATA[<p>本周阅读了《非暴力沟通》了解到我们周围其实充满了无意识的“暴力沟通”，比如直言“你这个方案不对”，“你应该这么这么做”等等，这种沟通很可能导致对方有很不好的感受，不利于后续的沟通。所以在沟通之前我们可以先把谈话目标说出来，然后采用四步法进行沟通：讲事实，讲感受，讲原因，讲需求。例如：妻子对丈夫说，我想和你谈谈你回家晚的情况，这周你有四次在22点之后回家（<strong>讲事实</strong>，不要添加主观感受，例如“经常回家晚”），这样让我感到很孤单（<strong>讲感受</strong>），因为你不在家我没人可以说话，也有点害怕（<strong>讲原因</strong>），我希望你今后尽量在22点之前回家（<strong>讲需求</strong>，明确的提出需求）。先提出谈话目标，可以让对方提前知道接下来要讨论的要点，然后通过<strong>事实，感受，原因，需求</strong>一步步让对方了解到自己做的事情造成的影响，应该如何去做，而不会引起情绪上的爆发。当然，非暴力沟通也不是适用于所有的场景，使用前需要视谈论的话题而定。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3753,9 +3753,10 @@
       </tags>
   </entry>
   <entry>
-    <title>关于中观层面的思考</title>
-    <url>/2021/02/19/2021-02-19-meso-consideration/</url>
-    <content><![CDATA[<p>昨天和朋友讨论了一下关于工作总结应该如何去做的问题，他提出了一个观点我觉得十分正确，就是在总结中我们需要增加我们对于中观层面的思考，而不是仅仅罗列我们做了那些事情和达到了哪些效果。这让我想起了一个之前听到的一个做事情的方法论，叫做「以终为始」，在我们分析问题的时候应该从想要达到的最终效果开始思考，以此为起点，反推出我们需要做到哪些事情。比如我们要实现一个需求来达到某个目标，我们需要思考的不应该仅仅是如何完成这个需求，而是要去想为什么要达到这个目标需要做这个需求，而不是其他需求，有没有什么更好的解决方案，每种解决方案都有哪些优劣之处，为了更好的达到这个目标应该以什么样的优先级来完成不同的小步骤等等。这样的思考方式最开始会花费我们更多的时间和精力，但是一旦养成习惯之后，可以大大的增加我们思考的深度和广度，并且这种思考方式不仅仅可以运用在工作中，生活中也可以使用这种思考方式来达成更好的效果，比如参加一场重要的聚会，先思考想要在聚会上想要达到的状态，然后以终为始选择自己的装扮等等。</p>
+    <title>如何更加完善的考虑和完成需求</title>
+    <url>/2021/02/09/2021-02-09-how-to-consider-more-perfect/</url>
+    <content><![CDATA[<p>首先，我们需要明确的一点是，用户也无法清晰的知道自己的需求是什么。所以我们在跟用户讨论需求的时候，不要去问用户想要什么功能，否则往往会陷入细节却无法得出真正想要的结果，更好的方式是去引导用户讲述自己的使用场景，以及为什么会有这样的使用场景，自己的痛点是什么。收集过后，使用 MECE 法则，针对用户的场景和痛点穷举出可能的需求及其解决方案，列在白板上，然后对这些列举出来的方案进行抽象归类，这样就形成了一个一个的模块，然后对各个模块进行去重和提炼，提取出各个模块的核心，建立他们之间的关联，然后形成文档之后，与用户再进行多次沟通和交流，多次完善需求和方案，最终达成一致。</p>
+<p>在完成需求的时候，需要对各个模块进行充分的评估，然后确定出各个模块的优先级和大致的实现顺序，然后再对各个模块进行更细粒度的拆分，建立起相关的任务，与相关方一起评估实现的难度和方案，讨论得出实现的时间节点（一定要预留足够的 buffer），对于那种有依赖方的需求一定要提前进行沟通，保证正式开发之前依赖已经准备就绪，而不是等做完了某些需求，等要做有依赖的需求才发现依赖方还未准备就绪，这样会有极大的延期风险。实现需求的之后最好能够用 TDD 的方式进行开发，这样可以更明确的了解到需要实现到什么程度，也能在一定程度上保证和提升开发的质量。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3765,10 +3766,9 @@
       </tags>
   </entry>
   <entry>
-    <title>如何更加完善的考虑和完成需求</title>
-    <url>/2021/02/09/2021-02-09-how-to-consider-more-perfect/</url>
-    <content><![CDATA[<p>首先，我们需要明确的一点是，用户也无法清晰的知道自己的需求是什么。所以我们在跟用户讨论需求的时候，不要去问用户想要什么功能，否则往往会陷入细节却无法得出真正想要的结果，更好的方式是去引导用户讲述自己的使用场景，以及为什么会有这样的使用场景，自己的痛点是什么。收集过后，使用 MECE 法则，针对用户的场景和痛点穷举出可能的需求及其解决方案，列在白板上，然后对这些列举出来的方案进行抽象归类，这样就形成了一个一个的模块，然后对各个模块进行去重和提炼，提取出各个模块的核心，建立他们之间的关联，然后形成文档之后，与用户再进行多次沟通和交流，多次完善需求和方案，最终达成一致。</p>
-<p>在完成需求的时候，需要对各个模块进行充分的评估，然后确定出各个模块的优先级和大致的实现顺序，然后再对各个模块进行更细粒度的拆分，建立起相关的任务，与相关方一起评估实现的难度和方案，讨论得出实现的时间节点（一定要预留足够的 buffer），对于那种有依赖方的需求一定要提前进行沟通，保证正式开发之前依赖已经准备就绪，而不是等做完了某些需求，等要做有依赖的需求才发现依赖方还未准备就绪，这样会有极大的延期风险。实现需求的之后最好能够用 TDD 的方式进行开发，这样可以更明确的了解到需要实现到什么程度，也能在一定程度上保证和提升开发的质量。</p>
+    <title>关于中观层面的思考</title>
+    <url>/2021/02/19/2021-02-19-meso-consideration/</url>
+    <content><![CDATA[<p>昨天和朋友讨论了一下关于工作总结应该如何去做的问题，他提出了一个观点我觉得十分正确，就是在总结中我们需要增加我们对于中观层面的思考，而不是仅仅罗列我们做了那些事情和达到了哪些效果。这让我想起了一个之前听到的一个做事情的方法论，叫做「以终为始」，在我们分析问题的时候应该从想要达到的最终效果开始思考，以此为起点，反推出我们需要做到哪些事情。比如我们要实现一个需求来达到某个目标，我们需要思考的不应该仅仅是如何完成这个需求，而是要去想为什么要达到这个目标需要做这个需求，而不是其他需求，有没有什么更好的解决方案，每种解决方案都有哪些优劣之处，为了更好的达到这个目标应该以什么样的优先级来完成不同的小步骤等等。这样的思考方式最开始会花费我们更多的时间和精力，但是一旦养成习惯之后，可以大大的增加我们思考的深度和广度，并且这种思考方式不仅仅可以运用在工作中，生活中也可以使用这种思考方式来达成更好的效果，比如参加一场重要的聚会，先思考想要在聚会上想要达到的状态，然后以终为始选择自己的装扮等等。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
