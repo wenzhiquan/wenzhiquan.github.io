@@ -896,6 +896,48 @@
       </tags>
   </entry>
   <entry>
+    <title>字符串匹配Sunday算法</title>
+    <url>/2016/05/28/2016-05-28-string-match-sunday/</url>
+    <content><![CDATA[<blockquote>
+<p>“Sunday算法是Daniel M.Sunday于1990年提出的字符串模式匹配。”</p>
+</blockquote>
+<h3 id="Sunday算法简介"><a href="#Sunday算法简介" class="headerlink" title="Sunday算法简介"></a>Sunday算法简介</h3><p>字符串查找算法中，最著名的两个是<code>KMP</code>算法(Knuth-Morris-Pratt)和<code>BM</code>算法(Boyer-Moore)。两个算法在最坏情况下均具有线性的查找时间。但是在实用上，KMP算法并不比c库函数<code>strstr()</code>快多少，而<code>BM</code>算法则往往比<code>KMP</code>算法快上3－5倍(未经验证)。而<code>Sunday</code>算法比<code>BM</code>还要快，而且更易理解。<code>Sunday</code>算法的核心思想是：在匹配过程中，模式串并不被要求一定要按从左向右进行比较还是从右向左进行比较，它在发现不匹配时，算法能跳过尽可能多的字符以进行下一步的匹配，从而提高了匹配效率。</p>
+<span id="more"></span>
+
+<h3 id="Sunday算法讲解"><a href="#Sunday算法讲解" class="headerlink" title="Sunday算法讲解"></a>Sunday算法讲解</h3><p>假设现在有两个字符串</p>
+<p>主串为 A = “What a nice algorithm”</p>
+<p>模式串为 B = “nice”</p>
+<p>Sunday算法的大致原理是：</p>
+<p>先从左到右逐个字符进行比较，以A和B字符串为例：初始状态i = 0, 指向A的第一个字符，j = 0 指向B的第一个字符，分别为<code>W</code>和<code>n</code>，不匹配，于是要把子串往后移动。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m|<br>|n|i|c|e|<br>|j|</p>
+<p>此时，Sunday算法要求，找到位于A字串中位于B字符串后面的第一个字符，即下图中m所指向的字符<code>空格</code>，在模式字符串B中从后向前查找是否存在<code>空格</code>，如果不存在，则直接将模式串置于m之后。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m| | | | |<br>| | | | | |n|i|c|e|<br>|j|</p>
+<p>然后将i和j置于新位置，继续进行匹配。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | |i| | | |m|<br>| | | | | |n|i|c|e|<br>| | | | | |j| |k| |</p>
+<p><code>a</code>和<code>n</code>不匹配，需要将子串向后移动，可以看到此时m所在位置的字符<code>c</code>和k所在位置的字符<code>c</code>相同，此时需要将相同的字符对齐，让j再次指向B字符串的头一个字符，相应地，将i指向主串对应的字符<code>n</code>。</p>
+<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | | | |i| | | |<br>| | | | | | | |n|i|c|e|<br>| | | | | | | |j| | | |</p>
+<p>此时找到匹配的字符串，算法结束。</p>
+<h3 id="Sunday算法代码"><a href="#Sunday算法代码" class="headerlink" title="Sunday算法代码"></a>Sunday算法代码</h3><p>java代码如下：</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">public</span> <span class="type">int</span> strStr(String <span class="type">text</span>, String pattern) &#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern == <span class="keyword">null</span> || <span class="type">text</span> == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.equals(&quot;&quot;)) <span class="keyword">return</span> <span class="number">0</span>;   // 如果模式串为空，认为第<span class="number">0</span>位已经匹配</span><br><span class="line">    <span class="type">int</span> tlen = <span class="type">text</span>.length(), plen = pattern.length();</span><br><span class="line">    <span class="keyword">if</span> (plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k;  // 分别记录<span class="type">text</span>索引，pattern索引和模式串计数索引</span><br><span class="line">    <span class="type">int</span> <span class="keyword">index</span>;  // 记录不匹配时字符（m所在位置）的索引</span><br><span class="line">    <span class="keyword">while</span> (i &lt; tlen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="type">text</span>.charAt(i) == pattern.charAt(j)) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">index</span> = result + plen;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">index</span> &gt;= tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (k = plen - <span class="number">1</span>; k &gt;= <span class="number">0</span> &amp;&amp; <span class="type">text</span>.charAt(<span class="keyword">index</span>) != pattern.charAt(k); k<span class="comment">--);</span></span><br><span class="line">        i = result;</span><br><span class="line">        i += plen - k;</span><br><span class="line">        result = i;</span><br><span class="line">        j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (result + plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;  // 如果匹配长度超过主串，匹配失败</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i &lt;= tlen? result: <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="需要注意的测试用例"><a href="#需要注意的测试用例" class="headerlink" title="需要注意的测试用例"></a>需要注意的测试用例</h3><ul>
+<li>“”, “”</li>
+<li>null, “a”</li>
+<li>“tartarget”, “target”</li>
+<li>“source”, “rced”</li>
+</ul>
+<h3 id="相关题目地址"><a href="#相关题目地址" class="headerlink" title="相关题目地址"></a>相关题目地址</h3><p>Leetcode:<br><a href="https://leetcode.com/problems/implement-strstr/">Implement strStr()</a></p>
+<p>Lintcode:<br><a href="http://www.lintcode.com/en/problem/strstr/">strStr</a></p>
+]]></content>
+      <categories>
+        <category>Algorithm</category>
+      </categories>
+      <tags>
+        <tag>Algorithm</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用IDEA和gradle搭建Spring MVC和MyBatis开发环境</title>
     <url>/2016/04/12/2016-04-12-idea-gradle-ssm/</url>
     <content><![CDATA[<blockquote>
@@ -972,48 +1014,6 @@
         <tag>Spring</tag>
         <tag>MyBatis</tag>
         <tag>Gradle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字符串匹配Sunday算法</title>
-    <url>/2016/05/28/2016-05-28-string-match-sunday/</url>
-    <content><![CDATA[<blockquote>
-<p>“Sunday算法是Daniel M.Sunday于1990年提出的字符串模式匹配。”</p>
-</blockquote>
-<h3 id="Sunday算法简介"><a href="#Sunday算法简介" class="headerlink" title="Sunday算法简介"></a>Sunday算法简介</h3><p>字符串查找算法中，最著名的两个是<code>KMP</code>算法(Knuth-Morris-Pratt)和<code>BM</code>算法(Boyer-Moore)。两个算法在最坏情况下均具有线性的查找时间。但是在实用上，KMP算法并不比c库函数<code>strstr()</code>快多少，而<code>BM</code>算法则往往比<code>KMP</code>算法快上3－5倍(未经验证)。而<code>Sunday</code>算法比<code>BM</code>还要快，而且更易理解。<code>Sunday</code>算法的核心思想是：在匹配过程中，模式串并不被要求一定要按从左向右进行比较还是从右向左进行比较，它在发现不匹配时，算法能跳过尽可能多的字符以进行下一步的匹配，从而提高了匹配效率。</p>
-<span id="more"></span>
-
-<h3 id="Sunday算法讲解"><a href="#Sunday算法讲解" class="headerlink" title="Sunday算法讲解"></a>Sunday算法讲解</h3><p>假设现在有两个字符串</p>
-<p>主串为 A = “What a nice algorithm”</p>
-<p>模式串为 B = “nice”</p>
-<p>Sunday算法的大致原理是：</p>
-<p>先从左到右逐个字符进行比较，以A和B字符串为例：初始状态i = 0, 指向A的第一个字符，j = 0 指向B的第一个字符，分别为<code>W</code>和<code>n</code>，不匹配，于是要把子串往后移动。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m|<br>|n|i|c|e|<br>|j|</p>
-<p>此时，Sunday算法要求，找到位于A字串中位于B字符串后面的第一个字符，即下图中m所指向的字符<code>空格</code>，在模式字符串B中从后向前查找是否存在<code>空格</code>，如果不存在，则直接将模式串置于m之后。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>|i| | | |m| | | | |<br>| | | | | |n|i|c|e|<br>|j|</p>
-<p>然后将i和j置于新位置，继续进行匹配。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | |i| | | |m|<br>| | | | | |n|i|c|e|<br>| | | | | |j| |k| |</p>
-<p><code>a</code>和<code>n</code>不匹配，需要将子串向后移动，可以看到此时m所在位置的字符<code>c</code>和k所在位置的字符<code>c</code>相同，此时需要将相同的字符对齐，让j再次指向B字符串的头一个字符，相应地，将i指向主串对应的字符<code>n</code>。</p>
-<p>|W|h|a|t| |a| |n|i|c|e| |a|l|g|o|r|i|t|h|m|<br>|-|<br>| | | | | | | |i| | | |<br>| | | | | | | |n|i|c|e|<br>| | | | | | | |j| | | |</p>
-<p>此时找到匹配的字符串，算法结束。</p>
-<h3 id="Sunday算法代码"><a href="#Sunday算法代码" class="headerlink" title="Sunday算法代码"></a>Sunday算法代码</h3><p>java代码如下：</p>
-<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line"><span class="built_in">public</span> <span class="type">int</span> strStr(String <span class="type">text</span>, String pattern) &#123;</span><br><span class="line">    <span class="type">int</span> result = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern == <span class="keyword">null</span> || <span class="type">text</span> == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">if</span> (pattern.equals(&quot;&quot;)) <span class="keyword">return</span> <span class="number">0</span>;   // 如果模式串为空，认为第<span class="number">0</span>位已经匹配</span><br><span class="line">    <span class="type">int</span> tlen = <span class="type">text</span>.length(), plen = pattern.length();</span><br><span class="line">    <span class="keyword">if</span> (plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>, k;  // 分别记录<span class="type">text</span>索引，pattern索引和模式串计数索引</span><br><span class="line">    <span class="type">int</span> <span class="keyword">index</span>;  // 记录不匹配时字符（m所在位置）的索引</span><br><span class="line">    <span class="keyword">while</span> (i &lt; tlen &amp;&amp; j &lt; plen) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="type">text</span>.charAt(i) == pattern.charAt(j)) &#123;</span><br><span class="line">            i++;</span><br><span class="line">            j++;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">index</span> = result + plen;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">index</span> &gt;= tlen) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (k = plen - <span class="number">1</span>; k &gt;= <span class="number">0</span> &amp;&amp; <span class="type">text</span>.charAt(<span class="keyword">index</span>) != pattern.charAt(k); k<span class="comment">--);</span></span><br><span class="line">        i = result;</span><br><span class="line">        i += plen - k;</span><br><span class="line">        result = i;</span><br><span class="line">        j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (result + plen &gt; tlen) <span class="keyword">return</span> <span class="number">-1</span>;  // 如果匹配长度超过主串，匹配失败</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i &lt;= tlen? result: <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="需要注意的测试用例"><a href="#需要注意的测试用例" class="headerlink" title="需要注意的测试用例"></a>需要注意的测试用例</h3><ul>
-<li>“”, “”</li>
-<li>null, “a”</li>
-<li>“tartarget”, “target”</li>
-<li>“source”, “rced”</li>
-</ul>
-<h3 id="相关题目地址"><a href="#相关题目地址" class="headerlink" title="相关题目地址"></a>相关题目地址</h3><p>Leetcode:<br><a href="https://leetcode.com/problems/implement-strstr/">Implement strStr()</a></p>
-<p>Lintcode:<br><a href="http://www.lintcode.com/en/problem/strstr/">strStr</a></p>
-]]></content>
-      <categories>
-        <category>Algorithm</category>
-      </categories>
-      <tags>
-        <tag>Algorithm</tag>
-        <tag>String</tag>
       </tags>
   </entry>
   <entry>
@@ -3200,18 +3200,6 @@
       </tags>
   </entry>
   <entry>
-    <title>关于我们的上下文切换</title>
-    <url>/2020/05/09/2020-05-09-context-switch/</url>
-    <content><![CDATA[<p>就像电脑的CPU一样，我们做事时，其实也是有上下文的，如果不断被其他事情打断，那我们切换回原来上下文的成本就会非常高，会极大的降低我们的工作效率，所以集中精力免打扰的完整的做完一件事情才能最大限度的利用好我们的精力和能力。应用在我们工作中，一天中可以在某几段需要集中的整块时间（oncall当天可能要做好没有整块时间的打算），开启勿扰模式，减少被打断的次数，才可能更高效的完成设计或者编写代码，提升整体的任务完成效率</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>个人思考</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>立即行动</title>
     <url>/2020/04/26/2020-04-26-act-immediately/</url>
     <content><![CDATA[<p>当你决定做一件事情时，你必须在72小时之内行动起来，否则你可能永远不会再做了。这是前两天从一本书上学习到的一句话，觉得很有道理，无关乎是不是三分钟热度，因为我们处在一个信息爆炸的时代，每天又在不断的被信息淹没，如果决定做一件事时不马上行动起来，很可能就会被后来的信息淹没。至少当我们有一个想法时，赶紧记录下来，然后根据四象限模型放到对应的优先级中，这样以后才有迹可循。我理解这句话的要点就是提高执行力，立即行动起来。</p>
@@ -3221,6 +3209,18 @@
       </categories>
       <tags>
         <tag>阅读感想</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于我们的上下文切换</title>
+    <url>/2020/05/09/2020-05-09-context-switch/</url>
+    <content><![CDATA[<p>就像电脑的CPU一样，我们做事时，其实也是有上下文的，如果不断被其他事情打断，那我们切换回原来上下文的成本就会非常高，会极大的降低我们的工作效率，所以集中精力免打扰的完整的做完一件事情才能最大限度的利用好我们的精力和能力。应用在我们工作中，一天中可以在某几段需要集中的整块时间（oncall当天可能要做好没有整块时间的打算），开启勿扰模式，减少被打断的次数，才可能更高效的完成设计或者编写代码，提升整体的任务完成效率</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
       </tags>
   </entry>
   <entry>
@@ -3444,21 +3444,6 @@
       </tags>
   </entry>
   <entry>
-    <title>读书让我们进步，实践方能巩固</title>
-    <url>/2020/10/13/2020-10-13-reading-and-practise/</url>
-    <content><![CDATA[<p>书籍凝聚了各类高手关于他们对于这个世界或者某些事件的理解，我们可以更加高效的从中获取知识，而不用通过日常生活中自己去慢慢踩坑总结，可以极大提高我们获取信息的效率。</p>
-<p>我觉得书籍大体可以分为四类：工具书，专业书，文化书，娱乐书，工具书用于提升我们的软实力，比如众所周知的《刻意练习》《金字塔原理》等，专业书用于提升我们专业硬实力，比如《深入理解 JVM 虚拟机》等，文化书用于提升我们的人文素养，文化常识，比如《牛津通识》《明朝那些事儿》等，娱乐书就是用来让我们放松身心，但没有任何实际作用的书籍，比如各类网络小说。</p>
-<p>我们应当尽量去阅读能够提升我们能力的书籍，而少去阅读小说这种能够提供即时满足感却无实际意义的书籍。此外，好的书值得多读几遍，并且一定要记录书籍的要点和自己当时读完之后的感想，这样能够加深我们对于这本书的理解和记忆，如果读完了就完事了，遗忘是迟早的事情，而记录和复习才能够加深我们的印象，让我们真正的把书读到脑子里。</p>
-<p>把书读到脑子里之后还不算完，能够把书中的知识应用到平常的工作生活中，才算是“读书”真正的终极状态，实践出真知，书中的知识不一定能够直接照搬来解决问题，而利用书中学来的知识和现实相结合，解决真实遇到的问题，才发挥了这次读书的最大作用，才真正巩固了这次读书的效果。</p>
-]]></content>
-      <categories>
-        <category>思考与感想</category>
-      </categories>
-      <tags>
-        <tag>个人思考</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何刻意练习</title>
     <url>/2020/09/25/2020-09-25-deliberate-practise/</url>
     <content><![CDATA[<p>看完了《刻意练习》，总结下来有以下四个主要步骤：</p>
@@ -3495,6 +3480,21 @@
       </categories>
       <tags>
         <tag>阅读感想</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读书让我们进步，实践方能巩固</title>
+    <url>/2020/10/13/2020-10-13-reading-and-practise/</url>
+    <content><![CDATA[<p>书籍凝聚了各类高手关于他们对于这个世界或者某些事件的理解，我们可以更加高效的从中获取知识，而不用通过日常生活中自己去慢慢踩坑总结，可以极大提高我们获取信息的效率。</p>
+<p>我觉得书籍大体可以分为四类：工具书，专业书，文化书，娱乐书，工具书用于提升我们的软实力，比如众所周知的《刻意练习》《金字塔原理》等，专业书用于提升我们专业硬实力，比如《深入理解 JVM 虚拟机》等，文化书用于提升我们的人文素养，文化常识，比如《牛津通识》《明朝那些事儿》等，娱乐书就是用来让我们放松身心，但没有任何实际作用的书籍，比如各类网络小说。</p>
+<p>我们应当尽量去阅读能够提升我们能力的书籍，而少去阅读小说这种能够提供即时满足感却无实际意义的书籍。此外，好的书值得多读几遍，并且一定要记录书籍的要点和自己当时读完之后的感想，这样能够加深我们对于这本书的理解和记忆，如果读完了就完事了，遗忘是迟早的事情，而记录和复习才能够加深我们的印象，让我们真正的把书读到脑子里。</p>
+<p>把书读到脑子里之后还不算完，能够把书中的知识应用到平常的工作生活中，才算是“读书”真正的终极状态，实践出真知，书中的知识不一定能够直接照搬来解决问题，而利用书中学来的知识和现实相结合，解决真实遇到的问题，才发挥了这次读书的最大作用，才真正巩固了这次读书的效果。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>个人思考</tag>
       </tags>
   </entry>
   <entry>
@@ -3692,8 +3692,13 @@
   </entry>
   <entry>
     <title>关于系统设计抽象一层的思考</title>
-    <url>/2020/12/14/2020-12-14-abstract-thinking-of-system-design/</url>
-    <content><![CDATA[<p>平常在设计系统时，会基于现有的条件进行系统架构的设计，满足当前用户的需求，以最小的代价完成系统设计和实现。这样的设计在无法完全确定当前业务能否“活下来”的情况下是比较适用的，因为成本较低，可以快速试错，但是带来的缺点是总以最小代价来进行设计，可能会导致设计能力的原地踏步。因此，我们应该在成本可控的基础上再多进行一层抽象的思考，当用户量级或者请求量级提升上来之后应该如何进行设计以保证系统的可靠性，或者如何提升设计的通用性，减少以后的修改成本。</p>
+    <url>/2021/01/11/2021-01-11-about-persevere/</url>
+    <content><![CDATA[<p>从我开始用「不背单词」APP 背单词和「多邻国」APP 学日语已经 50 天了，以前都说 21 天养成一个习惯，那我这个习惯也算是养成了，但是其实能够坚持下来也是有一些条件的，这也和《掌控习惯》里面提到的一些方法不谋而合–让习惯简单易行和让习惯令人愉悦，其中我背单词的时候没有每天背非常多的单词个数，因为那样复习的时候会让自己产生压力，让坚持变的困难，而「多邻国」每个单元的学习比较简短，并且在每次学习之后给出一个及时反馈，给一些奖励，并且有学习排名，让我更有动力继续学习下去。</p>
+<p>反映到我们生活中的其他方面，其实我们也可以使用类似的方法让自己能够更长久的坚持下来</p>
+<ul>
+<li>看书不用看太多，每次看一章或者看一节，看完之后合上书，回顾一下刚刚看完的内容，总结一下自己的理解，最好能够找个人讲出来，化被动为主动。</li>
+<li>适当的做总结，而不是等年终的时候才做总结，一次总结太多东西会令人懈怠，每周都回顾一下自己做的事情，学到的内容，最好也能总结下来找个人讲出来，不知不觉之中自己就会获得更快的成长。</li>
+</ul>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -3704,13 +3709,8 @@
   </entry>
   <entry>
     <title>关于系统设计抽象一层的思考</title>
-    <url>/2021/01/11/2021-01-11-about-persevere/</url>
-    <content><![CDATA[<p>从我开始用「不背单词」APP 背单词和「多邻国」APP 学日语已经 50 天了，以前都说 21 天养成一个习惯，那我这个习惯也算是养成了，但是其实能够坚持下来也是有一些条件的，这也和《掌控习惯》里面提到的一些方法不谋而合–让习惯简单易行和让习惯令人愉悦，其中我背单词的时候没有每天背非常多的单词个数，因为那样复习的时候会让自己产生压力，让坚持变的困难，而「多邻国」每个单元的学习比较简短，并且在每次学习之后给出一个及时反馈，给一些奖励，并且有学习排名，让我更有动力继续学习下去。</p>
-<p>反映到我们生活中的其他方面，其实我们也可以使用类似的方法让自己能够更长久的坚持下来</p>
-<ul>
-<li>看书不用看太多，每次看一章或者看一节，看完之后合上书，回顾一下刚刚看完的内容，总结一下自己的理解，最好能够找个人讲出来，化被动为主动。</li>
-<li>适当的做总结，而不是等年终的时候才做总结，一次总结太多东西会令人懈怠，每周都回顾一下自己做的事情，学到的内容，最好也能总结下来找个人讲出来，不知不觉之中自己就会获得更快的成长。</li>
-</ul>
+    <url>/2020/12/14/2020-12-14-abstract-thinking-of-system-design/</url>
+    <content><![CDATA[<p>平常在设计系统时，会基于现有的条件进行系统架构的设计，满足当前用户的需求，以最小的代价完成系统设计和实现。这样的设计在无法完全确定当前业务能否“活下来”的情况下是比较适用的，因为成本较低，可以快速试错，但是带来的缺点是总以最小代价来进行设计，可能会导致设计能力的原地踏步。因此，我们应该在成本可控的基础上再多进行一层抽象的思考，当用户量级或者请求量级提升上来之后应该如何进行设计以保证系统的可靠性，或者如何提升设计的通用性，减少以后的修改成本。</p>
 ]]></content>
       <categories>
         <category>思考与感想</category>
@@ -4084,54 +4084,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Golang scheduler 浅析</title>
-    <url>/2021/04/30/2021-04-30-golang-scheduler/</url>
-    <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>饶老师从一个故事讲起，引出了调度器的概念和 Golang 的调度器模型，并深入的讲解了 Golang 的循环调度的实现和抢占式调度的实现，不禁令人感叹，Golang 的循环调度为我们的岁月静好负重前行。</p>
-<h1 id="循环调度的建立"><a href="#循环调度的建立" class="headerlink" title="循环调度的建立"></a>循环调度的建立</h1><p>所谓对 goroutine 的调度，实际上就是指 Golang 程序代码按照内置的一些算法，在运行时动态的选择合适的 goroutine 放到 CPU 上去执行的过程， 其本质是通过保存和恢复 CPU 寄存器的值达到切换 goroutine 的目的。</p>
-<span id="more"></span>
-
-<p><img data-src="/uploads/in-post/golang-scheduler/schedule.png"></p>
-<h2 id="GM-模型与-GMP-模型"><a href="#GM-模型与-GMP-模型" class="headerlink" title="GM 模型与 GMP 模型"></a>GM 模型与 GMP 模型</h2><p><img data-src="/uploads/in-post/golang-scheduler/gm-model.png"></p>
-<p>由于全局只有一个 global 队列，所有新创建的 goroutine 都会存放到这个队列中（即使是 goroutine 创建的子 goroutine），导致 GM 模型存在以下问题：</p>
-<ul>
-<li>全局互斥锁</li>
-<li>Goroutine 传递问题</li>
-<li>每个 M 持有内存缓存</li>
-</ul>
-<p>为了解决这个问题，引入一个中间层，即引入本队可运行队列 P，成为现在的 GMP 模型：</p>
-<p><img data-src="/uploads/in-post/golang-scheduler/gmp-model.png"></p>
-<p>G 为执行代码的基本单元，P 为逻辑 Processor，M 代表一个线程，可以理解为“物理 Processor”，新建的 G 都会优先放入到本地 P 队列中，如果满了会放到 Global 队列中，如果执行完了本队列的所有 G，还会从其他的 P 中 steal 一半的 G 到本地队列中运行以提升性能，其执行流程如下：</p>
-<p><img data-src="/uploads/in-post/golang-scheduler/gmp-schedule.png"></p>
-<h2 id="循环调度的建立-1"><a href="#循环调度的建立-1" class="headerlink" title="循环调度的建立"></a>循环调度的建立</h2><p>循环调度主要由四个主要步骤组成：</p>
-<ol>
-<li>osinit 计算 CPU 总数，初始化主线程栈</li>
-<li>schedinit 确定 M 总数，初始化 g0 栈</li>
-<li>make &amp; queue new g 创建用于执行的 goroutine 栈</li>
-<li>mstart 开始执行调度</li>
-</ol>
-<p><img data-src="/uploads/in-post/golang-scheduler/schedule-loop.png"></p>
-<h1 id="协作与抢占"><a href="#协作与抢占" class="headerlink" title="协作与抢占"></a>协作与抢占</h1><p>Golang 是在 1.14 之后才实现了抢占式调度的，如果调度 goroutine 的时候发生了 gc 会导致整个程序卡死，这个坑我们需要格外注意。</p>
-<p>协作式调度和抢占式调度的区别如下：</p>
-<ul>
-<li>协作式调度依靠被调度方主动弃权</li>
-<li>抢占式调度依靠调度器强制将被调度方中断</li>
-</ul>
-<p><img data-src="/uploads/in-post/golang-scheduler/schedule-type.png"></p>
-<p>其中需要注意的一点是主动调度弃权必须要有函数调用且有扩栈指令才有机会执行抢占，如果循环中执行的是类似 <code>i++</code> 这类操作是无法抢占的从而会导致死循环，所以在 Golang 1.14 中实现了基于信号的抢占，其主要流程如下：</p>
-<p><img data-src="/uploads/in-post/golang-scheduler/signal-schedule.png"></p>
-<p>协作式调度与抢占式调度的大致流程为：</p>
-<p><img data-src="/uploads/in-post/golang-scheduler/schedule-flow.png"></p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://qcrao.com/2019/09/06/dive-into-go-scheduler-source-code/">饶老师的系列博客</a></p>
-<p><a href="https://b23.tv/83xK0P">Go Scheduler 源码阅读 【 Go 夜读 】</a></p>
-]]></content>
-      <categories>
-        <category>Golang</category>
-      </categories>
-      <tags>
-        <tag>Golang</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>垃圾回收和 Golang 内存管理</title>
     <url>/2021/05/06/2021-05-06-go-gc-memory/</url>
     <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>陆老师今天的课程从 GC 的发展历程讲起，渐次讲解了垃圾回收的流派以及基础的垃圾回收方法，从而引出 Golang 的 GC，向我们讲述了 Golang 垃圾回收的特点与触发时机，最终为我们简述了一些编程过程中可能使用到的工具和指标，帮助我们更快的找到和分析问题。</p>
@@ -4222,6 +4174,54 @@
       <tags>
         <tag>Golang</tag>
         <tag>垃圾回收</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Golang scheduler 浅析</title>
+    <url>/2021/04/30/2021-04-30-golang-scheduler/</url>
+    <content><![CDATA[<h1 id="说在前面"><a href="#说在前面" class="headerlink" title="说在前面"></a>说在前面</h1><p>饶老师从一个故事讲起，引出了调度器的概念和 Golang 的调度器模型，并深入的讲解了 Golang 的循环调度的实现和抢占式调度的实现，不禁令人感叹，Golang 的循环调度为我们的岁月静好负重前行。</p>
+<h1 id="循环调度的建立"><a href="#循环调度的建立" class="headerlink" title="循环调度的建立"></a>循环调度的建立</h1><p>所谓对 goroutine 的调度，实际上就是指 Golang 程序代码按照内置的一些算法，在运行时动态的选择合适的 goroutine 放到 CPU 上去执行的过程， 其本质是通过保存和恢复 CPU 寄存器的值达到切换 goroutine 的目的。</p>
+<span id="more"></span>
+
+<p><img data-src="/uploads/in-post/golang-scheduler/schedule.png"></p>
+<h2 id="GM-模型与-GMP-模型"><a href="#GM-模型与-GMP-模型" class="headerlink" title="GM 模型与 GMP 模型"></a>GM 模型与 GMP 模型</h2><p><img data-src="/uploads/in-post/golang-scheduler/gm-model.png"></p>
+<p>由于全局只有一个 global 队列，所有新创建的 goroutine 都会存放到这个队列中（即使是 goroutine 创建的子 goroutine），导致 GM 模型存在以下问题：</p>
+<ul>
+<li>全局互斥锁</li>
+<li>Goroutine 传递问题</li>
+<li>每个 M 持有内存缓存</li>
+</ul>
+<p>为了解决这个问题，引入一个中间层，即引入本队可运行队列 P，成为现在的 GMP 模型：</p>
+<p><img data-src="/uploads/in-post/golang-scheduler/gmp-model.png"></p>
+<p>G 为执行代码的基本单元，P 为逻辑 Processor，M 代表一个线程，可以理解为“物理 Processor”，新建的 G 都会优先放入到本地 P 队列中，如果满了会放到 Global 队列中，如果执行完了本队列的所有 G，还会从其他的 P 中 steal 一半的 G 到本地队列中运行以提升性能，其执行流程如下：</p>
+<p><img data-src="/uploads/in-post/golang-scheduler/gmp-schedule.png"></p>
+<h2 id="循环调度的建立-1"><a href="#循环调度的建立-1" class="headerlink" title="循环调度的建立"></a>循环调度的建立</h2><p>循环调度主要由四个主要步骤组成：</p>
+<ol>
+<li>osinit 计算 CPU 总数，初始化主线程栈</li>
+<li>schedinit 确定 M 总数，初始化 g0 栈</li>
+<li>make &amp; queue new g 创建用于执行的 goroutine 栈</li>
+<li>mstart 开始执行调度</li>
+</ol>
+<p><img data-src="/uploads/in-post/golang-scheduler/schedule-loop.png"></p>
+<h1 id="协作与抢占"><a href="#协作与抢占" class="headerlink" title="协作与抢占"></a>协作与抢占</h1><p>Golang 是在 1.14 之后才实现了抢占式调度的，如果调度 goroutine 的时候发生了 gc 会导致整个程序卡死，这个坑我们需要格外注意。</p>
+<p>协作式调度和抢占式调度的区别如下：</p>
+<ul>
+<li>协作式调度依靠被调度方主动弃权</li>
+<li>抢占式调度依靠调度器强制将被调度方中断</li>
+</ul>
+<p><img data-src="/uploads/in-post/golang-scheduler/schedule-type.png"></p>
+<p>其中需要注意的一点是主动调度弃权必须要有函数调用且有扩栈指令才有机会执行抢占，如果循环中执行的是类似 <code>i++</code> 这类操作是无法抢占的从而会导致死循环，所以在 Golang 1.14 中实现了基于信号的抢占，其主要流程如下：</p>
+<p><img data-src="/uploads/in-post/golang-scheduler/signal-schedule.png"></p>
+<p>协作式调度与抢占式调度的大致流程为：</p>
+<p><img data-src="/uploads/in-post/golang-scheduler/schedule-flow.png"></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a href="https://qcrao.com/2019/09/06/dive-into-go-scheduler-source-code/">饶老师的系列博客</a></p>
+<p><a href="https://b23.tv/83xK0P">Go Scheduler 源码阅读 【 Go 夜读 】</a></p>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
       </tags>
   </entry>
   <entry>
@@ -4984,6 +4984,21 @@
       </categories>
       <tags>
         <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>打造好「自己」这个产品</title>
+    <url>/2021/06/11/2021-06-11-practise-self-as-a-product/</url>
+    <content><![CDATA[<p>今天听到梁宁的一个观点：产品能力是人生的一个底层能力。她说，产品能力，就是训练一个人判断信息，抓住要点，整合有限的资源，把自己的价值打造成一个产品向世界交付，并且获得回报。</p>
+<p>作为程序员，我们首要提升的当然是自己的代码能力，但是我们一定要知道，通过自己对产品的思考输出价值是更有意义的，代码实现只是实现产品的最终步骤，软件工程告诉我们，越是前置步骤的改变成本越低，通过我们对各种技术信息的理解，可以让产品在设计之初就能够变得更加完善，这样带来的收益十分可观。</p>
+<p>作为程序员，我们非常容易在讨论问题的时候陷入细节，经常会在需求提出的时候就想到该怎么去实现，而缺乏了对信息的判断。之前提到过，我们需要抓主要矛盾，我们不能仅仅去实现需求，那样不就成了实现需求的机器了吗？我们需要对自己的业务有独立的思考，需要在面对需求时有自己的判断，该拒绝的需求不能因为实现简单而去做，因为人的精力是有限的，做了无效的需求一定会耽误去做真正有效需求的时间和精力。所以在讨论需求时我们还需要从需求和合理性，收益性等方面加上自己的思考，做完需求时最好还能够总结和复盘，让自身在下次评估的时候能够拥有更加准确的判断能力。</p>
+<p>其实我们都是从一无所有的状态走过来的，初入职场，我们缺乏对信息的判断和处理能力，往往会做出不准确甚至错误的判断，导致挫败和被 diss，但是通过一次次的训练，我们逐渐掌握了处理信息和抓住要点的能力，渐渐的能够建立起自己的影响圈，不断的释放自己的能力和价值，在我看来，我们每个人都在不断打造「自己」这个产品，并通过交付这个产品来获取物质的或者精神的回报。所以，想要获得更多的回报，最好的方式就是把「自己」这个产品打造的更加强大，对外释放的能力越强，影响力越大，收获也会越多。</p>
+]]></content>
+      <categories>
+        <category>思考与感想</category>
+      </categories>
+      <tags>
+        <tag>阅读感想</tag>
       </tags>
   </entry>
   <entry>
