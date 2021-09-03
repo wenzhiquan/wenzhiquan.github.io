@@ -106,3 +106,22 @@ deploy:
   - type: git
     repo: git@github.com:wenzhiquan/wenzhiquan.github.io.git
     branch: main
+
+live2d:
+  enable: true #是否启用live2d
+  scriptFrom: local
+  pluginRootPath: node_modules/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-hijiki #下载的模型名称 https://github.com/summerscar/live2dDemo
+  display:
+    position: left #模型显示位置
+    width: 280 #模型显示宽度
+    height: 320 #模型显示高度
+  mobile:
+    show: false #移动端是否显示模型
+  react:
+    opacity: 0.9 #模型透明度

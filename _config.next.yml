@@ -910,7 +910,7 @@ vendors:
   copy_tex_css:
 
   # Pjax
-  pjax:
+  pjax: true
 
   # FancyBox
   jquery:
