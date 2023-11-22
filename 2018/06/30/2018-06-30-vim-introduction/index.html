@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
-
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="yandex-verification" content="e8de7a9cea7f3baf">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -18,10 +19,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":true,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="“Vim 是一个历史悠久的，具有很多命令的功能非常强大的文本编辑器，被称为 编辑器之神。”  简介Vim 是从 vi 发展出来的一个文本编辑器。其代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和 Emacs 并列成为类 Unix 系统用户最喜欢的编辑器。两派使用者经常发起 “XXX 才是最好的编辑器” 之争。">
-<meta property="og:type" content="article">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Vim 简明教程">
 <meta property="og:url" content="http://wenzhiquan.github.io/2018/06/30/2018-06-30-vim-introduction/index.html">
 <meta property="og:site_name" content="温智全的博客">
@@ -82,7 +83,7 @@
       <p class="site-title">温智全的博客</p>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">Wenknows's Blog</p>
+      <p class="site-subtitle" itemprop="description">Elvin wen's Blog</p>
   </div>
 
   <div class="site-nav-right">
@@ -179,20 +180,23 @@
 </div>
   <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/wenzhiquan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan" rel="noopener me" target="_blank"><i class="github-alt fa-fw"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dlbnpoaXF1YW4=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan"><i class="github-alt fa-fw"></i>GitHub</span>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.zhihu.com/people/wenzhiquan/activities" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities" rel="noopener me" target="_blank">知乎</a>
+        <span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS93ZW56aGlxdWFuL2FjdGl2aXRpZXM=" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities">知乎</span>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:wenzhiquanr@163.com" title="邮箱 → mailto:wenzhiquanr@163.com" rel="noopener me" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+        <span class="exturl" data-url="bWFpbHRvOndlbnpoaXF1YW5yQDE2My5jb20=" title="邮箱 → mailto:wenzhiquanr@163.com"><i class="envelope fa-fw"></i>邮箱</span>
       </span>
       <span class="links-of-author-item">
-        <a href="https://www.facebook.com/profile.php?id=100006943363300" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300" rel="noopener me" target="_blank"><i class="faceboo fa-fw"></i>Facebook</a>
+        <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwNjk0MzM2MzMwMA==" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300"><i class="faceboo fa-fw"></i>Facebook</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlbnpoaXF1YW5yQGdtYWlsLmNvbQ==" title="E-Mail → mailto:wenzhiquanr@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
       </span>
   </div>
   <div class="cc-license animated" itemprop="license">
-    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
   </div>
 
         </div>
@@ -211,11 +215,13 @@
         </div>
         <ul class="links-of-blogroll-list">
             <li class="links-of-blogroll-item">
-              <a href="https://xiaochutian.github.io/" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;" rel="noopener" target="_blank">肖楚天的博客</a>
+              <span class="exturl" data-url="aHR0cHM6Ly94aWFvY2h1dGlhbi5naXRodWIuaW8v" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;">肖楚天的博客</span>
             </li>
         </ul>
       </div>
     </div>
+        <div class="pjax">
+        </div>
   </aside>
 
 
@@ -342,7 +348,7 @@
     <div class="post-body" itemprop="articleBody"><blockquote>
 <p>“Vim 是一个历史悠久的，具有很多命令的功能非常强大的文本编辑器，被称为 <code>编辑器之神</code>。”</p>
 </blockquote>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Vim">Vim</a> 是从 vi 发展出来的一个文本编辑器。其代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和 Emacs 并列成为类 Unix 系统用户最喜欢的编辑器。两派使用者经常发起 “XXX 才是最好的编辑器” 之争。</p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvVmlt">Vim<i class="fa fa-external-link-alt"></i></span> 是从 vi 发展出来的一个文本编辑器。其代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和 Emacs 并列成为类 Unix 系统用户最喜欢的编辑器。两派使用者经常发起 “XXX 才是最好的编辑器” 之争。</p>
 <span id="more"></span>
 
 <h4 id="Vim-的几种模式"><a href="#Vim-的几种模式" class="headerlink" title="Vim 的几种模式"></a>Vim 的几种模式</h4><p>Vim 最常用的有四个模式，分别是：</p>
@@ -437,7 +443,7 @@
 </code></pre>
 <p>移动光标的命令是 Vim 中最为基础的命令，但是他和我们平常使用的上下左右键有较大的区别，所以需要进行大量的练习让他成为你理所当然的操作习惯。</p>
 <p>推荐一款游戏用来练习 Vim 的基础命令：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/jmoon018/PacVim">PacVim</a></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ptb29uMDE4L1BhY1ZpbQ==">PacVim<i class="fa fa-external-link-alt"></i></span></p>
 <p>通过这个游戏，可以快速的上手和熟练 vim 的基本操作，值得一试。</p>
 <h4 id="相对屏幕移动"><a href="#相对屏幕移动" class="headerlink" title="相对屏幕移动"></a>相对屏幕移动</h4><p>通过 <code>Ctrl-f</code> 向下翻页，<code>Ctrl-b</code> 向上翻页， <code>Ctrl-u</code> 向下滚动半屏（即把当前行上半屏的行置于当前行）， <code>Ctrl-d</code> 向上滚动半屏（即把当前行下半屏的行置于当前行）， <code>Ctrl-e</code> 逐行下滚，<code>Ctrl-y</code> 逐行上滚。这在几乎所有 Unix 软件中都是可以使用的，比如 man 和 less。</p>
 <pre><code>                                   +----------------+
@@ -584,8 +590,8 @@
 <p>下面简单介绍一些常用设置：</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">syntax on                       <span class="string">&quot; 设置语法高亮</span></span><br><span class="line"><span class="string">set fileencodings=utf-8         &quot;</span> vim 写入文件时编码类型</span><br><span class="line"><span class="built_in">set</span> <span class="attribute">termencoding</span>=utf-8          <span class="string">&quot; 输出到终端时编码类型</span></span><br><span class="line"><span class="string">set encoding=utf-8              &quot;</span> 缓存文本，寄存器，脚本文件编码类型</span><br><span class="line"><span class="built_in">set</span> number                      <span class="string">&quot; 显示行号，也可以使用 set nu</span></span><br><span class="line"><span class="string">set cursorline                  &quot;</span> 突出显示当前行</span><br><span class="line"><span class="built_in">set</span> cursorcolumn                <span class="string">&quot; 突出显示当前列</span></span><br><span class="line"><span class="string">set nocompatible                &quot;</span> 以不兼容模式运行 vim</span><br><span class="line"><span class="built_in">set</span> showmatch                   <span class="string">&quot; 显示括号匹配</span></span><br><span class="line"><span class="string">set tabstop=4                   &quot;</span> 设置 Tab 键长度为 4 个空格</span><br><span class="line"><span class="built_in">set</span> <span class="attribute">shiftwidth</span>=4                <span class="string">&quot; 设置自动缩进长度为 4 个空格</span></span><br><span class="line"><span class="string">set softtabstop                 &quot;</span> 设置编辑模式删除 Tab 时为 4 个空格</span><br><span class="line"><span class="built_in">set</span> expandtab                   <span class="string">&quot; 设置用空格来表示缩进</span></span><br><span class="line"><span class="string">set smarttab                    &quot;</span> 根据文件中其他地方的缩进空格个数来确定一个 Tab 是多少个空格</span><br><span class="line"><span class="built_in">set</span> autoindent                  <span class="string">&quot; 在插入一个新行时使用和前一行相同的缩进</span></span><br><span class="line"><span class="string">set smartindent                 &quot;</span> 打开智能缩进</span><br><span class="line"><span class="built_in">set</span> paste                       <span class="string">&quot; 设置为粘贴模式，使用鼠标右键粘贴时避免出现格式变形</span></span><br><span class="line"><span class="string">set listchars=▸-,eol:↩︎,trail:-↩ &quot;</span> 将 Tab 键显示为 &gt;-，行尾显示 ↩︎， 将行尾空格显示为 -↩︎</span><br><span class="line"><span class="built_in">set</span> <span class="attribute">backspace</span>=indent,eol,start  <span class="string">&quot; 指明在插入模式下在哪里允许 &lt;BS&gt; 删除光标前面的字符。逗号分隔的三个值分别指: 行首的空白字符，换行符和插入模式开始处之前的字符。</span></span><br><span class="line"><span class="string">set nowrap                      &quot;</span> 禁止自动换行显示</span><br><span class="line"><span class="built_in">set</span> <span class="attribute">history</span>=1000                <span class="string">&quot; 保存 1000 条命令和 1000 个查找模式的历史，数值可按需修改</span></span><br><span class="line"><span class="string">set ruler                       &quot;</span> 在 vim 窗口右下角显示当前光标的位置</span><br><span class="line"><span class="built_in">set</span> showcmd                     <span class="string">&quot; 在 vim 窗口右下角 ruler 左侧显示未完成的命令</span></span><br><span class="line"><span class="string">set incsearch                   &quot;</span> 设置实时匹配</span><br><span class="line"><span class="built_in">set</span> hlsearch                    <span class="string">&quot; 设置搜索时高亮匹配词</span></span><br><span class="line"><span class="string">filetype plugin indent on       &quot;</span> 开启文件类型探测，使用文件类型相关插件，使用缩进文件</span><br><span class="line">autocmd FileType text setlocal <span class="attribute">textwidth</span>=78  <span class="string">&quot; 一行超过 78 行时自动换行</span></span><br><span class="line"><span class="string">set foldenable                  &quot;</span> 允许折叠</span><br></pre></td></tr></table></figure>
 
-<p>更多配置可以使用这个 <a target="_blank" rel="noopener" href="http://vimconfig.com/">Vim 配置工具</a> 来模拟。</p>
-<p>也可以参考多人推荐的 <a target="_blank" rel="noopener" href="https://github.com/spf13/spf13-vim">spf13-vim</a> 来学习他人的配置。</p>
+<p>更多配置可以使用这个 <span class="exturl" data-url="aHR0cDovL3ZpbWNvbmZpZy5jb20v">Vim 配置工具<i class="fa fa-external-link-alt"></i></span> 来模拟。</p>
+<p>也可以参考多人推荐的 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NwZjEzL3NwZjEzLXZpbQ==">spf13-vim<i class="fa fa-external-link-alt"></i></span> 来学习他人的配置。</p>
 <h5 id="添加插件"><a href="#添加插件" class="headerlink" title="添加插件"></a>添加插件</h5><p>Vim 可以通过插件增强功能，把插件放入 Vim 的 <code>plugin</code> 目录中即可使插件生效。</p>
 <p>如果没有 <code>plugin</code> 目录，可以使用命令 <code>mkdir -p ~/.vim/plugin</code> 创建。</p>
 <p>Vim 中共有两种插件：</p>
@@ -593,9 +599,9 @@
 <li>全局插件： 用于所有类型的文件</li>
 <li>文件类型插件：仅用于特定类型的文件</li>
 </ul>
-<p>当然，这种拷贝插件的方式比较麻烦，所以插件管理器也应运而生，最常用的是 <a target="_blank" rel="noopener" href="https://github.com/VundleVim/Vundle.vim">Vundle</a> 管理器。</p>
+<p>当然，这种拷贝插件的方式比较麻烦，所以插件管理器也应运而生，最常用的是 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1Z1bmRsZVZpbS9WdW5kbGUudmlt">Vundle<i class="fa fa-external-link-alt"></i></span> 管理器。</p>
 <p>网上关于插件安装的文章数不胜数，就不在此赘述了。</p>
-<p>在 <a target="_blank" rel="noopener" href="https://vimawesome.com/">VimAwesome</a> 可以找到大家常用的插件。</p>
+<p>在 <span class="exturl" data-url="aHR0cHM6Ly92aW1hd2Vzb21lLmNvbS8=">VimAwesome<i class="fa fa-external-link-alt"></i></span> 可以找到大家常用的插件。</p>
 <h4 id="编辑多个文件"><a href="#编辑多个文件" class="headerlink" title="编辑多个文件"></a>编辑多个文件</h4><h5 id="编辑另一个文件"><a href="#编辑另一个文件" class="headerlink" title="编辑另一个文件"></a>编辑另一个文件</h5><p>输入命令 <code>:edit foo.txt</code> 可以关闭当前文件并打开 <code>foo.txt</code>，如果当前文件未保存，则会提示错误信息。或者可以使用 <code>:edit! foo.txt</code> 命令放弃当前文件的修改并打开 <code>foo.txt</code> 文件。</p>
 <h5 id="文件列表"><a href="#文件列表" class="headerlink" title="文件列表"></a>文件列表</h5><p>可以在启动 vim 时指定打开多个文件。例如：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="built_in">test</span> test1 test2</span><br></pre></td></tr></table></figure>
@@ -680,7 +686,7 @@
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:<span class="keyword">gt</span>         <span class="comment"># 切换到下一个标签页</span></span><br><span class="line">:<span class="keyword">gT</span>         <span class="comment"># 切换到上一个标签页</span></span><br><span class="line">:<span class="number">3</span><span class="keyword">gt</span>        <span class="comment"># 切换到第三个标签页</span></span><br><span class="line">:<span class="number">4</span><span class="keyword">gT</span>        <span class="comment"># 向前切换4个标签页，如果超过标签页数量，将从最后一个标签页继续计算数量</span></span><br></pre></td></tr></table></figure>
 
 <p>本文仅仅是对 Vim 这一款强大软件的基本介绍，想要真正的发挥 Vim 的强大之处，还需要不断地学习和不断地练习，希望大家都能够成为 Vim 大神。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1、newjueqi，<a target="_blank" rel="noopener" href="https://blog.csdn.net/newjueqi/article/details/7441930">Vim 的几种模式介绍</a><br>2、vimtutor<br>3、yianwillis，<a target="_blank" rel="noopener" href="https://github.com/yianwillis/vimcdoc">Vim 中文文档计划</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>1、newjueqi，<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L25ld2p1ZXFpL2FydGljbGUvZGV0YWlscy83NDQxOTMw">Vim 的几种模式介绍<i class="fa fa-external-link-alt"></i></span><br>2、vimtutor<br>3、yianwillis，<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3lpYW53aWxsaXMvdmltY2RvYw==">Vim 中文文档计划<i class="fa fa-external-link-alt"></i></span></p>
 
     </div>
 
@@ -719,7 +725,7 @@
       <a href="http://wenzhiquan.github.io/2018/06/30/2018-06-30-vim-introduction/" title="Vim 简明教程">http://wenzhiquan.github.io/2018/06/30/2018-06-30-vim-introduction/</a>
   </li>
   <li class="post-copyright-license">
-      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -836,7 +842,7 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
   </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
 
 
@@ -847,7 +853,7 @@
   <div class="reading-progress-bar"></div>
   <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
-  <a href="https://github.com/wenzhiquan" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dlbnpoaXF1YW4=" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -881,12 +887,12 @@
 
 <script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e","count":true}</script>
 <script src="/js/third-party/comments/changyan.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
 
 <script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"b25e35b16ab90cafe18e1798a88dd626"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
-<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
-<script src="/js/third-party/comments/disqus.js"></script>
 
 <script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
 </html>
