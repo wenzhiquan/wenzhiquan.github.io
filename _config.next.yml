@@ -300,7 +300,7 @@ follow_me:
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: true
+  enable: false
   icon: fa fa-signs-post
   title: # Custom header, leave empty to use the default one
   display_in_home: true
