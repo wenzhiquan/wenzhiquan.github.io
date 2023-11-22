@@ -376,8 +376,8 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: qtcreator_light
-    dark: darcula
+    light: qtcreator-light
+    dark: dracula
   prism:
     light: prism-coy
     dark: prism-tomorrow
