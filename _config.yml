@@ -4,11 +4,13 @@
 
 # Site
 title: 温智全的博客
-subtitle: Wenknows's Blog
+subtitle: Elvin wen's Blog
 description: 爱唱歌健身的程序员
-keywords: wenzhiquan, wenknows, 温智全, 技术, 软件, 互联网, Mac, 算法, Linux, blog
+keywords: wenzhiquan, elvin, 温智全, 技术, 软件, 互联网, Mac, 算法, Linux, blog
 author: 温智全
-language: zh-CN
+language:
+  - zh-CN
+  - en
 timezone: Asia/Shanghai
 
 # URL

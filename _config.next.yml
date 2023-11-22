@@ -36,10 +36,10 @@ custom_file_path:
 # ---------------------------------------------------------------
 
 # Schemes
-#scheme: Muse
-#scheme: Mist
-scheme: Pisces
-#scheme: Gemini
+# scheme: Muse
+# scheme: Mist
+# scheme: Pisces
+scheme: Gemini
 
 # Dark Mode
 darkmode: false
@@ -70,6 +70,11 @@ creative_commons:
   post: true
   language: deed.zh
 
+open_graph:
+  enable: true
+  # Add pairs each line to customize
+  options:
+    type: blog
 
 # ---------------------------------------------------------------
 # Menu Settings
@@ -144,7 +149,7 @@ social:
   邮箱: mailto:wenzhiquanr@163.com || envelope
   Facebook: https://www.facebook.com/profile.php?id=100006943363300 || faceboo
   #GitHub: https://github.com/yourname || fab fa-github
-  #E-Mail: mailto:yourname@gmail.com || fa fa-envelope
+  E-Mail: mailto:wenzhiquanr@gmail.com || fa fa-envelope
   #Weibo: https://weibo.com/yourname || fab fa-weibo
   #Google: https://plus.google.com/yourname || fab fa-google
   #Twitter: https://twitter.com/yourname || fab fa-twitter
@@ -295,7 +300,8 @@ follow_me:
 # Related popular posts
 # Dependencies: https://github.com/tea3/hexo-related-popular-posts
 related_posts:
-  enable: false
+  enable: true
+  icon: fa fa-signs-post
   title: # Custom header, leave empty to use the default one
   display_in_home: true
   params:
@@ -351,7 +357,7 @@ calendar:
 
 # Preconnect CDN for fonts and plugins.
 # For more information: https://www.w3.org/TR/resource-hints/#preconnect
-preconnect: false
+preconnect: true
 
 # Set the text alignment in posts / pages.
 text_align:
@@ -480,10 +486,10 @@ font:
 
 # If true, site-subtitle will be added to index page.
 # Remember to set up your site-subtitle in Hexo `_config.yml` (e.g. subtitle: Subtitle)
-index_with_subtitle: false
+index_with_subtitle: true
 
 # Automatically add external URL with Base64 encrypt & decrypt.
-exturl: false
+exturl: true
 # If true, an icon will be attached to each external URL
 exturl_icon: true
 
@@ -497,7 +503,7 @@ bing_site_verification:
 
 # Yandex Webmaster tools verification.
 # See: https://webmaster.yandex.ru
-yandex_site_verification:
+yandex_site_verification: e8de7a9cea7f3baf
 
 # Baidu Webmaster tools verification.
 # See: https://ziyuan.baidu.com/site
