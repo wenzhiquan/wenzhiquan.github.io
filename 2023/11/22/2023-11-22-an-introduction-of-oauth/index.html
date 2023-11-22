@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OverviewWhat is OAuth 2.0？ RFC Reader - An online reader for IETF RFCs  The OAuth (Open Authorization) 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="An introduction of OAuth">
+<meta property="og:url" content="http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/index.html">
+<meta property="og:site_name" content="温智全的博客">
+<meta property="og:description" content="OverviewWhat is OAuth 2.0？ RFC Reader - An online reader for IETF RFCs  The OAuth (Open Authorization) 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/OAuth-workflow.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/OAuth-workflow-table.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/authorization-code-workflow-table.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/get-authorization-code.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/return-authorization-code.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/get-authorization-token.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/return-authorization-token.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/implicit-workflow-table.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/implicit-workflow.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/password-credentials-workflow.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/security/client-credentials-workflow.png">
+<meta property="article:published_time" content="2023-11-22T04:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T04:00:00.000Z">
+<meta property="article:author" content="温智全">
+<meta property="article:tag" content="Security">
+<meta property="article:tag" content="OAuth">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wenzhiquan.github.io/uploads/in-post/security/OAuth-workflow.png">
+
+
+<link rel="canonical" href="http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/","path":"2023/11/22/2023-11-22-an-introduction-of-oauth/","title":"An introduction of OAuth"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>An introduction of OAuth | 温智全的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75727255-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-75727255-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0ee846e1ba3a25130ad41180a73f6f9a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">温智全的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Wenknows's Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">103</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-OAuth-2-0%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">What is OAuth 2.0？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analogy"><span class="nav-number">1.2.</span> <span class="nav-text">Analogy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scenario"><span class="nav-number">1.2.1.</span> <span class="nav-text">Scenario</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authorization-mechanism"><span class="nav-number">1.2.2.</span> <span class="nav-text">Authorization mechanism</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Difference-between-token-and-password"><span class="nav-number">1.2.3.</span> <span class="nav-text">Difference between token and password</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Terms"><span class="nav-number">1.3.</span> <span class="nav-text">Terms</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Authorization-flow"><span class="nav-number">2.</span> <span class="nav-text">Authorization flow</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Authorization-mode"><span class="nav-number">3.</span> <span class="nav-text">Authorization mode</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization-code"><span class="nav-number">3.1.</span> <span class="nav-text">Authorization code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview-1"><span class="nav-number">3.1.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Workflow"><span class="nav-number">3.1.2.</span> <span class="nav-text">Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">3.1.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1"><span class="nav-number">3.1.3.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2"><span class="nav-number">3.1.3.2.</span> <span class="nav-text">Step 2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-3"><span class="nav-number">3.1.3.3.</span> <span class="nav-text">Step 3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-4"><span class="nav-number">3.1.3.4.</span> <span class="nav-text">Step 4</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implicit"><span class="nav-number">3.2.</span> <span class="nav-text">Implicit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Workflow-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-1"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-1"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">Step 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Resource-owner-password-credentials"><span class="nav-number">3.3.</span> <span class="nav-text">Resource owner password credentials</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview-3"><span class="nav-number">3.3.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Workflow-2"><span class="nav-number">3.3.2.</span> <span class="nav-text">Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">3.3.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-2"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-2"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">Step 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Client-credentials"><span class="nav-number">3.4.</span> <span class="nav-text">Client credentials</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Overview-4"><span class="nav-number">3.4.1.</span> <span class="nav-text">Overview</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Workflow-3"><span class="nav-number">3.4.2.</span> <span class="nav-text">Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-3"><span class="nav-number">3.4.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-3"><span class="nav-number">3.4.3.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-3"><span class="nav-number">3.4.3.2.</span> <span class="nav-text">Step 2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Refresh-token"><span class="nav-number">3.5.</span> <span class="nav-text">Refresh token</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="温智全"
+      src="/uploads/avatar-wen.jpg">
+  <p class="site-author-name" itemprop="name">温智全</p>
+  <div class="site-description" itemprop="description">爱唱歌健身的程序员</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wenzhiquan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan" rel="noopener me" target="_blank"><i class="github-alt fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wenzhiquan/activities" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities" rel="noopener me" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenzhiquanr@163.com" title="邮箱 → mailto:wenzhiquanr@163.com" rel="noopener me" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100006943363300" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300" rel="noopener me" target="_blank"><i class="faceboo fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://xiaochutian.github.io/" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;" rel="noopener" target="_blank">肖楚天的博客</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="An introduction of OAuth | 温智全的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          An introduction of OAuth
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-22 12:00:00" itemprop="dateCreated datePublished" datetime="2023-11-22T12:00:00+08:00">2023-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Security/" itemprop="url" rel="index"><span itemprop="name">Security</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2023/11/22/2023-11-22-an-introduction-of-oauth/" class="post-meta-item leancloud_visitors" data-flag-title="An introduction of OAuth" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="An introduction of OAuth" href="/2023/11/22/2023-11-22-an-introduction-of-oauth/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::8af255bd3c589472f9bb0015779f3bb7" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2023/11/22/2023-11-22-an-introduction-of-oauth/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/11/22/2023-11-22-an-introduction-of-oauth/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h1><h2 id="What-is-OAuth-2-0？"><a href="#What-is-OAuth-2-0？" class="headerlink" title="What is OAuth 2.0？"></a>What is OAuth 2.0？</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.rfcreader.com/#rfc6749">RFC Reader - An online reader for IETF RFCs</a></p>
+</blockquote>
+<p>The OAuth (Open Authorization) 2.0 authorization framework enables a third-party application to obtain limited access to an HTTP service, either on behalf of a resource owner by orchestrating an approval interaction between the resource owner and the HTTP service, or by allowing the third-party application to obtain access on its own behalf. This specification replaces and obsoletes the OAuth 1.0 protocol described in RFC 5849.</p>
+<span id="more"></span>
+
+<h2 id="Analogy"><a href="#Analogy" class="headerlink" title="Analogy"></a>Analogy</h2><h3 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h3><p>I live in a large residential community with a gated access system that requires a password for entry.</p>
+<p>As a frequent online shopper and food delivery recipient, I receive daily visits from delivery personnel.</p>
+<p>I need to find a solution to allow these delivery personnel to access the community through the gate without having to share my personal password.</p>
+<p>If I were to share my password with them, they would have the same level of access as I do, which doesn’t seem appropriate. Additionally, it would be troublesome if I ever wanted to revoke their access, as I would need to change my password and inform other delivery personnel as well.</p>
+<p>Is there a way to grant the delivery personnel the freedom to enter the community for deliveries without them knowing the my passwords, while restricting their access to only delivery-related activities and preventing access to other secured areas that require a password?</p>
+<h3 id="Authorization-mechanism"><a href="#Authorization-mechanism" class="headerlink" title="Authorization mechanism"></a>Authorization mechanism</h3><p>As a result, I have devised an authorization mechanism:</p>
+<p>Step 1: Under the password input panel of the access control system, add a button called “Request Authorization.” Delivery personnel need to press this button to apply for access authorization.</p>
+<p>Step 2: After pressing the button, a dialogue box will appear on the my phone, indicating that someone is requesting authorization. The system will also display the name, employee ID, and the delivery company the personnel belongs to.</p>
+<p>Upon verifying the request, I can click the button to inform the access control system that I agree to grant them access to the community.</p>
+<p>Step 3: Once the access control system receives my confirmation, it will display an access token to the delivery personnel. The token is a unique set of numbers similar to a password, valid for a short period (e.g., seven days).</p>
+<p>Step 4: The delivery personnel will input the access token into the access control system to enter the community.</p>
+<p>Some may wonder why not remotely open the door for the delivery personnel instead of generating a unique access token for them. The reason for this is that delivery personnel may come to make deliveries daily, and the next day, they can reuse the same access token.</p>
+<h3 id="Difference-between-token-and-password"><a href="#Difference-between-token-and-password" class="headerlink" title="Difference between token and password"></a>Difference between token and password</h3><p>(1) Tokens are <code>short-term</code> and expire automatically, whereas passwords tend to be <code>long-term</code> unless actively changed by the user.</p>
+<p>(2) Tokens <code>can be revoked</code> by the data owner <code>at any time</code>, immediately becoming invalid. In the example above, the homeowner could revoke the courier’s token access. Passwords generally cannot be rescinded by others.</p>
+<p>(3) Tokens have <code>scoped permissions</code>, such as only granting access through Gate. For web services, a read-only token is more secure than read/write. Passwords usually convey full permissions.</p>
+<p>In summary, tokens and passwords serve similar roles in granting system access, but tokens provide more granular control and can be revoked remotely.</p>
+<h2 id="Terms"><a href="#Terms" class="headerlink" title="Terms"></a>Terms</h2><table>
+<thead>
+<tr>
+<th>name</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Third-Party Application</td>
+<td>Obtains user information. The delivery personnel acts as a third-party application and seeks to pass through the access control system to enter the residential community.</td>
+</tr>
+<tr>
+<td>Resource Owner</td>
+<td>The individual who owns or possesses the resources, and in this context, it refers to the user. The term “resources” denotes various URL interfaces and data requested.</td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>The server responsible for authentication, specifically designated by the service provider (e.g., the community) for handling the authentication process.</td>
+</tr>
+<tr>
+<td>Resource Server</td>
+<td>The server where the service provider stores user resources. It can be the same server as the authorization server or a different one.</td>
+</tr>
+<tr>
+<td>Access Token</td>
+<td>A token granted to the client for accessing resources from the Resource Server (API). Access tokens are typically short-lived and have a limited duration.</td>
+</tr>
+</tbody></table>
+<h1 id="Authorization-flow"><a href="#Authorization-flow" class="headerlink" title="Authorization flow"></a>Authorization flow</h1><p><img data-src="/uploads/in-post/security/OAuth-workflow.png" alt="OAuth workflow"></p>
+<p>The workflow of OAuth 2.0 is shown in the following diagram, excerpted from RFC 6749.</p>
+<p><img data-src="/uploads/in-post/security/OAuth-workflow-table.png" alt="OAuth workflow table"></p>
+<p>(A) After the user opens the client application, the client requests authorization from the user.</p>
+<p>(B) The user agrees to grant authorization to the client.</p>
+<p>(C) The client utilizes the obtained authorization to apply for an access token from the authorization server.</p>
+<p>(D) After authenticating the client, the authorization server confirms the accuracy and grants the access token.</p>
+<p>(E) The client employs the access token to request resources from the resource server.</p>
+<p>(F) The resource server verifies the access token’s validity and grants access to the resources to the client.</p>
+<h1 id="Authorization-mode"><a href="#Authorization-mode" class="headerlink" title="Authorization mode"></a>Authorization mode</h1><p>There are four types of authorization modes.</p>
+<ol>
+<li>Authorization code</li>
+<li>Implicit</li>
+<li>Resource owner password credentials</li>
+<li>Client credentials</li>
+</ol>
+<h2 id="Authorization-code"><a href="#Authorization-code" class="headerlink" title="Authorization code"></a>Authorization code</h2><h3 id="Overview-1"><a href="#Overview-1" class="headerlink" title="Overview"></a>Overview</h3><p><em><strong>The authorization code grant involves the client requesting an authorization code first, then using that code to obtain a token</strong></em>.</p>
+<p>This is the most common and secure workflow, suitable for web apps that have a backend. The authorization code is passed via the frontend, while the token stored in the backend. All communication with the resource server also happens in the backend. This separation of frontend and backend prevents the token from leaking.</p>
+<h3 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h3><p><img data-src="/uploads/in-post/security/authorization-code-workflow-table.png" alt="authorization code workflow table"></p>
+<p>(A) The user visits the client, which then redirects the user to the authorization server.</p>
+<p>(B) The user decides whether to grant authorization to the client.</p>
+<p>(C) Assuming authorization is granted, the authorization server redirects the user back to the client’s pre-specified “redirection URI”, along with an authorization code.</p>
+<p>(D) The client receives the authorization code, and sends it along with the original “redirection URI” to the authorization server to request a token. This step happens on the backend server of the client, invisible to the user.</p>
+<p>(E) The authorization server verifies the authorization code and redirection URI, and if valid, sends an access token and refresh token to the client.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>Website A want to get authorization from Website B</p>
+<h4 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h4><p>Website A provides a link which, when clicked by the user, redirects them to Website B to authorize Website A to access the user’s data. Below is an example redirect link from Website A to Website B:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/authorize?</span><br><span class="line">  response_type=code&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  redirect_uri=CALLBACK_URL&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></table></figure>
+
+<p>In the above URL, the <code>response_type</code> parameter indicates a request for an authorization code (<code>code</code>). The <code>client_id</code> parameter informs Website B of the identity of the requesting party. The <code>redirect_uri</code> parameter specifies where Website B should redirect after accepting or denying the request. Finally, the <code>scope</code> parameter indicates the requested scope of authorization (in this case, read-only access).</p>
+<p><img data-src="/uploads/in-post/security/get-authorization-code.png" alt="get authorization code"></p>
+<h4 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h4><p>After the user is redirected, Website B prompts the user to log in and then asks if they consent to authorize Website A. The user agrees, at which point Website B redirects back to the URL specified in the <code>redirect_uri</code> parameter, passing back an authorization code, as follows:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://a.com/callback?code=AUTHORIZATION_CODE</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the code parameter represents the authorization code.<br><img data-src="/uploads/in-post/security/return-authorization-code.png" alt="return authorization code"></p>
+<h4 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h4><p>Once Website A has obtained the authorization code, it can then make a request to Website B’s backend for a token.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/token?</span><br><span class="line"> client_id=CLIENT_ID&amp;</span><br><span class="line"> client_secret=CLIENT_SECRET&amp;</span><br><span class="line"> grant_type=authorization_code&amp;</span><br><span class="line"> code=AUTHORIZATION_CODE&amp;</span><br><span class="line"> redirect_uri=CALLBACK_URL</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the <code>client_id</code> and <code>client_secret</code> parameters allow Website B to verify Website A’s identity (the <code>client_secret</code> parameter is confidential and can only be used in backend requests), the <code>grant_type</code> parameter with a value of <code>AUTHORIZATION_CODE</code> indicates that authorization is via an authorization code, the <code>code</code> parameter is the authorization code obtained in the previous step, and the <code>redirect_uri</code> parameter is the callback URL after the token is issued.</p>
+<p><img data-src="/uploads/in-post/security/get-authorization-token.png" alt="get authorization token"></p>
+<h4 id="Step-4"><a href="#Step-4" class="headerlink" title="Step 4"></a>Step 4</h4><p>After receiving the request, Website B issues a token. Specifically, it sends a JSON payload to the URL specified in <code>redirect_uri</code>.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;access_token&quot;:&quot;ACCESS_TOKEN&quot;,</span><br><span class="line">  &quot;token_type&quot;:&quot;bearer&quot;,</span><br><span class="line">  &quot;expires_in&quot;:2592000,</span><br><span class="line">  &quot;refresh_token&quot;:&quot;REFRESH_TOKEN&quot;,</span><br><span class="line">  &quot;scope&quot;:&quot;read&quot;,</span><br><span class="line">  &quot;uid&quot;:100101,</span><br><span class="line">  &quot;info&quot;:&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>In the JSON payload above, the <code>access_token</code> field contains the issued token that Website A receives in its backend.</p>
+<p><img data-src="/uploads/in-post/security/return-authorization-token.png" alt="return authorization token"></p>
+<h2 id="Implicit"><a href="#Implicit" class="headerlink" title="Implicit"></a>Implicit</h2><h3 id="Overview-2"><a href="#Overview-2" class="headerlink" title="Overview"></a>Overview</h3><p>Some web applications are purely frontend without a backend. In these cases, the above method cannot be used and the token must be stored in the frontend. <em><strong>RFC 6749 specifies a second approach that allows tokens to be issued directly to the frontend. Since this method lacks the intermediate authorization code step, it is referred to as the (authorization code) “implicit” flow.</strong></em></p>
+<h3 id="Workflow-1"><a href="#Workflow-1" class="headerlink" title="Workflow"></a>Workflow</h3><p><img data-src="/uploads/in-post/security/implicit-workflow-table.png" alt="implicit workflow table"></p>
+<p>(A) The client directs the user to the authorization server.</p>
+<p>(B) The user decides whether to grant the client authorization.</p>
+<p>(C) Assuming authorization is granted, the authorization server redirects the user to the “redirection URI” specified by the client, with an access token embedded in the Hash portion of the URI.</p>
+<p>(D) The browser makes a request to the resource server without including the Hash value received in the previous step.</p>
+<p>(E) The resource server returns a web page containing code that can extract the token from the Hash value.</p>
+<p>(F) The browser executes the script obtained in the previous step to retrieve the token from the Hash.</p>
+<p>(G) The browser passes the token to the client.</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><p>Website A want to get authorization from Website B</p>
+<h4 id="Step-1-1"><a href="#Step-1-1" class="headerlink" title="Step 1"></a>Step 1</h4><p>Website A provides a link asking the user to redirect to Website B to authorize Website A to access the user’s data.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/authorize?</span><br><span class="line">  response_type=token&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  redirect_uri=CALLBACK_URL&amp;</span><br><span class="line">  scope=read</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the <code>response_type</code> parameter with a value of <code>token</code> indicates a request to return the token directly.</p>
+<h4 id="Step-2-1"><a href="#Step-2-1" class="headerlink" title="Step 2"></a>Step 2</h4><p>The user is redirected to Website B and after logging in, consents to authorize Website A. Website B then redirects back to the URL specified in the <code>redirect_uri</code> parameter, passing the token to Website A as a URL parameter.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://a.com/callback#token=ACCESS_TOKEN</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the <code>token</code> parameter represents the token that Website A receives directly in its frontend.</p>
+<p>Note that the token is placed in the URL fragment instead of the query string because OAuth 2.0 allows redirect URIs using the HTTP protocol, which carries the risk of a “man-in-the-middle” attack. By placing the token in the fragment, it is not sent to the server on redirect, reducing the risk of token exposure.</p>
+<p><img data-src="/uploads/in-post/security/implicit-workflow.png" alt="implicit workflow"></p>
+<p>This approach of directly transmitting tokens to the frontend is highly insecure. Therefore, it should only be used in scenarios with low security requirements. The token lifetime must be extremely short, usually valid only for the duration of a session. The token becomes invalid when the browser is closed.</p>
+<h2 id="Resource-owner-password-credentials"><a href="#Resource-owner-password-credentials" class="headerlink" title="Resource owner password credentials"></a>Resource owner password credentials</h2><h3 id="Overview-3"><a href="#Overview-3" class="headerlink" title="Overview"></a>Overview</h3><p><em><strong>RFC 6749 also allows users to directly provide their username and password to highly trusted applications. The application then uses those credentials to obtain a token. This approach is referred to as the “password” flow.</strong></em></p>
+<h3 id="Workflow-2"><a href="#Workflow-2" class="headerlink" title="Workflow"></a>Workflow</h3><p><img data-src="/uploads/in-post/security/password-credentials-workflow.png" alt="password credentials workflow"></p>
+<p>(A) The user provides their username and password to the client.</p>
+<p>(B) The client sends the username and password to the authorization server and requests a token.</p>
+<p>(C) After validating the credentials, the authorization server returns an access token to the client.</p>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example"></a>Example</h3><p>Website A want to get authorization from Website B</p>
+<h4 id="Step-1-2"><a href="#Step-1-2" class="headerlink" title="Step 1"></a>Step 1</h4><p>Website A asks the user to provide their username and password for Website B. After obtaining the credentials, Website A makes a direct request to Website B for a token.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://oauth.b.com/token?</span><br><span class="line">  grant_type=password&amp;</span><br><span class="line">  username=USERNAME&amp;</span><br><span class="line">  password=PASSWORD&amp;</span><br><span class="line">  client_id=CLIENT_ID</span><br></pre></td></tr></table></figure>
+
+<p>In the above URL, the <code>grant_type</code> parameter indicates the authorization method. <code>password</code> signifies the “password” flow, while <code>username</code> and <code>password</code> provide the credentials for Website B.</p>
+<h4 id="Step-2-2"><a href="#Step-2-2" class="headerlink" title="Step 2"></a>Step 2</h4><p>After Website B verifies the credentials, it directly returns a token without a redirect. Instead, the token is included in a JSON payload as part of the HTTP response for Website A to retrieve.</p>
+<p>This approach requires users to disclose their username/password, which clearly poses significant risks. As such, it should only be used when other authorization methods are unavailable and limited to highly trusted applications.</p>
+<h2 id="Client-credentials"><a href="#Client-credentials" class="headerlink" title="Client credentials"></a>Client credentials</h2><h3 id="Overview-4"><a href="#Overview-4" class="headerlink" title="Overview"></a>Overview</h3><p>The client credentials grant refers to the client authenticating directly with the service provider on its own behalf, rather than on behalf of a user. Strictly speaking, this is outside the scope of authorization that OAuth is designed to provide. With this grant type, users register directly with the client, which then requests services from the service provider under its own credentials, rather than via delegation through authorization.</p>
+<h3 id="Workflow-3"><a href="#Workflow-3" class="headerlink" title="Workflow"></a>Workflow</h3><p><img data-src="/uploads/in-post/security/client-credentials-workflow.png" alt="client credentials workflow"></p>
+<p>(A) The client authenticates with the authorization server and requests an access token.</p>
+<p>(B) After validating the credentials, the authorization server returns an access token to the client.</p>
+<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example"></a>Example</h3><p>Website A want to get authorization from Website B</p>
+<h4 id="Step-1-3"><a href="#Step-1-3" class="headerlink" title="Step 1"></a>Step 1</h4><p>Application A makes a request to B through the command line.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">https://oauth.b.com/token?</span><br><span class="line">  grant_type=client_credentials&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  client_secret=CLIENT_SECRET</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the grant_type parameter set to client_credentials signifies the client credentials flow is in use. The client_id and client_secret parameters allow Application B to verify Application A’s identity.</p>
+<h4 id="Step-2-3"><a href="#Step-2-3" class="headerlink" title="Step 2"></a>Step 2</h4><p>After verifying the credentials, Website B directly returns a token.</p>
+<p>The token provided through this method pertains to the client application rather than a user. This means the same token may be shared across multiple users.</p>
+<h2 id="Refresh-token"><a href="#Refresh-token" class="headerlink" title="Refresh token"></a>Refresh token</h2><p>Once a token expires, forcing the user to repeat the entire flow to acquire a new one would likely create a poor experience and is unnecessary. OAuth 2.0 allows clients to automatically refresh tokens.</p>
+<p>The approach is for Website B to issue two tokens at the time of authorization - one for data access and a second to refresh it (the refresh_token field). Before expiration, the client uses the refresh token to request an updated access token.</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">https://b.com/oauth/token?</span><br><span class="line">  grant_type=refresh_token&amp;</span><br><span class="line">  client_id=CLIENT_ID&amp;</span><br><span class="line">  client_secret=CLIENT_SECRET&amp;</span><br><span class="line">  refresh_token=REFRESH_TOKEN</span><br></pre></td></tr></table></figure>
+
+<p>In the URL above, the <code>grant_type</code> parameter set to <code>refresh_token</code> signifies this is a request to refresh the token. The <code>client_id</code> and <code>client_secret</code> parameters are used to verify identity, while the <code>refresh_token</code> parameter provides the token meant for this purpose.</p>
+<p>After Website B confirms the request is valid, it issues a new access token.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/uploads/wechatpay.jpg" alt="温智全 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/uploads/alipay.jpg" alt="温智全 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>温智全
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/" title="An introduction of OAuth">http://wenzhiquan.github.io/2023/11/22/2023-11-22-an-introduction-of-oauth/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Security/" rel="tag"><i class="fa fa-tag"></i> Security</a>
+              <a href="/tags/OAuth/" rel="tag"><i class="fa fa-tag"></i> OAuth</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/27/2021-06-27-practise-your-mind%20copy/" rel="prev" title="改善自己的意志力">
+                  <i class="fa fa-angle-left"></i> 改善自己的意志力
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">Gitalk</a></li>
+            <li class="tab"><a href="#comment-disqus">Disqus</a></li>
+            <li class="tab"><a href="#comment-changyan">Changyan</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments gitalk-container"></div>
+            </div>
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="8af255bd3c589472f9bb0015779f3bb7"></div>
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">温智全</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">319k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:50</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/wenzhiquan" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz","app_key":"N3C8QGskdpq8h2cD7VpKj2rP","server_url":"https://csvejoso.lc-cn-n1-shared.com","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e","count":true}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"8af255bd3c589472f9bb0015779f3bb7"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+</html>

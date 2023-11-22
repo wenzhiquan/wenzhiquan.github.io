@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="“面试技术岗位应该掌握的算法题目–Binary Search相关”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试必会题目（3）—— Binary Search">
+<meta property="og:url" content="http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/index.html">
+<meta property="og:site_name" content="温智全的博客">
+<meta property="og:description" content="“面试技术岗位应该掌握的算法题目–Binary Search相关”">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-06-26T04:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T08:54:38.090Z">
+<meta property="article:author" content="温智全">
+<meta property="article:tag" content="Algorithm">
+<meta property="article:tag" content="Binary Search">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/","path":"2016/06/26/2016-06-26-interview-algorithm-binary-search/","title":"面试必会题目（3）—— Binary Search"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>面试必会题目（3）—— Binary Search | 温智全的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75727255-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-75727255-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0ee846e1ba3a25130ad41180a73f6f9a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">温智全的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Wenknows's Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">103</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Sqrt-x-easy"><span class="nav-number">1.</span> <span class="nav-text">Sqrt(x) - easy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-Insert-Position-easy"><span class="nav-number">2.</span> <span class="nav-text">Search Insert Position - easy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-a-2D-Matrix-easy"><span class="nav-number">3.</span> <span class="nav-text">Search a 2D Matrix - easy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Position-of-Target-easy"><span class="nav-number">4.</span> <span class="nav-text">First Position of Target - easy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wood-Cut-medium"><span class="nav-number">5.</span> <span class="nav-text">Wood Cut - medium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find-Minimum-in-Rotated-Sorted-Array-medium"><span class="nav-number">6.</span> <span class="nav-text">Find Minimum in Rotated Sorted Array - medium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find-Peak-Element-medium"><span class="nav-number">7.</span> <span class="nav-text">Find Peak Element - medium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First-Bad-Version-medium"><span class="nav-number">8.</span> <span class="nav-text">First Bad Version - medium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-in-Rotated-Sorted-Array-medium"><span class="nav-number">9.</span> <span class="nav-text">Search in Rotated Sorted Array - medium</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Search-for-a-Range-medium"><span class="nav-number">10.</span> <span class="nav-text">Search for a Range - medium</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="温智全"
+      src="/uploads/avatar-wen.jpg">
+  <p class="site-author-name" itemprop="name">温智全</p>
+  <div class="site-description" itemprop="description">爱唱歌健身的程序员</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wenzhiquan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan" rel="noopener me" target="_blank"><i class="github-alt fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wenzhiquan/activities" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities" rel="noopener me" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenzhiquanr@163.com" title="邮箱 → mailto:wenzhiquanr@163.com" rel="noopener me" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100006943363300" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300" rel="noopener me" target="_blank"><i class="faceboo fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://xiaochutian.github.io/" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;" rel="noopener" target="_blank">肖楚天的博客</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="面试必会题目（3）—— Binary Search | 温智全的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试必会题目（3）—— Binary Search
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-26 12:00:00" itemprop="dateCreated datePublished" datetime="2016-06-26T12:00:00+08:00">2016-06-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-22 16:54:38" itemprop="dateModified" datetime="2023-11-22T16:54:38+08:00">2023-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2016/06/26/2016-06-26-interview-algorithm-binary-search/" class="post-meta-item leancloud_visitors" data-flag-title="面试必会题目（3）—— Binary Search" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="面试必会题目（3）—— Binary Search" href="/2016/06/26/2016-06-26-interview-algorithm-binary-search/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::83c0312f6825f76912a550bae44c1ff2" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2016/06/26/2016-06-26-interview-algorithm-binary-search/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/26/2016-06-26-interview-algorithm-binary-search/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>“面试技术岗位应该掌握的算法题目–Binary Search相关”</p>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="Sqrt-x-easy"><a href="#Sqrt-x-easy" class="headerlink" title="Sqrt(x) - easy"></a>Sqrt(x) - easy</h3><p>题目</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Implement int <span class="built_in">sqrt</span>(int x).</span><br><span class="line"></span><br><span class="line">Compute and return the square root of x.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line"><span class="function"><span class="title">sqrt</span><span class="params">(<span class="number">3</span>)</span></span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">sqrt</span><span class="params">(<span class="number">4</span>)</span></span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">sqrt</span><span class="params">(<span class="number">5</span>)</span></span> = <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">sqrt</span><span class="params">(<span class="number">10</span>)</span></span> = <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">sqrt</span><span class="params">(<span class="type">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> v = x;  </span><br><span class="line">    <span class="keyword">while</span>(v * v &gt; x)</span><br><span class="line">        v = (v + (x / v)) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">int</span>)v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/sqrtx/">Sqrt(x)</a></p>
+<h3 id="Search-Insert-Position-easy"><a href="#Search-Insert-Position-easy" class="headerlink" title="Search Insert Position - easy"></a>Search Insert Position - easy</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Given a sorted<span class="built_in"> array </span>and a target value,<span class="built_in"> return </span>the index<span class="built_in"> if </span>the target is found.</span><br><span class="line">If not,<span class="built_in"> return </span>the index where it would be<span class="built_in"> if </span>it were inserted in order.</span><br><span class="line"></span><br><span class="line">You may assume NO duplicates in the array.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">[1,3,5,6], 5 → 2</span><br><span class="line"></span><br><span class="line">[1,3,5,6], 2 → 1</span><br><span class="line"></span><br><span class="line">[1,3,5,6], 7 → 4</span><br><span class="line"></span><br><span class="line">[1,3,5,6], 0 → 0</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public int searchInsert(int[] A, int target) &#123;</span><br><span class="line">    <span class="keyword">if</span> (A == <span class="literal">null</span> &amp;&amp; A.<span class="built_in">length</span> &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    int low = <span class="number">0</span>, high = A.<span class="built_in">length</span> - <span class="number">1</span>;</span><br><span class="line">    int <span class="built_in">mid</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        <span class="built_in">mid</span> = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (A[<span class="built_in">mid</span>] == target) <span class="keyword">return</span> <span class="built_in">mid</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (A[<span class="built_in">mid</span>] &lt; target) low = <span class="built_in">mid</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> high = <span class="built_in">mid</span> - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> high - <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/search-insert-position/">Search Insert Position</a></p>
+<h3 id="Search-a-2D-Matrix-easy"><a href="#Search-a-2D-Matrix-easy" class="headerlink" title="Search a 2D Matrix - easy"></a>Search a 2D Matrix - easy</h3><p>题目</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Write an efficient algorithm that searches <span class="keyword">for</span> a value <span class="keyword">in</span> an m x n <span class="built_in">matrix</span>.</span><br><span class="line"></span><br><span class="line">This <span class="built_in">matrix</span> has the following <span class="built_in">properties</span>:</span><br><span class="line"></span><br><span class="line">Integers <span class="keyword">in</span> each <span class="built_in">row</span> are sorted from left to right.</span><br><span class="line">The <span class="built_in">first</span> <span class="built_in">integer</span> of each <span class="built_in">row</span> <span class="built_in">is</span> greater than the <span class="built_in">last</span> <span class="built_in">integer</span> of the previous <span class="built_in">row</span>.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Consider the following <span class="built_in">matrix</span>:</span><br><span class="line"></span><br><span class="line">[</span><br><span class="line">    [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>],</span><br><span class="line">    [<span class="number">10</span>, <span class="number">11</span>, <span class="number">16</span>, <span class="number">20</span>],</span><br><span class="line">    [<span class="number">23</span>, <span class="number">30</span>, <span class="number">34</span>, <span class="number">50</span>]</span><br><span class="line">]</span><br><span class="line">Given target = <span class="number">3</span>, <span class="built_in">return</span> <span class="literal">true</span>.</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight stan"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public boolean searchMatrix(<span class="type">int</span>[][] <span class="type">matrix</span>, <span class="type">int</span> <span class="built_in">target</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="type">matrix</span> == null || <span class="type">matrix</span>.length &lt; <span class="number">1</span>) <span class="keyword">return</span> false;</span><br><span class="line">    <span class="type">int</span> <span class="built_in">row</span> = <span class="type">matrix</span>.length;</span><br><span class="line">    <span class="type">int</span> column = <span class="type">matrix</span>[<span class="number">0</span>].length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">row</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="type">matrix</span>[i][column] == <span class="built_in">target</span>) <span class="keyword">return</span> true;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="type">matrix</span>[i][column] &lt; <span class="built_in">target</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> binarySearch(<span class="type">matrix</span>[i], <span class="built_in">target</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public boolean binarySearch(<span class="type">int</span>[] arr, <span class="type">int</span> <span class="built_in">target</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr == null || arr.length &lt; <span class="number">1</span>) <span class="keyword">return</span> false;</span><br><span class="line">    <span class="type">int</span> low = <span class="number">0</span>, mid = <span class="number">0</span>, high = arr.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (arr[mid] == <span class="built_in">target</span>) <span class="keyword">return</span> true;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (arr[mid] &lt; <span class="built_in">target</span>) low = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> high = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/search-a-2d-matrix/">Search a 2D Matrix</a></p>
+<h3 id="First-Position-of-Target-easy"><a href="#First-Position-of-Target-easy" class="headerlink" title="First Position of Target - easy"></a>First Position of Target - easy</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">For a given sorted<span class="built_in"> array </span>(ascending order)<span class="built_in"> and </span>a target number, find the first</span><br><span class="line">index of this number in O(log n) time complexity.</span><br><span class="line"></span><br><span class="line">If the target number does<span class="built_in"> not </span>exist in the array,<span class="built_in"> return </span>-1.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">If the<span class="built_in"> array </span>is [1, 2, 3, 3, 4, 5, 10], for given target 3,<span class="built_in"> return </span>2.</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public int binarySearch(int[] nums, int target) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums == <span class="literal">null</span> &amp;&amp; nums.<span class="built_in">length</span> == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    int low = <span class="number">0</span>, <span class="built_in">mid</span> = <span class="number">0</span>, high = nums.<span class="built_in">length</span> - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        <span class="built_in">mid</span> = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (nums[<span class="built_in">mid</span>] &gt;= target) high = <span class="built_in">mid</span> - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> low = <span class="built_in">mid</span> + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nums[high - <span class="number">1</span>] == target)</span><br><span class="line">        <span class="keyword">return</span> high - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/first-position-of-target/">First Position of Target</a></p>
+<h3 id="Wood-Cut-medium"><a href="#Wood-Cut-medium" class="headerlink" title="Wood Cut - medium"></a>Wood Cut - medium</h3><p>题目</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Given n pieces <span class="keyword">of</span> wood <span class="keyword">with</span> <span class="built_in">length</span> L[i] (<span class="built_in">integer</span> array). Cut them <span class="keyword">into</span> small pieces</span><br><span class="line"><span class="keyword">to</span> guarantee you could have <span class="keyword">equal</span> <span class="keyword">or</span> more than k pieces <span class="keyword">with</span> <span class="keyword">the</span> same <span class="built_in">length</span>.</span><br><span class="line">What <span class="keyword">is</span> <span class="keyword">the</span> longest <span class="built_in">length</span> you can <span class="keyword">get</span> <span class="keyword">from</span> <span class="keyword">the</span> n pieces <span class="keyword">of</span> wood? Given L &amp; k,</span><br><span class="line"><span class="built_in">return</span> <span class="keyword">the</span> maximum <span class="built_in">length</span> <span class="keyword">of</span> <span class="keyword">the</span> small pieces.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For L=[<span class="number">232</span>, <span class="number">124</span>, <span class="number">456</span>], k=<span class="number">7</span>, <span class="literal">return</span> <span class="number">114.</span></span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> woodCut(<span class="built_in">int</span>[] L, <span class="built_in">int</span> k) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">max</span> = <span class="number">0</span>;</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="built_in">max</span> = Math.<span class="built_in">max</span>(<span class="built_in">max</span>, L[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> low = <span class="number">1</span>, high = <span class="built_in">max</span>;</span><br><span class="line">    <span class="keyword">while</span> (low <span class="number">1</span> &lt; high) &#123;</span><br><span class="line">        <span class="built_in">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">count</span>(L, mid) &gt;= k) low = mid;</span><br><span class="line">        <span class="keyword">else</span> high = mid;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">count</span>(L, high) &gt;= k) <span class="keyword">return</span> high;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">count</span>(L, low) &gt;= k) <span class="keyword">return</span> low;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> <span class="built_in">count</span>(<span class="built_in">int</span>[] L, <span class="built_in">int</span> length) &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">sum</span> = <span class="number">0</span>;</span><br><span class="line">    for (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; L.length; i++) &#123;</span><br><span class="line">        <span class="built_in">sum</span> += L[i] / length;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sum</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/wood-cut/">Wood Cut</a></p>
+<h3 id="Find-Minimum-in-Rotated-Sorted-Array-medium"><a href="#Find-Minimum-in-Rotated-Sorted-Array-medium" class="headerlink" title="Find Minimum in Rotated Sorted Array - medium"></a>Find Minimum in Rotated Sorted Array - medium</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Suppose a sorted<span class="built_in"> array </span>is rotated at some pivot unknown to you beforehand.</span><br><span class="line"></span><br><span class="line">(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).</span><br><span class="line"></span><br><span class="line">Find the minimum element.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given [4, 5, 6, 7, 0, 1, 2]<span class="built_in"> return </span>0</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line">public <span class="built_in">int</span> findMin(<span class="built_in">int</span>[] <span class="built_in">num</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">num</span> == <span class="keyword">null</span> || <span class="built_in">num</span>.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> low = <span class="number">0</span>, mid = <span class="number">0</span>, high = <span class="built_in">num</span>.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">num</span>[mid] &gt; <span class="built_in">num</span>[high]) low = mid <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">num</span>[mid] &lt; <span class="built_in">num</span>[high]) high = mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">num</span>[high];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/find-minimum-in-rotated-sorted-array/">Find Minimum in Rotated Sorted Array</a></p>
+<h3 id="Find-Peak-Element-medium"><a href="#Find-Peak-Element-medium" class="headerlink" title="Find Peak Element - medium"></a>Find Peak Element - medium</h3><p>题目</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">There <span class="keyword">is</span> an integer array which has the following features:</span><br><span class="line"></span><br><span class="line">The numbers in adjacent positions <span class="keyword">are</span> different.</span><br><span class="line">A<span class="comment">[0]</span> &lt; A<span class="comment">[1]</span> &amp;&amp; A<span class="comment">[A.length - 2]</span> &gt; A<span class="comment">[A.length - 1]</span>.</span><br><span class="line">We define a position P <span class="keyword">is</span> a peek if:</span><br><span class="line"></span><br><span class="line">A<span class="comment">[P]</span> &gt; A<span class="comment">[P-1]</span> &amp;&amp; A<span class="comment">[P]</span> &gt; A<span class="comment">[P+1]</span></span><br><span class="line">Find a peak element in this array. Return the index <span class="keyword">of</span> the peak.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given <span class="comment">[1, 2, 1, 3, 4, 5, 7, 6]</span></span><br><span class="line"></span><br><span class="line">Return index 1 (which <span class="keyword">is</span> number 2) or 6 (which <span class="keyword">is</span> number 7)</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="type">int</span> <span class="title">findPeak</span><span class="params">(<span class="type">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// write your code here</span></span><br><span class="line">    <span class="keyword">if</span>(nums == null || nums.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> start = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> end = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(start <span class="number">1</span> &lt; end) &#123;</span><br><span class="line">        <span class="type">int</span> mid = start + (end - start) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(nums[mid] &lt; nums[mid<span class="number">-1</span>]) &#123;</span><br><span class="line">            end = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(nums[mid] &lt; nums[mid+<span class="number">1</span>]) &#123;</span><br><span class="line">            start = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums[start] &gt;= nums[end] ? start : end;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/find-peak-element/">Find Peak Element</a></p>
+<h3 id="First-Bad-Version-medium"><a href="#First-Bad-Version-medium" class="headerlink" title="First Bad Version - medium"></a>First Bad Version - medium</h3><p>题目</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">The code base version <span class="built_in">is</span> an <span class="type">integer</span> start <span class="keyword">from</span> <span class="number">1</span> <span class="keyword">to</span> n. One day, someone committed</span><br><span class="line">a bad version <span class="keyword">in</span> the code <span class="keyword">case</span>, so it caused this version <span class="built_in">and</span> the following versions</span><br><span class="line">are all failed <span class="keyword">in</span> the unit tests. Find the first bad version.</span><br><span class="line"></span><br><span class="line">You can <span class="keyword">call</span> isBadVersion <span class="keyword">to</span> help you determine which version <span class="built_in">is</span> the first bad one.</span><br><span class="line">The details <span class="keyword">interface</span> can be found <span class="keyword">in</span> the code<span class="comment">&#x27;s annotation part.</span></span><br><span class="line"></span><br><span class="line">Notice</span><br><span class="line"></span><br><span class="line">Please read the annotation <span class="keyword">in</span> code area <span class="keyword">to</span> <span class="keyword">get</span> the correct way <span class="keyword">to</span> <span class="keyword">call</span></span><br><span class="line">isBadVersion <span class="keyword">in</span> different language. <span class="keyword">For</span> example, Java <span class="built_in">is</span> SVNRepo.isBadVersion(v)</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given n = <span class="number">5</span>:</span><br><span class="line"></span><br><span class="line">isBadVersion(<span class="number">3</span>) -&gt; <span class="literal">false</span></span><br><span class="line">isBadVersion(<span class="number">5</span>) -&gt; <span class="literal">true</span></span><br><span class="line">isBadVersion(<span class="number">4</span>) -&gt; <span class="literal">true</span></span><br><span class="line">Here we are <span class="number">100%</span> sure that the <span class="number">4</span>th version <span class="built_in">is</span> the first bad version.</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Ja<span class="symbol">va:</span></span><br><span class="line"></span><br><span class="line">public <span class="built_in">int</span> findFirstBadVersion(<span class="built_in">int</span> <span class="built_in">n</span>) &#123;</span><br><span class="line">    <span class="built_in">if</span> (<span class="built_in">n</span> &lt; <span class="number">1</span>) return <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">int</span> low = <span class="number">0</span>, <span class="built_in">mid</span> = <span class="number">0</span>, high = <span class="built_in">n</span>;</span><br><span class="line">    while (low &lt; high) &#123;</span><br><span class="line">        <span class="built_in">mid</span> = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="built_in">if</span> (SVNRepo.isBadVersion(<span class="built_in">mid</span>)) high = <span class="built_in">mid</span>;</span><br><span class="line">        else low = <span class="built_in">mid</span> + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    return low;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/first-bad-version/">First Bad Version</a></p>
+<h3 id="Search-in-Rotated-Sorted-Array-medium"><a href="#Search-in-Rotated-Sorted-Array-medium" class="headerlink" title="Search in Rotated Sorted Array - medium"></a>Search in Rotated Sorted Array - medium</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Suppose a sorted<span class="built_in"> array </span>is rotated at some pivot unknown to you beforehand.</span><br><span class="line"></span><br><span class="line">(i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).</span><br><span class="line"></span><br><span class="line">You are given a target value to search. If found in the<span class="built_in"> array </span>return its index,</span><br><span class="line">otherwise<span class="built_in"> return </span>-1.</span><br><span class="line"></span><br><span class="line">You may assume no duplicate exists in the array.</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">For [4, 5, 1, 2, 3]<span class="built_in"> and </span>target=1,<span class="built_in"> return </span>2.</span><br><span class="line"></span><br><span class="line">For [4, 5, 1, 2, 3]<span class="built_in"> and </span>target=0,<span class="built_in"> return </span>-1.</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">int</span> search(<span class="built_in">int</span>[] A, <span class="built_in">int</span> <span class="keyword">target</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (A == null || A.length &lt; <span class="number">1</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">int</span> low = <span class="number">0</span>, mid = <span class="number">0</span>, high = A.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">        mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (A[mid] == <span class="keyword">target</span>) <span class="keyword">return</span> mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (A[mid] &lt; A[high]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[high] &gt;= <span class="keyword">target</span> &amp;&amp; <span class="keyword">target</span> &gt;= A[mid]) low = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> high = mid - <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (A[low] &lt;= <span class="keyword">target</span> &amp;&amp; <span class="keyword">target</span> &lt;= A[mid]) high = mid - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> low = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A[low] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A[high] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> high;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/search-in-rotated-sorted-array/">Search in Rotated Sorted Array</a></p>
+<h3 id="Search-for-a-Range-medium"><a href="#Search-for-a-Range-medium" class="headerlink" title="Search for a Range - medium"></a>Search for a Range - medium</h3><p>题目</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Given a sorted<span class="built_in"> array </span>of n integers, find the starting<span class="built_in"> and </span>ending position of a</span><br><span class="line">given target value.</span><br><span class="line"></span><br><span class="line">If the target is<span class="built_in"> not </span>found in the array,<span class="built_in"> return </span>[-1, -1].</span><br><span class="line"></span><br><span class="line">Example</span><br><span class="line">Given [5, 7, 7, 8, 8, 10]<span class="built_in"> and </span>target value 8,<span class="built_in"></span></span><br><span class="line"><span class="built_in">return </span>[3, 4].</span><br></pre></td></tr></table></figure>
+
+<p>代码</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">Java:</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">int</span>[] searchRange(<span class="built_in">int</span>[] A, <span class="built_in">int</span> <span class="keyword">target</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (A.length == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> new <span class="built_in">int</span>[]&#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">int</span> start, <span class="keyword">end</span>, mid;</span><br><span class="line">    <span class="built_in">int</span>[] bound = new <span class="built_in">int</span>[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">    // search for left bound</span><br><span class="line">    start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span> = A.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (start <span class="number">1</span> &lt; <span class="keyword">end</span>) &#123;</span><br><span class="line">        mid = start + (<span class="keyword">end</span> - start) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (A[mid] &gt;= <span class="keyword">target</span>) &#123;</span><br><span class="line">            <span class="keyword">end</span> = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[mid] &lt; <span class="keyword">target</span>) &#123;</span><br><span class="line">            start = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A[start] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        bound[<span class="number">0</span>] = start;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[<span class="keyword">end</span>] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        bound[<span class="number">0</span>] = <span class="keyword">end</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        bound[<span class="number">0</span>] = bound[<span class="number">1</span>] = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> bound;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // search for right bound</span><br><span class="line">    start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">end</span> = A.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (start <span class="number">1</span> &lt; <span class="keyword">end</span>) &#123;</span><br><span class="line">        mid = start + (<span class="keyword">end</span> - start) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (A[mid] &lt;= <span class="keyword">target</span>) &#123;</span><br><span class="line">            start = mid;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">end</span> = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A[<span class="keyword">end</span>] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        bound[<span class="number">1</span>] = <span class="keyword">end</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (A[start] == <span class="keyword">target</span>) &#123;</span><br><span class="line">        bound[<span class="number">1</span>] = start;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        bound[<span class="number">0</span>] = bound[<span class="number">1</span>] = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> bound;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bound;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>习题地址<br><a target="_blank" rel="noopener" href="http://www.lintcode.com/en/problem/search-for-a-range/">Search for a Range</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/uploads/wechatpay.jpg" alt="温智全 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/uploads/alipay.jpg" alt="温智全 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>温智全
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/" title="面试必会题目（3）—— Binary Search">http://wenzhiquan.github.io/2016/06/26/2016-06-26-interview-algorithm-binary-search/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Algorithm/" rel="tag"><i class="fa fa-tag"></i> Algorithm</a>
+              <a href="/tags/Binary-Search/" rel="tag"><i class="fa fa-tag"></i> Binary Search</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2016/06/20/2016-06-20-linux-basic/" rel="prev" title="Linux基础学习">
+                  <i class="fa fa-angle-left"></i> Linux基础学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/06/27/benefit_others/" rel="next" title="Wenknows的利器">
+                  Wenknows的利器 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">Gitalk</a></li>
+            <li class="tab"><a href="#comment-disqus">Disqus</a></li>
+            <li class="tab"><a href="#comment-changyan">Changyan</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments gitalk-container"></div>
+            </div>
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="83c0312f6825f76912a550bae44c1ff2"></div>
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">温智全</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">319k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:50</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/wenzhiquan" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz","app_key":"N3C8QGskdpq8h2cD7VpKj2rP","server_url":"https://csvejoso.lc-cn-n1-shared.com","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e","count":true}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"83c0312f6825f76912a550bae44c1ff2"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+</html>

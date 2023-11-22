@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="概述消息队列（Message Queue），是分布式系统中重要的组件，它的特点是异步的，即消息的发送者和接收者不需要同时与消息队列交互。消息会保存在队列中，直到接收者取回它。 其通用的使用场景可以简单地描述为：当不需要立即获得结果，但是并发量又需要进行控制时，就可以使用消息队列。 当前使用较多的消息队列有 RabbitMQ、RocketMQ、ActiveMQ、Kafka 等，而部分数据库如 Red">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQ 简析">
+<meta property="og:url" content="http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/index.html">
+<meta property="og:site_name" content="温智全的博客">
+<meta property="og:description" content="概述消息队列（Message Queue），是分布式系统中重要的组件，它的特点是异步的，即消息的发送者和接收者不需要同时与消息队列交互。消息会保存在队列中，直到接收者取回它。 其通用的使用场景可以简单地描述为：当不需要立即获得结果，但是并发量又需要进行控制时，就可以使用消息队列。 当前使用较多的消息队列有 RabbitMQ、RocketMQ、ActiveMQ、Kafka 等，而部分数据库如 Red">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/point_to_point.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/pub_sub.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/comparison.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rabbitmq_normal_cluster.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rabbitmq_mirror_cluster.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/kafka.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/kafka_replica.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/kafka_sync.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_nameserver.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_multi_master.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_multi_master_slave.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_dledger_group.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/mq_process.jpeg">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/mq_cluster_sync.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rabbitmq_not_inorder.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rabbitmq_inorder.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/kafka_not_inorder.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/kafka_inorder.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_not_inorder.png">
+<meta property="og:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/rocketmq_inorder.png">
+<meta property="article:published_time" content="2021-06-13T04:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-13T04:00:00.000Z">
+<meta property="article:author" content="温智全">
+<meta property="article:tag" content="MQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wenzhiquan.github.io/uploads/in-post/mq/point_to_point.png">
+
+
+<link rel="canonical" href="http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/","path":"2021/06/13/2021-06-13-mq-introduction/","title":"MQ 简析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MQ 简析 | 温智全的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75727255-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-75727255-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0ee846e1ba3a25130ad41180a73f6f9a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">温智全的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Wenknows's Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">103</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">消息队列的两种模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">点对点模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">发布订阅模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81-MQ-%E5%AF%B9%E6%AF%94"><span class="nav-number">3.</span> <span class="nav-text">常见 MQ 对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81-MQ-%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">如何保证 MQ 的高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ"><span class="nav-number">4.1.</span> <span class="nav-text">RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.1.1.</span> <span class="nav-text">普通集群模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.1.2.</span> <span class="nav-text">镜像集群模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kafka"><span class="nav-number">4.2.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RocketMQ"><span class="nav-number">4.3.</span> <span class="nav-text">RocketMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A-master"><span class="nav-number">4.3.1.</span> <span class="nav-text">多 master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A-master-%E5%A4%9A-slave"><span class="nav-number">4.3.2.</span> <span class="nav-text">多 master 多 slave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dledger-Group"><span class="nav-number">4.3.3.</span> <span class="nav-text">Dledger Group</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">如何处理消息丢失的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E9%98%B6%E6%AE%B5"><span class="nav-number">5.1.</span> <span class="nav-text">生产阶段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E9%98%B6%E6%AE%B5"><span class="nav-number">5.2.</span> <span class="nav-text">存储阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="nav-number">5.2.1.</span> <span class="nav-text">集群部署</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E9%98%B6%E6%AE%B5"><span class="nav-number">5.3.</span> <span class="nav-text">消费阶段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E6%B6%88%E8%B4%B9%E6%97%B6%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">如何保证消息消费时的幂等性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B6%88%E6%81%AF%E5%B9%82%E7%AD%89"><span class="nav-number">6.1.</span> <span class="nav-text">什么是消息幂等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E5%B9%82%E7%AD%89"><span class="nav-number">6.2.</span> <span class="nav-text">为什么需要保证消息幂等</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%8F%AF%E4%BB%A5%E4%BF%9D%E8%AF%81%E5%B9%82%E7%AD%89%E5%90%97%EF%BC%9F"><span class="nav-number">6.3.</span> <span class="nav-text">消息队列可以保证幂等吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BF%9D%E8%AF%81%E5%B9%82%E7%AD%89%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">6.4.</span> <span class="nav-text">常见的保证幂等的方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">如何保证消息的顺序性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%80%A7"><span class="nav-number">7.1.</span> <span class="nav-text">为什么需要保证消息的顺序性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B1%E5%BA%8F%E5%8E%9F%E5%9B%A0%E5%92%8C%E4%BF%9D%E8%AF%81%E9%A1%BA%E5%BA%8F%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">7.2.</span> <span class="nav-text">乱序原因和保证顺序性的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RabbitMQ-1"><span class="nav-number">7.2.1.</span> <span class="nav-text">RabbitMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kafka-1"><span class="nav-number">7.2.2.</span> <span class="nav-text">Kafka</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RocketMQ-1"><span class="nav-number">7.2.3.</span> <span class="nav-text">RocketMQ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E5%A4%A7%E9%87%8F-lag"><span class="nav-number">8.</span> <span class="nav-text">如何解决消息队列的大量 lag</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lag-%E4%B8%80%E7%9B%B4%E5%A0%86%E7%A7%AF%EF%BC%8C%E6%B6%88%E8%B4%B9%E9%80%9F%E5%BA%A6%E8%B7%9F%E4%B8%8D%E4%B8%8A%E7%94%9F%E4%BA%A7%E9%80%9F%E5%BA%A6"><span class="nav-number">8.1.</span> <span class="nav-text">lag 一直堆积，消费速度跟不上生产速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mq-%E7%A3%81%E7%9B%98%E5%86%99%E6%BB%A1%E4%BA%86"><span class="nav-number">8.2.</span> <span class="nav-text">mq 磁盘写满了</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="nav-number">9.</span> <span class="nav-text">如何设计一个消息队列的架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">10.</span> <span class="nav-text">附录</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="温智全"
+      src="/uploads/avatar-wen.jpg">
+  <p class="site-author-name" itemprop="name">温智全</p>
+  <div class="site-description" itemprop="description">爱唱歌健身的程序员</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wenzhiquan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan" rel="noopener me" target="_blank"><i class="github-alt fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wenzhiquan/activities" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities" rel="noopener me" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenzhiquanr@163.com" title="邮箱 → mailto:wenzhiquanr@163.com" rel="noopener me" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100006943363300" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300" rel="noopener me" target="_blank"><i class="faceboo fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://xiaochutian.github.io/" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;" rel="noopener" target="_blank">肖楚天的博客</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MQ 简析 | 温智全的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MQ 简析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-06-13 12:00:00" itemprop="dateCreated datePublished" datetime="2021-06-13T12:00:00+08:00">2021-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MQ/" itemprop="url" rel="index"><span itemprop="name">MQ</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/06/13/2021-06-13-mq-introduction/" class="post-meta-item leancloud_visitors" data-flag-title="MQ 简析" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="MQ 简析" href="/2021/06/13/2021-06-13-mq-introduction/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::760adffdc0374ca88246340a0a6ff938" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/06/13/2021-06-13-mq-introduction/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/06/13/2021-06-13-mq-introduction/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>消息队列（Message Queue），是分布式系统中重要的组件，它的特点是异步的，即消息的发送者和接收者不需要同时与消息队列交互。消息会保存在队列中，直到接收者取回它。</p>
+<p>其通用的使用场景可以简单地描述为：当不需要立即获得结果，但是并发量又需要进行控制时，就可以使用消息队列。</p>
+<p>当前使用较多的消息队列有 RabbitMQ、RocketMQ、ActiveMQ、Kafka 等，而部分数据库如 Redis、Mysql 以及 phxsql 也可实现消息队列的功能。</p>
+<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>消息队列在实际应用中一般包括如下四个场景：</p>
+<ol>
+<li>应用解耦：多应用间通过消息队列对同一消息进行处理，避免调用接口失败导致整个过程失败；</li>
+<li>异步处理：多应用对消息队列中同一消息进行处理，应用间并发处理消息，相比串行处理，减少处理时间；</li>
+<li>限流削峰：广泛应用于秒杀或抢购活动中，避免流量过大导致应用系统挂掉的情况；</li>
+<li>消息驱动的系统：系统分为消息队列、消息生产者、消息消费者，生产者负责产生消息，消费者（可能有多个）负责对消息进行处理；</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li><p>系统可用性降低：系统引入的外部依赖越多，越不稳定，万一 MQ 挂了可能导致整套系统崩溃。</p>
+</li>
+<li><p>系统复杂性提高：增加了 MQ，需要考虑更多的情况，比如如何保证消息没有重复消费？如何处理消息丢失的情况？如何保证消息传递的顺序性？</p>
+</li>
+<li><p>一致性问题：A 系统处理完了直接返回成功了，MQ 下游的 B 系统消费之后却写入失败了，数据就不一致了。</p>
+<span id="more"></span></li>
+</ol>
+<h1 id="消息队列的两种模式"><a href="#消息队列的两种模式" class="headerlink" title="消息队列的两种模式"></a>消息队列的两种模式</h1><p>消息队列包括两种模式，点对点模式（point to point， queue）和发布/订阅模式（publish/subscribe，topic）。</p>
+<h2 id="点对点模式"><a href="#点对点模式" class="headerlink" title="点对点模式"></a>点对点模式</h2><p>点对点模式下包括三个角色：</p>
+<ul>
+<li>消息队列</li>
+<li>发送者 （生产者）</li>
+<li>接收者（消费者）<br><img data-src="/uploads/in-post/mq/point_to_point.png"></li>
+</ul>
+<p>消息发送者生产消息发送到 queue 中，然后消息接收者从 queue 中取出并且消费消息。消息被消费以后，queue 中不再有存储，所以消息接收者不可能消费到已经被消费的消息。</p>
+<p>点对点模式特点：</p>
+<ul>
+<li>每个消息只有一个接收者（Consumer）（即一旦被消费，消息就不再在消息队列中）；</li>
+<li>发送者和接收者间没有依赖性，发送者发送消息之后，不管有没有接收者在运行，都不会影响到发送者下次发送消息；</li>
+<li>接收者在成功接收消息之后需向队列应答成功，以便消息队列删除当前接收的消息；</li>
+</ul>
+<h2 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h2><p>发布/订阅模式下包括三个角色：</p>
+<ul>
+<li>主题（Topic）</li>
+<li>发布者 (Publisher)</li>
+<li>订阅者 (Subscriber)<br><img data-src="/uploads/in-post/mq/pub_sub.png"></li>
+</ul>
+<p>发布者将消息发送到 Topic, 系统将这些消息传递给多个订阅者。</p>
+<p>发布/订阅模式特点：</p>
+<ul>
+<li>每个消息可以有多个订阅者；</li>
+<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息。</li>
+<li>为了消费消息，订阅者需要提前订阅该角色主题，并保持在线运行；</li>
+</ul>
+<h1 id="常见-MQ-对比"><a href="#常见-MQ-对比" class="headerlink" title="常见 MQ 对比"></a>常见 MQ 对比</h1><p><img data-src="/uploads/in-post/mq/comparison.png"></p>
+<p>一般的业务系统要引入 MQ，最早大家都用 ActiveMQ，但是现在确实大家用的不多了，没经过大规模吞吐量场景的验证，社区也不是很活跃。</p>
+<p>RabbitMQ 优势在于低延时，但是吞吐量较低，并且 erlang 语言阻止了大量的工程师去深入研究和掌控他，对公司而言，几乎处于不可控的状态，不过是开源的，有比较稳定的支持，活跃度也高；</p>
+<p>RocketMQ 接口简单易用，而且在阿里大规模应用过，有阿里品牌保障，日处理消息上百亿，可以做到大规模吞吐，性能也非常好，分布式扩展也很方便，可靠性和可用性都很好，还可以支撑大规模的 topic 数量，支持复杂 MQ 业务场景。</p>
+<p>kafka 的特点其实很明显，就是提供较少的核心功能，但是提供超高的吞吐量，ms 级的延迟，极高的可用性以及可靠性，而且分布式可以任意扩展。同时 kafka 最好是支撑较少的 topic 数量即可，保证其超高吞吐量。kafka 唯一的一点劣势是有可能消息重复消费，那么对数据准确性会造成极其轻微的影响，在大数据领域中以及日志采集中，这点轻微影响可以忽略。如果是大数据领域的实时计算、日志采集等场景，用 Kafka 是业内标准，社区活跃度很高</p>
+<h1 id="如何保证-MQ-的高可用"><a href="#如何保证-MQ-的高可用" class="headerlink" title="如何保证 MQ 的高可用"></a>如何保证 MQ 的高可用</h1><h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><p>RabbitMQ 有 3 种部署模式：</p>
+<ul>
+<li>单机模式</li>
+<li>普通集群模式</li>
+<li>镜像集群模式</li>
+</ul>
+<p>单机模式与高可用完全没关系，咱就不说了，直接看看这 2 种集群模式。</p>
+<h3 id="普通集群模式"><a href="#普通集群模式" class="headerlink" title="普通集群模式"></a>普通集群模式</h3><p><img data-src="/uploads/in-post/mq/rabbitmq_normal_cluster.jpeg"></p>
+<p>某一个 Queue 是在集群中的某一个 Broker 上，各个 Broker 会同步元数据，但不会同步 Queue 的消息数据。</p>
+<p>如果某一个 Broker 故障了，其中的 Queue 便无法使用。如果消息没有配置消息持久化，则消息丢失。</p>
+<p>可以看到，这种方式并没有实现高可用，只是扩展性比较好，扩充 Broker 可以容纳更多的 Queue，提高吞吐量。</p>
+<h3 id="镜像集群模式"><a href="#镜像集群模式" class="headerlink" title="镜像集群模式"></a>镜像集群模式</h3><p><img data-src="/uploads/in-post/mq/rabbitmq_mirror_cluster.jpeg"></p>
+<p>一个 Broker 中 Queue 的元数据和消息数据都会同步到其他 Broker 上，就是做了全量备份，所以称为 “镜像模式”。</p>
+<p>实现了高可用，如果一个 Broker 故障了，没关系，可以使用其他 Broker 继续工作，消息数据不会丢失。</p>
+<p>可用性上去了，但扩展性没有了。因为如果某个 Queue 负载很重，加机器的话，新增的机器也包含了这个 queue 的所有数据，并没有办法线性扩展 Queue</p>
+<p>一个 Queue 的数据是全量存在 Broker 中的，所以 Queue 的消息容量、消息处理能力，都受限于 Broker。</p>
+<p><code>普通集群模式</code> 没有达到高可用，扩展性较好。</p>
+<p><code>镜像集群模式</code> 实现了高可用，但扩展性差。</p>
+<h2 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h2><p><img data-src="/uploads/in-post/mq/kafka.jpeg"></p>
+<p>Kafka 把 Topic（主题）分为了多个 Partition（分区），Topic 只是逻辑概念，Partition 才是实际的消息存储单元。</p>
+<p>一个 Topic 的多个 Partition 分散在多个 Broker 中，每个 Partition 存放 Topic 的一部分数据。</p>
+<p>有了 Partition 之后，Topic 就具有了极强的扩展性，可以指定 N 个 Partition。<br><img data-src="/uploads/in-post/mq/kafka_replica.jpeg"></p>
+<p>可以为 Partition 指定多个“副本”，分散在不同的 Broker，从而实现其高可用。</p>
+<p>当某个 Broker 故障的时候，其中存放的 Partition 不可用，但没有关系，可以使用其他 Broker 上的副本。<br><img data-src="/uploads/in-post/mq/kafka_sync.jpeg"></p>
+<p>Partition 的多个副本分为两种角色，Leader 和 Follower。</p>
+<p>Leader 是由 Kafka 选举出来的，负责处理消息的读写。Leader 收到新消息后，会同步给 Follower。</p>
+<p>Follower 的作用是候选人，当 Leader 宕机之后，Kafka 会从 Follower 中选举出新的 Leader。</p>
+<p>可以配置消息写入完成的标准：</p>
+<ul>
+<li>写入 Leader 既可 – 速度快，但可能会有消息丢失，例如在同步到 Follower 之前 Broker 故障了，则消息丢失。</li>
+<li>Follower 同步完成之后才算写入成功 – 消息可靠性极高，但影响写入速度。<h2 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h2><img data-src="/uploads/in-post/mq/rocketmq.jpeg"></li>
+</ul>
+<p>这是 RocketMQ 的官方结构图，左右是 Producer 和 Consumer，中间是 RocketMQ，分为两个部分：</p>
+<ul>
+<li>NameServer 集群 – 存放元数据</li>
+<li>Broker 集群 – 存放队列数据</li>
+</ul>
+<p>这两部分都需要保证高可用。<br><img data-src="/uploads/in-post/mq/rocketmq_nameserver.jpeg"></p>
+<p>NameServer 是独立运行的，保存着集群完整的集群元数据，例如路由信息、Broker 信息、数据信息。</p>
+<p>为了保证其高可用，可以运行多个 NameServer，之间完整的同步数据即可。</p>
+<p>这样只要有一个 NameServer 是可用的，就不会影响集群的正常工作。</p>
+<p>Broker 集群的部署方式可以分为 3 种。</p>
+<h3 id="多-master"><a href="#多-master" class="headerlink" title="多 master"></a>多 master</h3><p><img data-src="/uploads/in-post/mq/rocketmq_multi_master.jpeg"></p>
+<p>部署多个 Broker，角色都是 Master，Topic 的数据会分散存储在这些 Broker 中。</p>
+<p>单个 Master 故障会导致其中数据无法使用，需要等待修复。类似于 RabbitMQ 的普通集群模式。</p>
+<p>如果想保障数据的可靠性，可以使用【RAID10 + 同步刷盘】机制。</p>
+<h3 id="多-master-多-slave"><a href="#多-master-多-slave" class="headerlink" title="多 master 多 slave"></a>多 master 多 slave</h3><p><img data-src="/uploads/in-post/mq/rocketmq_multi_master_slave.jpeg"></p>
+<p>为 Master 配置了 Slave，Master 会把数据同步到 Slave。</p>
+<p>当 Master 故障之后，可以用 Slave 顶上去，数据和服务都不影响，但会有短暂的停顿，需要修改配置并重启才能完成切换动作。</p>
+<p>数据同步的方式分为：</p>
+<ul>
+<li>异步 – Master 写入完成即可，异步同步给 Slave。写入速度快，但同步会有延迟，可能会丢数据。</li>
+<li>同步 – Master 与 Slave 都写入之后才算成功。不会丢消息，但写入速度降低。</li>
+</ul>
+<h3 id="Dledger-Group"><a href="#Dledger-Group" class="headerlink" title="Dledger Group"></a>Dledger Group</h3><p><img data-src="/uploads/in-post/mq/rocketmq_dledger_group.jpeg"></p>
+<p>Dledger 模式要求为 Master 配置 2 个 Slave，3 者组成一个 Dledger Group。</p>
+<p>Dledger 也是 Master-Slave 同步的方式，好处在于可以实现自动选举 Master，自动切换。</p>
+<p>当 Master 故障的时候，RocketMQ 可以从组内选出一个新的 Master，完成自动切换，这样更进一步提高了集群的可用性。</p>
+<h1 id="如何处理消息丢失的问题"><a href="#如何处理消息丢失的问题" class="headerlink" title="如何处理消息丢失的问题"></a>如何处理消息丢失的问题</h1><p>一条消息从生产到被消费，将会经历三个阶段：</p>
+<p><img data-src="/uploads/in-post/mq/mq_process.jpeg"></p>
+<ul>
+<li>生产阶段，Producer 新建消息，然后通过网络将消息投递给 MQ Broker</li>
+<li>存储阶段，消息将会存储在 Broker 端磁盘中</li>
+<li>消费阶段， Consumer 将会从 Broker 拉取消息</li>
+</ul>
+<p>以上任一阶段都可能会丢失消息，我们只要找到这三个阶段丢失消息原因，采用合理的办法避免丢失，就可以彻底解决消息丢失的问题。所有的 MQ 处理消息丢失的方法都是类似的。</p>
+<h2 id="生产阶段"><a href="#生产阶段" class="headerlink" title="生产阶段"></a>生产阶段</h2><p>生产者 (Producer) 调用 send 方法发送消息之后，消息可能因为网络问题并没有发送过去。</p>
+<p>所以，我们不能默认在调用 send 方法发送消息之后消息消息发送成功了。为了确定消息是发送成功，我们要判断消息发送的结果。</p>
+<p>生产者（Producer） 通过网络发送消息给 Broker，当 Broker 收到之后，返回确认响应信息给 Producer。所以生产者只要接收到返回的确认响应，就代表消息在生产阶段未丢失。如果消息发送失败的话，我们检查失败的原因之后重新发送即可。</p>
+<p>发送失败的话，Producer 需要进行重试， Producer 的 retries（重试次数）可以设置一个比较合理的值，一般是 3 ，但是为了保证消息不丢失的话一般会设置比较大一点。设置完成之后，当出现网络问题之后能够自动重试消息发送，避免消息丢失。另外，建议还要设置重试间隔，因为间隔太小的话重试的效果就不明显了，网络波动的话 3 次一下就重试完了。</p>
+<h2 id="存储阶段"><a href="#存储阶段" class="headerlink" title="存储阶段"></a>存储阶段</h2><p>默认情况下，消息只要到了 Broker 端，将会优先保存到内存中，然后立刻返回确认响应给生产者。随后 Broker 定期批量的将一组消息从内存异步刷入磁盘。</p>
+<p>这种方式减少 I/O 次数，可以取得更好的性能，但是如果发生机器掉电，异常宕机等情况，消息还未及时刷入磁盘，就会出现丢失消息的情况。</p>
+<p>若想保证 Broker 端不丢消息，保证消息的可靠性，我们需要将消息保存机制修改为同步刷盘方式，即消息存储磁盘成功，才会返回响应。</p>
+<p>若 Broker 未在同步刷盘时间内完成刷盘，返回相应的超时状态给生产者。</p>
+<h3 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h3><p>为了保证可用性，Broker 通常采用一主（master）多从（slave）部署方式。为了保证消息不丢失，消息还需要复制到 slave 节点。</p>
+<p>默认方式下，消息写入 master 成功，就可以返回确认响应给生产者，接着消息将会异步复制到 slave 节点。</p>
+<p>但是此时若 master 突然宕机且不可恢复，那么还未复制到 slave 的消息将会丢失。</p>
+<p>为了进一步提高消息的可靠性，我们可以采用同步的复制方式，master 节点将会同步等待 slave 节点复制完成，才会返回确认响应。</p>
+<p>异步复制与同步复制区别如下图：<br><img data-src="/uploads/in-post/mq/mq_cluster_sync.png"></p>
+<blockquote>
+<p>注： 大家不要被上图误导，broker master 只能配置一种复制方式，上图只为解释同步复制的与异步复制的概念。</p>
+</blockquote>
+<p>如果 slave 节点未在指定时间内同步返回响应，将会返回相应的超时状态。</p>
+<p><strong>虽然上述配置提高消息的高可靠性，但是会降低性能，生产实践中需要综合选择。</strong></p>
+<h2 id="消费阶段"><a href="#消费阶段" class="headerlink" title="消费阶段"></a>消费阶段</h2><p>消费者从 broker 拉取消息，然后执行相应的业务逻辑。一旦执行成功，将会返回确认相应信息给 Broker。</p>
+<p>如果 Broker 未收到消费确认响应或收到其他状态，消费者下次还会再次拉取到该条消息，进行重试。这样的方式有效避免了消费者消费过程发生异常，或者消息在网络传输中丢失的情况。</p>
+<p>这种方式虽然提高消息可靠性，但是可能导致消息重发和重复消费。所以对于消费客户端，需要注意保证<strong>幂等性</strong>。</p>
+<h1 id="如何保证消息消费时的幂等性"><a href="#如何保证消息消费时的幂等性" class="headerlink" title="如何保证消息消费时的幂等性"></a>如何保证消息消费时的幂等性</h1><h2 id="什么是消息幂等"><a href="#什么是消息幂等" class="headerlink" title="什么是消息幂等"></a>什么是消息幂等</h2><p>任意多次执行所产生的影响均与一次执行的影响相同就可以称为幂等</p>
+<p>消息幂等就是当出现消费者对某条消息重复消费的情况时，重复消费的结果与消费一次的结果是相同的，并且多次消费并未对业务系统产生任何负面影响</p>
+<h2 id="为什么需要保证消息幂等"><a href="#为什么需要保证消息幂等" class="headerlink" title="为什么需要保证消息幂等"></a>为什么需要保证消息幂等</h2><p>这个问题其实没法准确回答。回答这个问题的根源得从业务场景上进行分析。比如正常业务情况下，我们是不允许同个订单重复支付，这种业务场景我们就需要确保幂等性。再比如日志记录，这种业务场景，我们可能就不需要做幂等判断。</p>
+<p>因此是否要保证幂等性，得基于业务进行考量</p>
+<h2 id="消息队列可以保证幂等吗？"><a href="#消息队列可以保证幂等吗？" class="headerlink" title="消息队列可以保证幂等吗？"></a>消息队列可以保证幂等吗？</h2><p>rabbitmq、rocketmq、kafka 都有可能会出现消费重复消费的问题，这是正常情况，因为由于网络原因闪断，ACK 返回失败等等故障，确认信息没有传送到消息队列，导致消息队列不知道该消息已经被消费了，再次将该消息分发给其他的消费者。所以这类问题 MQ 本身是无法保证的，而是需要我们写业务的时候自己保证的。</p>
+<h2 id="常见的保证幂等的方法"><a href="#常见的保证幂等的方法" class="headerlink" title="常见的保证幂等的方法"></a>常见的保证幂等的方法</h2><ol>
+<li><p>利用数据库的唯一约束实现幂等<br>比如将订单表中的订单编号设置为唯一索引，创建订单时，根据订单编号就可以保证幂等</p>
+</li>
+<li><p>去重表<br>这个方案本质也是根据数据库的唯一性约束来实现。其实现大体思路是：首先在去重表上建唯一索引，其次操作时把业务表和去重表放在同个本地事务中，如果出现重现重复消费，数据库会抛唯一约束异常，操作就会回滚</p>
+</li>
+<li><p>利用 redis 的原子性<br>每次操作都直接 set 到 redis 里面，然后将 redis 数据定时同步到数据库中</p>
+</li>
+<li><p>多版本（乐观锁）控制<br>此方案多用于更新的场景下。其实现的大体思路是：给业务数据增加一个版本号属性，每次更新数据前，比较当前数据的版本号是否和消息中的版本一致，如果不一致则拒绝更新数据，更新数据的同时将版本号+1</p>
+</li>
+<li><p>token 机制<br>生产者发送每条数据的时候，增加一个全局唯一的 id，这个 id 通常是业务的唯一标识，比如订单编号。在消费端消费时，则验证该 id 是否被消费过，如果还没消费过，则进行业务处理。处理结束后，在把该 id 存入 redis，同时设置状态为已消费。如果已经消费过了，则不进行处理。</p>
+</li>
+</ol>
+<h1 id="如何保证消息的顺序性"><a href="#如何保证消息的顺序性" class="headerlink" title="如何保证消息的顺序性"></a>如何保证消息的顺序性</h1><h2 id="为什么需要保证消息的顺序性"><a href="#为什么需要保证消息的顺序性" class="headerlink" title="为什么需要保证消息的顺序性"></a>为什么需要保证消息的顺序性</h2><p>在生产中经常会有一些类似报表系统这样的系统，需要做 MySQL 的 binlog 同步。比如订单系统要同步订单表的数据到大数据部门的 MySQL 库中用于报表统计分析，通常的做法是基于 Canal 这样的中间件去监听订单数据库的 binlog，然后把这些 binlog 发送到 MQ 中，再由消费者从 MQ 中获取 binlog 落地到大数据部门的 MySQL 中。</p>
+<p>在这个过程中，可能会有对某个订单的增删改操作，比如有三条 binlog 执行顺序是增加、修改、删除；如果消费者不按照这个顺序执行结果肯定就错误了，所以针对此类场景需要保证消息的发送和消费都是有序的。</p>
+<h2 id="乱序原因和保证顺序性的方法"><a href="#乱序原因和保证顺序性的方法" class="headerlink" title="乱序原因和保证顺序性的方法"></a>乱序原因和保证顺序性的方法</h2><h3 id="RabbitMQ-1"><a href="#RabbitMQ-1" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><p>对于 RabbitMQ 来说，导致上面顺序错乱的原因通常是消费者是集群部署，不同的消费者消费到了同一订单的不同的消息，如消费者 A 执行了增加，消费者 B 执行了修改，消费者 C 执行了删除，但是消费者 C 执行比消费者 B 快，消费者 B 又比消费者 A 快，就会导致消费 binlog 执行到数据库的时候顺序错乱，本该顺序是增加、修改、删除，变成了删除、修改、增加。</p>
+<p>如下图是 RabbitMQ 可能出现顺序错乱的问题示意图：<br><img data-src="/uploads/in-post/mq/rabbitmq_not_inorder.png"></p>
+<p>RabbitMQ 的问题是由于不同的消息都发送到了同一个 queue 中，多个消费者都消费同一个 queue 的消息。解决这个问题，我们可以给 RabbitMQ 创建多个 queue，每个消费者固定消费一个 queue 的消息，生产者发送消息的时候，同一个订单号的消息发送到同一个 queue 中，由于同一个 queue 的消息是一定会保证有序的，那么同一个订单号的消息就只会被一个消费者顺序消费，从而保证了消息的顺序性。</p>
+<p>如下图是 RabbitMQ 保证消息顺序性的方案：<br><img data-src="/uploads/in-post/mq/rabbitmq_inorder.png"></p>
+<h3 id="Kafka-1"><a href="#Kafka-1" class="headerlink" title="Kafka"></a>Kafka</h3><p>对于 Kafka 来说，一个 topic 下同一个 partition 中的消息肯定是有序的，生产者在写的时候可以指定一个 key，通过订单号作为 key，这个 key 对应的消息都会发送到同一个 partition 中，所以消费者消费到的消息也一定是有序的。</p>
+<p>那么为什么 Kafka 还会存在消息错乱的问题呢？问题就出在消费者身上。通常消费到同一个 key 的多条消息后，会使用多线程技术去并发处理来提高消息处理速度，否则一条消息的处理需要耗时几十毫秒，一秒只能处理几十条消息，吞吐量太低了。而多线程并发处理的话，binlog 执行到数据库的时候就不一定还是原来的顺序了。</p>
+<p>如下图是 Kafka 可能出现乱序现象的示意图：<br><img data-src="/uploads/in-post/mq/kafka_not_inorder.png"></p>
+<p>Kafka 从生产者到消费者消费消息这一整个过程其实都是可以保证有序的，导致最终乱序是由于消费者端需要使用多线程并发处理消息来提高吞吐量，比如消费者消费到了消息以后，开启 32 个线程处理消息，每个线程线程处理消息的快慢是不一致的，所以才会导致最终消息有可能不一致。</p>
+<p>所以对于 Kafka 的消息顺序性保证，其实我们只需要保证同一个订单号的消息只被同一个线程处理的就可以了。由此我们可以在线程处理前增加个内存队列，每个线程只负责处理其中一个内存队列的消息，同一个订单号的消息发送到同一个内存队列中即可。</p>
+<p>如下图是 Kafka 保证消息顺序性的方案：</p>
+<p><img data-src="/uploads/in-post/mq/kafka_inorder.png"></p>
+<h3 id="RocketMQ-1"><a href="#RocketMQ-1" class="headerlink" title="RocketMQ"></a>RocketMQ</h3><p>对于 RocketMQ 来说，每个 Topic 可以指定多个 MessageQueue，当我们写入消息的时候，会把消息均匀地分发到不同的 MessageQueue 中，比如同一个订单号的消息，增加 binlog 写入到 MessageQueue1 中，修改 binlog 写入到 MessageQueue2 中，删除 binlog 写入到 MessageQueue3 中。</p>
+<p>但是当消费者有多台机器的时候，会组成一个 Consumer Group，Consumer Group 中的每台机器都会负责消费一部分 MessageQueue 的消息，所以可能消费者 A 消费了 MessageQueue1 的消息执行增加操作，消费者 B 消费了 MessageQueue2 的消息执行修改操作，消费者 C 消费了 MessageQueue3 的消息执行删除操作，但是此时消费 binlog 执行到数据库的时候就不一定是消费者 A 先执行了，有可能消费者 C 先执行删除操作，因为几台消费者是并行执行，是不能够保证他们之间的执行顺序的。</p>
+<p>如下图是 RocketMQ 可能出现乱序现象的示意图：<br><img data-src="/uploads/in-post/mq/rocketmq_not_inorder.png"></p>
+<p>RocketMQ 的消息乱序是由于同一个订单号的 binlog 进入了不同的 MessageQueue，进而导致一个订单的 binlog 被不同机器上的 Consumer 处理。</p>
+<p>要解决 RocketMQ 的乱序问题，我们只需要想办法让同一个订单的 binlog 进入到同一个 MessageQueue 中就可以了。因为同一个 MessageQueue 内的消息是一定有序的，一个 MessageQueue 中的消息只能交给一个 Consumer 来进行处理，所以 Consumer 消费的时候就一定会是有序的。</p>
+<p>如下图是 RocketMQ 保证消息顺序性的方案：<br><img data-src="/uploads/in-post/mq/rocketmq_inorder.png"></p>
+<h1 id="如何解决消息队列的大量-lag"><a href="#如何解决消息队列的大量-lag" class="headerlink" title="如何解决消息队列的大量 lag"></a>如何解决消息队列的大量 lag</h1><p>消息堆积是消息中间件的一大特色，消息中间件的流量削峰、冗余存储等功能正是得益于消息中间件的消息堆积能力。然而消息堆积其实是一把亦正亦邪的双刃剑，如果应用场合不恰当反而会对上下游的业务造成不必要的麻烦，比如消息堆积势必会影响上下游整个调用链的时效性，影响上下游的业务，堆积过多有可能会造成磁盘爆满，或者触发日志清除策略而造成消息丢失的情况。</p>
+<h2 id="lag-一直堆积，消费速度跟不上生产速度"><a href="#lag-一直堆积，消费速度跟不上生产速度" class="headerlink" title="lag 一直堆积，消费速度跟不上生产速度"></a>lag 一直堆积，消费速度跟不上生产速度</h2><p>首先，我们需要有一个比较及时的监控，在 lag 达到一个风险数量的时候把情况暴露出来，lag 堆积的可能性有以下几种：</p>
+<ol>
+<li>consumer 出 bug 导致消费速度降低<br>这种情况一般在报警足够及时的情况下，可以在 lag 达到风险量级之前修复好 bug 就可以解决了，否则就会成为情况 4</li>
+<li>consumer quota 不够用导致性能下降<br>这种情况可能是由于当前的消费方式使 CPU 处理速度已经达到极限，无法更快速的处理消息了，此时可以对消费者现有逻辑进行梳理，看是否有代码优化的空间，比如批量消费，跳过非重要信息，减少处理流程等方式。如果已经无法对消费者进行优化了，可以采用扩容的形式增加消费者的处理能力。</li>
+<li>producer 由于业务发展提升了消息产生速度过快<br>这种情况是好现象，说明业务在向前发展，如果消费端已经优化到极致了，并且需要考虑扩容成本的情况下，可以考虑对消息进行前期聚合之后再发送，或者跳过非重要信息的发送等</li>
+<li>报警不及时导致堆积了大量消息</li>
+</ol>
+<ul>
+<li>如果不是时效性要求很高的业务，修复 bug 之后，等待一段时间是可以处理完堆积的消息的</li>
+<li>如果业务需要快速消费完这些消息，可以有两种做法。<ul>
+<li>丢弃所有堆积的消息，通过查表将缺失的信息重新导入 mq 或直接写入消费方的数据库</li>
+<li>紧急扩容，不过这种方式成本比较高<ul>
+<li>先修复 consumer 的问题，确保其恢复消费速度，然后将现有 consumer 暂时停掉。</li>
+<li>新建一个 topic，partition 是原来的 10 倍，临时建立好原先 10 倍的 queue 数量。</li>
+<li>然后写一个临时的分发数据的 consumer 程序，这个程序部署上去消费积压的数据，消费之后不做耗时的处理，直接均匀轮询写入临时建立好的 10 倍数量的 queue。</li>
+<li>接着临时征用 10 倍的机器来部署 consumer，每一批 consumer 消费一个临时 queue 的数据。这种做法相当于是临时将 queue 资源和 consumer 资源扩大 10 倍，以正常的 10 倍速度来消费数据。</li>
+<li>等快速消费完积压数据之后，得恢复原先部署的架构，重新用原先的 consumer 机器来消费消息。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="mq-磁盘写满了"><a href="#mq-磁盘写满了" class="headerlink" title="mq 磁盘写满了"></a>mq 磁盘写满了</h2><p>消息队列的磁盘写满之后，再进入的消息会被直接丢弃，这种情况下是无论如何也没办法通过 mq 找回了，只能丢弃所有堆积的消息，通过查表将缺失的信息重新导入 mq 了</p>
+<h1 id="如何设计一个消息队列的架构"><a href="#如何设计一个消息队列的架构" class="headerlink" title="如何设计一个消息队列的架构"></a>如何设计一个消息队列的架构</h1><p>其实在这篇文章上面讨论的内容就是设计一个消息队列架构需要考虑的点了，这里再总结一下。</p>
+<ol>
+<li>可扩展性<br>即可以在需要的时候快速扩容，参照 kafka 的设计理念，broker -&gt; topic -&gt; partition，每个 partition 放一个 broker，只存一部分数据。如果现在资源不够了，只需给 topic 增加 partition，然后做数据迁移，增加机器，就可以存放更多数据，提供更高的吞吐量。</li>
+<li>数据落盘<br>mq 接收到的消息需要落盘，这样才能保证宕机时数据不会丢失，可以参考 kafka 采用磁盘顺序读写的方式，提升性能</li>
+<li>可用性<br>可以参考 kafka 的高可用保障机制。多副本 -&gt; leader &amp; follower -&gt; broker 挂了重新选举 leader 即可对外服务。</li>
+<li>消息和数据不丢失<br>参考之前提到的生产阶段，存储阶段，消费阶段三个阶段的保证方式</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><a target="_blank" rel="noopener" href="https://www.shuzhiduo.com/A/mo5k0e94dw/">Kafka 如何保证高吞吐</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/uploads/wechatpay.jpg" alt="温智全 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/uploads/alipay.jpg" alt="温智全 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>温智全
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/" title="MQ 简析">http://wenzhiquan.github.io/2021/06/13/2021-06-13-mq-introduction/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MQ/" rel="tag"><i class="fa fa-tag"></i> MQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/06/11/2021-06-11-practise-self-as-a-product/" rel="prev" title="打造好「自己」这个产品">
+                  <i class="fa fa-angle-left"></i> 打造好「自己」这个产品
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/06/15/2021-06-15-redis-introduction/" rel="next" title="Redis 简析">
+                  Redis 简析 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">Gitalk</a></li>
+            <li class="tab"><a href="#comment-disqus">Disqus</a></li>
+            <li class="tab"><a href="#comment-changyan">Changyan</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments gitalk-container"></div>
+            </div>
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="760adffdc0374ca88246340a0a6ff938"></div>
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">温智全</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">319k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:50</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/wenzhiquan" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz","app_key":"N3C8QGskdpq8h2cD7VpKj2rP","server_url":"https://csvejoso.lc-cn-n1-shared.com","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e","count":true}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"760adffdc0374ca88246340a0a6ff938"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+</html>

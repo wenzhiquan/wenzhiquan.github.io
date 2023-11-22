@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":10,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="“设计模式是软件开发人员在开发过程中可以遵循的一般问题的解决方案。”  简介所谓模式，就是在特定环境下人们对某类重复出现的问题提出的一套有效的解决方案。 而设计模式(Design Pattern)，则是针对软件设计过程中，可能遇到的重复问题的合理解决方案。 设计模式提出的根本目的就是解决现实生活中的问题，每种设计模式都有对应的现实问题及其解决方案，找到对应的问题便能够快速的利用设计模式进行解决。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式--简介">
+<meta property="og:url" content="http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/index.html">
+<meta property="og:site_name" content="温智全的博客">
+<meta property="og:description" content="“设计模式是软件开发人员在开发过程中可以遵循的一般问题的解决方案。”  简介所谓模式，就是在特定环境下人们对某类重复出现的问题提出的一套有效的解决方案。 而设计模式(Design Pattern)，则是针对软件设计过程中，可能遇到的重复问题的合理解决方案。 设计模式提出的根本目的就是解决现实生活中的问题，每种设计模式都有对应的现实问题及其解决方案，找到对应的问题便能够快速的利用设计模式进行解决。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-02-25T04:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-22T08:54:38.091Z">
+<meta property="article:author" content="温智全">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/","path":"2018/02/25/2018-02-25-design-pattern-intro/","title":"设计模式--简介"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>设计模式--简介 | 温智全的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75727255-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-75727255-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?0ee846e1ba3a25130ad41180a73f6f9a"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">温智全的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Wenknows's Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">54</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">20</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">103</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">设计模式的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%87%A0%E5%A4%A7%E5%8E%9F%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">面向对象设计的几大原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%B8%80%E8%81%8C%E8%B4%A3%E5%8E%9F%E5%88%99%EF%BC%88Single-Responsibility-Principle%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">单一职责原则（Single Responsibility Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%80%E9%97%AD%E5%8E%9F%E5%88%99%EF%BC%88Open-Closed-Principle%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">开闭原则（Open-Closed Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8C%E6%B0%8F%E4%BB%A3%E6%8D%A2%E5%8E%9F%E5%88%99%EF%BC%88Liskov-Substitution-Principle%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">里氏代换原则（Liskov Substitution Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99%EF%BC%88Dependency-Inversion-Principle%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">依赖倒置原则（Dependency Inversion Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E9%9A%94%E7%A6%BB%E5%8E%9F%E5%88%99%EF%BC%88Interface-Segregation-Principle%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">接口隔离原则（Interface Segregation Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E6%88%90%E5%A4%8D%E7%94%A8%E5%8E%9F%E5%88%99%EF%BC%88Composition-Aggregate-Reuse-Principle%EF%BC%89"><span class="nav-number">3.6.</span> <span class="nav-text">合成复用原则（Composition&#x2F;Aggregate Reuse Principle）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%AA%E7%B1%B3%E7%89%B9%E6%B3%95%E5%88%99%EF%BC%88Law-of-Demeter%EF%BC%89"><span class="nav-number">3.7.</span> <span class="nav-text">迪米特法则（Law of Demeter）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="温智全"
+      src="/uploads/avatar-wen.jpg">
+  <p class="site-author-name" itemprop="name">温智全</p>
+  <div class="site-description" itemprop="description">爱唱歌健身的程序员</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/wenzhiquan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan" rel="noopener me" target="_blank"><i class="github-alt fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.zhihu.com/people/wenzhiquan/activities" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities" rel="noopener me" target="_blank">知乎</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wenzhiquanr@163.com" title="邮箱 → mailto:wenzhiquanr@163.com" rel="noopener me" target="_blank"><i class="envelope fa-fw"></i>邮箱</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/profile.php?id=100006943363300" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300" rel="noopener me" target="_blank"><i class="faceboo fa-fw"></i>Facebook</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://xiaochutian.github.io/" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;" rel="noopener" target="_blank">肖楚天的博客</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="设计模式--简介 | 温智全的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          设计模式--简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-02-25 12:00:00" itemprop="dateCreated datePublished" datetime="2018-02-25T12:00:00+08:00">2018-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-22 16:54:38" itemprop="dateModified" datetime="2023-11-22T16:54:38+08:00">2023-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2018/02/25/2018-02-25-design-pattern-intro/" class="post-meta-item leancloud_visitors" data-flag-title="设计模式--简介" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="设计模式--简介" href="/2018/02/25/2018-02-25-design-pattern-intro/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::6e31762ed0aa2458ac7db5fa5db1ff17" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2018/02/25/2018-02-25-design-pattern-intro/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/02/25/2018-02-25-design-pattern-intro/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>“设计模式是软件开发人员在开发过程中可以遵循的一般问题的解决方案。”</p>
+</blockquote>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>所谓<code>模式</code>，就是在特定环境下人们对某类重复出现的问题提出的一套有效的解决方案。</p>
+<p>而设计模式(<code>Design Pattern</code>)，则是针对软件设计过程中，可能遇到的重复问题的合理解决方案。</p>
+<p>设计模式提出的根本目的就是解决现实生活中的问题，每种设计模式都有对应的现实问题及其解决方案，找到对应的问题便能够快速的利用设计模式进行解决。</p>
+<p>设计模式一般包含模式名称、解决的问题，解决方案和应对效果等部分。</p>
+<p>使用设计模式的目的是为了提高代码的可重用性；按照一定的规则编写代码，能够让自己的代码更加容易被其他编程人员所理解；同时，在一定的规则内编写代码，可以在一定程度上提升代码的可靠性。</p>
+<span id="more"></span>
+
+<h3 id="设计模式的类型"><a href="#设计模式的类型" class="headerlink" title="设计模式的类型"></a>设计模式的类型</h3><p>根据设计模式的参考书<code>Design Patterns - Elements of Reusable Object-Oriented Software</code>中所提到的，总共有 23 种设计模式。</p>
+<p>常用设计模式一览：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>模式名称</th>
+<th>使用频率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建型模式</td>
+<td><a href="/2018/06/15/2018-06-15-design-pattern-factory-method/">工厂方法模式 Factory Method Pattern</a></td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>创建型模式</td>
+<td><a href="/2018/06/25/2018-06-25-design-pattern-abstract-factory/">抽象工厂模式 Abstract Factory Pattern</a></td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>创建型模式</td>
+<td><a href="/2016/03/28/2016-03-28-singleton-eight-type/">单例模式 Singleton Pattern</a></td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>创建型模式</td>
+<td><a href="/2018/06/16/2018-06-16-design-pattern-factory-method/">简单工厂模式 Simple Factory Pattern</a></td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>创建型模式</td>
+<td>原型模式 Prototype Pattern</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>创建型模式</td>
+<td>建造者模式 Builder Pattern</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>外观模式 Façade Pattern</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>代理模式 Proxy Pattern</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>适配器模式 Adapter Pattern</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>组合模式 Composite Pattern</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>桥接模式 Bridge Pattern</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>装饰模式 Decorator Pattern</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>结构型模式</td>
+<td>享元模式 Flyweight Pattern</td>
+<td>★☆☆☆☆</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>迭代器模式 Iterator Pattern</td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td><a href="/2018/06/26/2018-06-26-design-pattern-observer/">观察者模式 Observer Pattern</a></td>
+<td>★★★★★</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td><a href="/2018/06/27/2018-06-27-design-pattern-strategy/">策略模式 Strategy Pattern</a></td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>命令模式 Command Pattern</td>
+<td>★★★★☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>模板方法模式 Template Method Patter</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>状态模式 State Pattern</td>
+<td>★★★☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>中介者模式 Mediator Pattern</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>备忘录模式 Memento Pattern</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>职责链模式 Chain of Responsibility Pattern</td>
+<td>★★☆☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>访问者模式 Visitor Pattern</td>
+<td>★☆☆☆☆</td>
+</tr>
+<tr>
+<td>行为型模式</td>
+<td>解释器模式 Interpreter Pattern</td>
+<td>★☆☆☆☆</td>
+</tr>
+</tbody></table>
+<h3 id="面向对象设计的几大原则"><a href="#面向对象设计的几大原则" class="headerlink" title="面向对象设计的几大原则"></a>面向对象设计的几大原则</h3><h4 id="单一职责原则（Single-Responsibility-Principle）"><a href="#单一职责原则（Single-Responsibility-Principle）" class="headerlink" title="单一职责原则（Single Responsibility Principle）"></a>单一职责原则（Single Responsibility Principle）</h4><p>简单来说就是一个类只负责一个功能，这样一个类的职责就不会出现大量耦合，重用性也会更高。</p>
+<h4 id="开闭原则（Open-Closed-Principle）"><a href="#开闭原则（Open-Closed-Principle）" class="headerlink" title="开闭原则（Open-Closed Principle）"></a>开闭原则（Open-Closed Principle）</h4><p>一个软件应当对扩展开放，而对修改关闭。即软件应当尽量在不修改原代码的基础上进行扩展。想要达到这个效果，需要使用接口和抽象类。</p>
+<h4 id="里氏代换原则（Liskov-Substitution-Principle）"><a href="#里氏代换原则（Liskov-Substitution-Principle）" class="headerlink" title="里氏代换原则（Liskov Substitution Principle）"></a>里氏代换原则（Liskov Substitution Principle）</h4><p>任何可以使用基类的地方，其子类一定也能够被使用。按照里氏原则，子类必须实现父类的所有方法，当我们设计父类时，尽量把父类设计为抽象类或接口，这样运行时子类替换父类实例，可以很轻松的扩展系统功能。</p>
+<h4 id="依赖倒置原则（Dependency-Inversion-Principle）"><a href="#依赖倒置原则（Dependency-Inversion-Principle）" class="headerlink" title="依赖倒置原则（Dependency Inversion Principle）"></a>依赖倒置原则（Dependency Inversion Principle）</h4><p>抽象不应该依赖于细节，而细节应该依赖于抽象。即我们应该面向接口编程，而不是针对实现编程。一个具体类应当只实现接口或抽象类中声明过的方法，而不应给出多余的方法。</p>
+<h4 id="接口隔离原则（Interface-Segregation-Principle）"><a href="#接口隔离原则（Interface-Segregation-Principle）" class="headerlink" title="接口隔离原则（Interface Segregation Principle）"></a>接口隔离原则（Interface Segregation Principle）</h4><p>使用多个隔离的接口，而不是使用单一的接口，即当一个接口太大时，我们应当将其分割为隔离的多个接口，可以减小类之间的耦合。</p>
+<h4 id="合成复用原则（Composition-Aggregate-Reuse-Principle）"><a href="#合成复用原则（Composition-Aggregate-Reuse-Principle）" class="headerlink" title="合成复用原则（Composition/Aggregate Reuse Principle）"></a>合成复用原则（Composition/Aggregate Reuse Principle）</h4><p>尽量使用对象组合，而不是继承来达到复用的目的。</p>
+<h4 id="迪米特法则（Law-of-Demeter）"><a href="#迪米特法则（Law-of-Demeter）" class="headerlink" title="迪米特法则（Law of Demeter）"></a>迪米特法则（Law of Demeter）</h4><p>一个软件的实体应当尽可能少的和其他实体发生相互作用，而成为一个独立的模块。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/uploads/wechatpay.jpg" alt="温智全 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/uploads/alipay.jpg" alt="温智全 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>温智全
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/" title="设计模式--简介">http://wenzhiquan.github.io/2018/02/25/2018-02-25-design-pattern-intro/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/02/05/2017-02-05-idea-gradle-tssm-supermarket-manage-system-2/" rel="prev" title="使用IDEA和gradle创建超市管理系统（贰）-- 登录注册功能">
+                  <i class="fa fa-angle-left"></i> 使用IDEA和gradle创建超市管理系统（贰）-- 登录注册功能
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/28/2018-03-28-java-memory-garbage-collection/" rel="next" title="Java内存模型和垃圾回收">
+                  Java内存模型和垃圾回收 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">Gitalk</a></li>
+            <li class="tab"><a href="#comment-disqus">Disqus</a></li>
+            <li class="tab"><a href="#comment-changyan">Changyan</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments gitalk-container"></div>
+            </div>
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="6e31762ed0aa2458ac7db5fa5db1ff17"></div>
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">温智全</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">319k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:50</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/wenzhiquan" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.24/dist/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz","app_key":"N3C8QGskdpq8h2cD7VpKj2rP","server_url":"https://csvejoso.lc-cn-n1-shared.com","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e","count":true}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"6e31762ed0aa2458ac7db5fa5db1ff17"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js"></script>
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+</html>
