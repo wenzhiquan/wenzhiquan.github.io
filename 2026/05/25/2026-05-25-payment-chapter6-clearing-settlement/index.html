@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.2">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/uploads/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/uploads/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="yandex-verification" content="e8de7a9cea7f3baf">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wenzhiquan.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.27.0","exturl":true,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"qtcreator-light","dark":"dracula"},"prism":{"light":"prism-coy","dark":"prism-tomorrow"},"copy_button":{"enable":true,"style":"default"},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":{"gitalk":{"text":"Gitalk","order":-3},"disqus":{"text":"Disqus","order":-2},"changyan":{"text":"Changyan","order":-1}},"activeClass":"gitalk"},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":10,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="支付的三件事：交易、清分、结算。前面几篇讲的都是交易相关的事情——通道、路由、重试、BIN。这最后一篇，我们来看清分和结算，也就是怎么算账、对账和付账。 用老王的话说就是：账要记清楚，账要对得上，钱要付得对。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="清结算：老王的账本">
+<meta property="og:url" content="http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/index.html">
+<meta property="og:site_name" content="温智全的博客">
+<meta property="og:description" content="支付的三件事：交易、清分、结算。前面几篇讲的都是交易相关的事情——通道、路由、重试、BIN。这最后一篇，我们来看清分和结算，也就是怎么算账、对账和付账。 用老王的话说就是：账要记清楚，账要对得上，钱要付得对。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-05-25T07:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-03T02:45:14.553Z">
+<meta property="article:author" content="温智全">
+<meta property="article:tag" content="支付方法论">
+<meta property="article:tag" content="清结算">
+<meta property="article:tag" content="读书笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/","path":"2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/","title":"清结算：老王的账本"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>清结算：老王的账本 | 温智全的博客</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75727255-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-75727255-1","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js" defer></script>
+
+  <script src="/js/third-party/analytics/baidu-analytics.js" defer></script>
+  <script async src="https://hm.baidu.com/hm.js?0ee846e1ba3a25130ad41180a73f6f9a"></script>
+
+
+
+
+
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous" defer></script>
+<script src="/js/comments.js" defer></script><script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script><script src="/js/bookmark.js" defer></script><script src="/js/pjax.js" defer></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.5.0/dist/search.js" integrity="sha256-xFC6PJ82SL9b3WkGjFavNiA9gm5z6UBxWPiu4CYjptg=" crossorigin="anonymous" defer></script>
+<script src="/js/third-party/search/local-search.js" defer></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js" defer></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"csVEjosOlcMx3HUdLbwNkh0t-gzGzoHsz","app_key":"N3C8QGskdpq8h2cD7VpKj2rP","server_url":"https://csvejoso.lc-cn-n1-shared.com","security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">温智全的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Elvin wen's Blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">66</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">22</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">110</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E8%BE%B9%E5%85%B3%E7%B3%BB%EF%BC%9A%E6%B2%A1%E6%9C%89%E4%B8%89%E8%A7%92%E5%80%BA"><span class="nav-number">1.</span> <span class="nav-text">双边关系：没有三角债</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E7%BB%93%E7%AE%97%E7%9A%84%E6%95%B4%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">清结算的整体流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E8%B4%B9%E6%9C%8D%E5%8A%A1%EF%BC%9A%E5%85%88%E7%AE%97%E6%B8%85%E6%A5%9A%E8%AF%A5%E6%94%B6%E5%A4%9A%E5%B0%91%E9%92%B1"><span class="nav-number">3.</span> <span class="nav-text">计费服务：先算清楚该收多少钱</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%95%86%E6%88%B7%E8%AE%A1%E8%B4%B9%E8%A7%84%E5%88%99"><span class="nav-number">3.1.</span> <span class="nav-text">商户计费规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E6%88%90%E6%9C%AC%E8%A7%84%E5%88%99"><span class="nav-number">3.2.</span> <span class="nav-text">通道成本规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E5%8D%95%E6%9C%8D%E5%8A%A1%EF%BC%9A%E5%9B%9B%E4%B8%AA%E6%A0%B8%E5%BF%83%E8%81%8C%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">账单服务：四个核心职能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%90%BD%E5%9C%B0%E4%BA%A4%E6%98%93%E5%8D%95%E6%95%B0%E6%8D%AE"><span class="nav-number">4.1.</span> <span class="nav-text">1. 落地交易单数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%8E%B7%E5%8F%96%E6%94%AF%E4%BB%98%E9%80%9A%E9%81%93%E5%AF%B9%E8%B4%A6%E5%8D%95"><span class="nav-number">4.2.</span> <span class="nav-text">2. 获取支付通道对账单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%94%9F%E6%88%90%E4%B8%8E%E6%8E%A8%E9%80%81%E5%95%86%E6%88%B7%E5%AF%B9%E8%B4%A6%E5%8D%95"><span class="nav-number">4.3.</span> <span class="nav-text">3. 生成与推送商户对账单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%94%9F%E6%88%90%E9%80%9A%E9%81%93%E5%AF%B9%E8%B4%A6%E5%8D%95"><span class="nav-number">4.4.</span> <span class="nav-text">4. 生成通道对账单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B4%A6%E6%9C%8D%E5%8A%A1%EF%BC%9A%E8%BD%A7%E8%B4%A6%E5%92%8C%E5%B9%B3%E8%B4%A6"><span class="nav-number">5.</span> <span class="nav-text">对账服务：轧账和平账</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B4%A6%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">5.1.</span> <span class="nav-text">对账的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B4%A6%E5%9F%BA%E5%87%86"><span class="nav-number">5.2.</span> <span class="nav-text">对账基准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B4%A6%E5%86%85%E5%AE%B9"><span class="nav-number">5.3.</span> <span class="nav-text">对账内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%88%87%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%B4%E7%95%8C%E7%82%B9%E9%97%AE%E9%A2%98"><span class="nav-number">5.4.</span> <span class="nav-text">日切时间的临界点问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B4%A6%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BB%93%E6%9E%9C"><span class="nav-number">5.5.</span> <span class="nav-text">对账的四种结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E7%AE%97%EF%BC%9A%E8%B5%84%E4%BA%A7%E7%9A%84%E4%BA%A4%E5%89%B2"><span class="nav-number">6.</span> <span class="nav-text">结算：资产的交割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AE%A1%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%9A%84%E6%99%B4%E9%9B%A8%E8%A1%A8"><span class="nav-number">7.</span> <span class="nav-text">会计：企业的晴雨表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E5%88%97%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">系列总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="温智全"
+      src="/uploads/avatar-wen.jpg">
+  <p class="site-author-name" itemprop="name">温智全</p>
+  <div class="site-description" itemprop="description">爱唱歌健身的程序员</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dlbnpoaXF1YW4=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wenzhiquan"><i class="github-alt fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS93ZW56aGlxdWFuL2FjdGl2aXRpZXM=" title="知乎 → https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;wenzhiquan&#x2F;activities">知乎</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlbnpoaXF1YW5yQDE2My5jb20=" title="邮箱 → mailto:wenzhiquanr@163.com"><i class="envelope fa-fw"></i>邮箱</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwNjk0MzM2MzMwMA==" title="Facebook → https:&#x2F;&#x2F;www.facebook.com&#x2F;profile.php?id&#x3D;100006943363300"><i class="faceboo fa-fw"></i>Facebook</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOndlbnpoaXF1YW5yQGdtYWlsLmNvbQ==" title="E-Mail → mailto:wenzhiquanr@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <span class="exturl" data-url="aHR0cHM6Ly94aWFvY2h1dGlhbi5naXRodWIuaW8v" title="https:&#x2F;&#x2F;xiaochutian.github.io&#x2F;">肖楚天的博客</span>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar-wen.jpg">
+      <meta itemprop="name" content="温智全">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="温智全的博客">
+      <meta itemprop="description" content="爱唱歌健身的程序员">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="清结算：老王的账本 | 温智全的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          清结算：老王的账本
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-05-25 15:00:00" itemprop="dateCreated datePublished" datetime="2026-05-25T15:00:00+08:00">2026-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-06-03 10:45:14" itemprop="dateModified" datetime="2026-06-03T10:45:14+08:00">2026-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%94%AF%E4%BB%98/" itemprop="url" rel="index"><span itemprop="name">支付</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/" class="post-meta-item leancloud_visitors" data-flag-title="清结算：老王的账本" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>支付的三件事：交易、清分、结算。前面几篇讲的都是交易相关的事情——通道、路由、重试、BIN。这最后一篇，我们来看清分和结算，也就是怎么算账、对账和付账。</p>
+<p>用老王的话说就是：账要记清楚，账要对得上，钱要付得对。</p>
+<span id="more"></span>
+
+<h2 id="双边关系：没有三角债"><a href="#双边关系：没有三角债" class="headerlink" title="双边关系：没有三角债"></a>双边关系：没有三角债</h2><p>在讲清结算之前，有一个认知前提必须先建立：<strong>商户、支付平台、支付通道之间的关系是双边关系，不存在三角债。</strong></p>
+<ul>
+<li>商户只是支付平台的商户，不是支付通道的商户</li>
+<li>支付通道的商户只有一个，就是支付平台</li>
+</ul>
+<p>所以，无论上游支付通道有没有向支付平台提供账单，支付平台都应该按自己记录的结果向商户提供账单；无论支付通道有没有把钱结算给支付平台，支付平台都应该按自己的账单结算给商户。</p>
+<p><strong>收支两条账，两两清清楚楚。</strong></p>
+<h2 id="清结算的整体流程"><a href="#清结算的整体流程" class="headerlink" title="清结算的整体流程"></a>清结算的整体流程</h2><p>清分是数据准备和计算的过程，结算是资产交割和转移的过程。整个清结算涉及以下模块：</p>
+<ol>
+<li><strong>支付核心模块</strong>：完成支付交易，推送订单到清结算系统</li>
+<li><strong>账单模块</strong>：落地交易数据、生成对账单、获取通道对账单</li>
+<li><strong>计费模块</strong>：计算商户手续费和通道成本</li>
+<li><strong>对账差错模块</strong>：账账对账、差账处理</li>
+<li><strong>账户模块</strong>：账户分类、记账、资金信息流变动</li>
+<li><strong>会计模块</strong>：日间记账、日终处理、财务并账</li>
+<li><strong>财务模块</strong>：账证对账、账实对账、结算处理</li>
+</ol>
+<h2 id="计费服务：先算清楚该收多少钱"><a href="#计费服务：先算清楚该收多少钱" class="headerlink" title="计费服务：先算清楚该收多少钱"></a>计费服务：先算清楚该收多少钱</h2><p>计费服务有两个对象：<strong>商户</strong>（我们向商户收手续费）和<strong>支付通道</strong>（通道向我们收手续费）。流程分三步：配置、查询、计费。</p>
+<h3 id="商户计费规则"><a href="#商户计费规则" class="headerlink" title="商户计费规则"></a>商户计费规则</h3><p>一条计费规则由多个维度组成：</p>
+<ul>
+<li><strong>计费维度</strong>：币种、地区、国家、卡组织、卡类型、支付方式、交易方式（DCC/EDC）、风险模型（3DS/非3DS）、支付通道、到账时效、支付产品等</li>
+<li><strong>计费规则类型</strong>：交易类型、单笔/批量、计费类型（按笔/按百分比/阶梯/封顶）、手续费</li>
+<li><strong>计费规则状态</strong>：生效/失效、有效期、优先级</li>
+<li><strong>结费属性</strong>：结算周期、结算日、工作日/自然日、全额/净额</li>
+</ul>
+<p>同一商户可以有多条计费规则。当一笔交易命中多条规则时，按优先级执行。优先级可以手动设定，也可以按规则的详细程度决定——<strong>配置越具体的优先级越高</strong>。</p>
+<h3 id="通道成本规则"><a href="#通道成本规则" class="headerlink" title="通道成本规则"></a>通道成本规则</h3><p>与商户计费规则几乎一致，只是方向反了：商户付给我们手续费，我们付给通道手续费。</p>
+<h2 id="账单服务：四个核心职能"><a href="#账单服务：四个核心职能" class="headerlink" title="账单服务：四个核心职能"></a>账单服务：四个核心职能</h2><h3 id="1-落地交易单数据"><a href="#1-落地交易单数据" class="headerlink" title="1. 落地交易单数据"></a>1. 落地交易单数据</h3><p>一笔交易结束后保存的数据包括：</p>
+<ul>
+<li><strong>商户信息</strong>：商户号、订单号、交易金额、交易类型、支付方式……</li>
+<li><strong>用户信息</strong>：用户 ID、风险等级、会员等级……</li>
+<li><strong>自身系统信息</strong>：支付流水号、路由规则 ID、风险数据……</li>
+<li><strong>支付通道信息</strong>：通道 ID、交易金额、汇率、币种、返回码……</li>
+</ul>
+<p>保存得越详细，能做的事情越精细。</p>
+<h3 id="2-获取支付通道对账单"><a href="#2-获取支付通道对账单" class="headerlink" title="2. 获取支付通道对账单"></a>2. 获取支付通道对账单</h3><p>三个步骤：</p>
+<p><strong>明确对账文件规范</strong>：文件命名规则、日切时间区间、提供账单的时间差（T+1 还是 D+1）、时区、推送时间。</p>
+<p><strong>下载对账文件</strong>：邮件推送、SFTP/FTP 获取、后台下载。推荐 FTP 自动下载，实现”加活不加人”。</p>
+<p><strong>解析对账文件</strong>：每家通道的文件格式不一样，需要理解每个字段的含义并映射到自身系统。</p>
+<p>国内的对账文件通常是 Excel 格式，比较直观。但国际卡组织的对账文件可能是”天书”——每行按位数截取字段，正向交易用 A<del>I 表示，负向交易用 J</del>R 表示，不研究文档根本看不懂。</p>
+<h3 id="3-生成与推送商户对账单"><a href="#3-生成与推送商户对账单" class="headerlink" title="3. 生成与推送商户对账单"></a>3. 生成与推送商户对账单</h3><p>需要提前跟商户约定好这些规则：</p>
+<ul>
+<li>日切时间与时区</li>
+<li>不同交易币种/结算币种是一份账单还是多份</li>
+<li>不同交易类型的账单规则</li>
+<li>同一天发生正反交易怎么处理（轧差还是都显示）</li>
+<li>一份账单最大容量和笔数</li>
+</ul>
+<h3 id="4-生成通道对账单"><a href="#4-生成通道对账单" class="headerlink" title="4. 生成通道对账单"></a>4. 生成通道对账单</h3><p>为了做”账账对账”，需要生成我方的通道对账单。关键是要跟对方账单保持<strong>相同维度</strong>（日期、商户、交易类型、币种），以对方的规定为准。</p>
+<h2 id="对账服务：轧账和平账"><a href="#对账服务：轧账和平账" class="headerlink" title="对账服务：轧账和平账"></a>对账服务：轧账和平账</h2><h3 id="对账的分类"><a href="#对账的分类" class="headerlink" title="对账的分类"></a>对账的分类</h3><ul>
+<li><strong>单向对账</strong>：我方与支付通道对账</li>
+<li><strong>双向对账</strong>：自身各服务间对账（如账单与会计）</li>
+<li><strong>账账对账</strong>：交易流水对账</li>
+<li><strong>账证对账</strong>：账单与银行打款凭证对账</li>
+<li><strong>账实对账</strong>：账单与银行实际打款对账</li>
+</ul>
+<h3 id="对账基准"><a href="#对账基准" class="headerlink" title="对账基准"></a>对账基准</h3><p>一般以<strong>对方的账单流水为准</strong>。因为支付通道打款是按它自己的账单来的，为了不影响后续的账证对账和账实对账，对方账单对平了就视为对平。</p>
+<h3 id="对账内容"><a href="#对账内容" class="headerlink" title="对账内容"></a>对账内容</h3><p><strong>对明细账</strong>：按通道订单号/流水号、交易类型、交易金额、交易日期、手续费逐笔比对。</p>
+<p><strong>对总账</strong>：核对总交易金额和交易笔数。注意交易类型有双重含义——既代表具体类型（消费、退款），也代表交易方向（正交易、负交易）。</p>
+<h3 id="日切时间的临界点问题"><a href="#日切时间的临界点问题" class="headerlink" title="日切时间的临界点问题"></a>日切时间的临界点问题</h3><p>支付是高频交易，日切时刻也有瞬时交易发生。可能出现我方算在今天、通道算在明天的情况。</p>
+<p>处理方式：为每个通道设定自动对账时间范围（如 48 小时）。当天对不上的订单先留着，等下一日账单生成时再比对。对上了算对平，还对不上再进差账处理。这叫<strong>连续对账、滚动对账</strong>。</p>
+<h3 id="对账的四种结果"><a href="#对账的四种结果" class="headerlink" title="对账的四种结果"></a>对账的四种结果</h3><p><strong>对平</strong>：打包批次推送财务模块，进行账实对账。</p>
+<p><strong>长款</strong>（通道有我方无）：多收了用户的钱。处理方式是我方补单 → 对平 → 退款给用户。</p>
+<p><strong>短款</strong>（通道无我方有）：少收了用户的钱。先调单判断是不是通道漏了，如果通道不认账，需要通过补偿机制（如重新扣款）追回。如果追不回来就是资损。</p>
+<p><strong>金额不一致</strong>：两边明细都对得上但金额不同，以一方为主修改。</p>
+<p>这里有三条原则：<strong>不能少收钱、不能多收钱、不能收错钱。</strong></p>
+<h2 id="结算：资产的交割"><a href="#结算：资产的交割" class="headerlink" title="结算：资产的交割"></a>结算：资产的交割</h2><p>对完账就该付钱了。结算需要明确几件事：</p>
+<p><strong>结算节点</strong>：</p>
+<ul>
+<li>账单日结算（T+1 或 D+1）</li>
+<li>周期结算（月结、季结）</li>
+<li>实时结算（一笔一结）</li>
+</ul>
+<p><strong>结算方式</strong>：</p>
+<ul>
+<li>卡类：银行实体卡、虚拟卡</li>
+<li>账户类：钱包账户、银行账户</li>
+<li>汇出方式：网银转账、线下打款、接口代付、虚拟卡结算</li>
+</ul>
+<p><strong>结算金额</strong>：</p>
+<ul>
+<li>全额结算：全额打给商户，手续费从另一个账户扣</li>
+<li>净额结算：扣掉手续费后打给商户</li>
+</ul>
+<p><strong>结算币种</strong>：外币交易需要明确交易币种结算成什么币种，中间汇率转换规则是什么。</p>
+<h2 id="会计：企业的晴雨表"><a href="#会计：企业的晴雨表" class="headerlink" title="会计：企业的晴雨表"></a>会计：企业的晴雨表</h2><p>会计在清结算中的职能：</p>
+<ol>
+<li><strong>记录会计科目</strong>：按国家统一标准的六大类科目（资产、负债、资产负债共同、所有者权益、成本、损益）进行记录</li>
+<li><strong>生成余额表</strong>：反映期初期末的资产变化</li>
+<li><strong>试算平衡</strong>：”有借必有贷，借贷必相等”</li>
+</ol>
+<p>会计偏财务专业，本书不深入展开。但一个道理很通用：通过会计数据，企业经营是好是坏一目了然。</p>
+<h2 id="系列总结"><a href="#系列总结" class="headerlink" title="系列总结"></a>系列总结</h2><p>回顾这六篇文章，我们从支付的三原基出发，走过了支付通道、跨境支付、路由系统、重试服务、BIN 服务，最后来到清结算。</p>
+<p>支付说到底就是三件事：<strong>交易、清分、结算。</strong></p>
+<ul>
+<li>交易是前提和基础，通道提供交易能力，路由找到最优通道，重试和 BIN 提升成功率</li>
+<li>清分是数据准备，计费算好手续费，账单记录明细，对账确保准确</li>
+<li>结算是资产交割，按约定方式把钱付给该付的人</li>
+</ul>
+<p>这本书最大的价值在于实操性。不管是通道接入时的 25 个确认事项、路由的四种算法设计、重试服务的规则配置，还是对账文件的解析方法，都是可以直接拿来用的。</p>
+<p>如果你是支付行业的从业者或者对支付感兴趣，强烈推荐读一读原书。本系列只是提炼了核心骨架，书中还有大量的案例、流程图和配置界面设计，值得细细研读。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/uploads/wechatpay.jpg" alt="温智全 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/uploads/alipay.jpg" alt="温智全 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>温智全
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/" title="清结算：老王的账本">http://wenzhiquan.github.io/2026/05/25/2026-05-25-payment-chapter6-clearing-settlement/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%94%AF%E4%BB%98%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 支付方法论</a>
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
+              <a href="/tags/%E6%B8%85%E7%BB%93%E7%AE%97/" rel="tag"><i class="fa fa-tag"></i> 清结算</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/05/14/2026-05-14-payment-chapter5-retry-and-bin/" rel="prev" title="重试服务与 BIN 服务：不放过每一笔订单">
+                  <i class="fa fa-angle-left"></i> 重试服务与 BIN 服务：不放过每一笔订单
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2026/06/02/2026-06-02-zsh-config-oh-my-zsh/" rel="next" title="Zsh 安装与配置：使用 Oh My Zsh 打造高效终端">
+                  Zsh 安装与配置：使用 Oh My Zsh 打造高效终端 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-gitalk">Gitalk</a></li>
+            <li class="tab"><a href="#comment-disqus">Disqus</a></li>
+            <li class="tab"><a href="#comment-changyan">Changyan</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane gitalk" id="comment-gitalk">
+              <div class="comments gitalk-container"></div>
+            </div>
+            <div class="tab-pane disqus" id="comment-disqus">
+              
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
+            </div>
+            <div class="tab-pane changyan" id="comment-changyan">
+              <div class="comments" id="SOHUCS" sid="d8af271620fb42ab4fea6c12244b9835"></div>
+            </div>
+        </div>
+      </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2014 – 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">温智全</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">338k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:07</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
+  </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3dlbnpoaXF1YW4=" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"wenzhiquan","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script src="/js/third-party/comments/disqus.js" defer></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"wenzhiquan","repo":"wenzhiquan.github.io","client_id":"1ced0f287f20a7338810","client_secret":"8eb1ba40087cd6c1087df3f356cbdea9a7ec367c","admin_user":"wenzhiquan","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","body":null,"js":{"url":"//cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js"},"path_md5":"d8af271620fb42ab4fea6c12244b9835"}</script>
+<script src="/js/third-party/comments/gitalk.js" defer></script>
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyvusvn54","appkey":"b774389dc98f67e4cc50cca8a69aab1e"}</script>
+<script src="/js/third-party/comments/changyan.js" defer></script>
+
+<script src="/node_modules/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/node_modules/assets/hijiki.model.json"},"display":{"position":"left","width":280,"height":320},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+</html>
